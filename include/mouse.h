@@ -1,12 +1,10 @@
 #ifndef MOUSE_H
 #define MOUSE_H
 
+#include<SDL.h>
+
 #include "point.h"
 
-class Mouse {
-private:
-public:
-    Point pos;
-};
+Point GetMousePosition();
 
 #endif

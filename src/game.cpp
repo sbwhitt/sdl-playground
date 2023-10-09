@@ -2,6 +2,7 @@
 
 #include "game.h"
 #include "graphics.h"
+#include "mouse.h"
 
 Game::Game() {}
 
@@ -62,7 +63,7 @@ int Game::HandleKeyDown(SDL_Keycode key) {
 int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
     switch (button.button) {
         case SDL_BUTTON_LEFT:
-            std::cout << "left" << std::endl;
+            this->points.push_back(GetMousePosition());
     }
     
     return 0;
@@ -100,6 +101,8 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_RenderClear(rend);
 
     SDL_SetRenderDrawColor(rend, 0, 0, 255, 255);
+
+    DrawPoints(rend, this->points);
 
     SDL_RenderPresent(rend);
     return 0;

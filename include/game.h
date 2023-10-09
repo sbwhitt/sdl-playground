@@ -1,9 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <vector>
 #include <SDL.h>
 
 #include "window.h"
+#include "point.h"
 
 class Game {
 private:
@@ -11,6 +13,7 @@ private:
     int ticks = 0;
     Window window;
     SDL_Renderer *renderer;
+    std::vector<Point> points;
 
     int Init();
     int HandleKeyDown(SDL_Keycode key);

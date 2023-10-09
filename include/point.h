@@ -1,12 +1,13 @@
 #ifndef POINT_H
 #define POINT_H
 
-class Point {
-private:
-public:
-    int x, y;
-
-    Point(int x, int y);
+struct Point {
+    int x;
+    int y;
+    Point(int px, int py) {
+        x = px;
+        y = py;
+    };
 };
 
 #endif
