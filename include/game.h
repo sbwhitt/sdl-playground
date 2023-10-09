@@ -5,7 +5,7 @@
 #include <SDL.h>
 
 #include "window.h"
-#include "circle.h"
+#include "texture.h"
 
 class Game {
 private:
@@ -13,9 +13,10 @@ private:
     int ticks = 0;
     Window window;
     SDL_Renderer *renderer;
+    Texture tex;
 
     int Init();
-    int Load();
+    int Load(SDL_Renderer *rend);
     int HandleKeyDown(SDL_Keycode key);
     int HandleMouseDown(SDL_MouseButtonEvent button);
     int HandleEvents();

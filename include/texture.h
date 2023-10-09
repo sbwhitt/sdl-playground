@@ -9,10 +9,11 @@
 class Texture {
 private:
     SDL_Texture *sdl_tex;
-    SDL_Rect *rect;
+    SDL_Rect dest_rect;
 public:
     int Load(SDL_Renderer *rend, const char *file);
     int Draw(SDL_Renderer *rend, Point pos);
+    int Destroy();
 };
 
 #endif

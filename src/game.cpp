@@ -29,14 +29,19 @@ int Game::Init() {
     return 0;
 }
 
-int Game::Load() {
+int Game::Load(SDL_Renderer *rend) {
+    if (this->tex.Load(rend, "res/fish.bmp") != 0) {
+        SDLErrorMsg("SDL error loading bmp: ");
+        return 1;
+    }
+
     return 0;
 }
 
 int Game::Execute() {
     if (this->Init() != 0) return 1;
 
-    if (this->Load() != 0) return 1;
+    if (this->Load(this->renderer) != 0) return 1;
 
     while(this->running) {
         // loose cap at 60 fps
@@ -108,6 +113,8 @@ int Game::Draw(SDL_Renderer *rend) {
     
     SDL_RenderClear(rend);
 
+    this->tex.Draw(rend, Point{100, 100});
+
     SDL_RenderPresent(rend);
     return 0;
 }
@@ -115,6 +122,8 @@ int Game::Draw(SDL_Renderer *rend) {
 int Game::Cleanup() {
     SDL_DestroyWindow(this->window.SDL_win);
     SDL_DestroyRenderer(this->renderer);
+
+    this->tex.Destroy();
 
     SDL_Quit();
     return 0;
