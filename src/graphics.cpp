@@ -3,6 +3,7 @@
 
 #include "graphics.h"
 #include "mouse.h"
+#include "circle.h"
 #include "point.h"
 
 int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {
@@ -47,5 +48,48 @@ int DrawTriangle(SDL_Renderer *rend, int length, int x, int y) {
     DrawLine(rend, top_right, middle);
     DrawLine(rend, middle, top_left);
     
+    return 0;
+}
+
+// midpoint circle algorithm
+// https://en.wikipedia.org/w/index.php?title=Midpoint_circle_algorithm
+int DrawCircle(SDL_Renderer *rend, Point center, int radius) {
+    int x = radius-1;
+    int y = 0;
+    int dx = 1;
+    int dy = 1;
+    int err = dx - (radius << 1);
+
+    while (x >= y) {
+        SDL_RenderDrawPoint(rend, center.x + x, center.y + y);
+        SDL_RenderDrawPoint(rend, center.x + y, center.y + x);
+        SDL_RenderDrawPoint(rend, center.x - y, center.y + x);
+        SDL_RenderDrawPoint(rend, center.x - x, center.y + y);
+        SDL_RenderDrawPoint(rend, center.x - x, center.y - y);
+        SDL_RenderDrawPoint(rend, center.x - y, center.y - x);
+        SDL_RenderDrawPoint(rend, center.x + y, center.y - x);
+        SDL_RenderDrawPoint(rend, center.x + x, center.y - y);
+
+        if (err <= 0) {
+            y++;
+            err += dy;
+            dy += 2;
+        }
+
+        if (err > 0) {
+            x--;
+            dx += 2;
+            err += dx - (radius << 1);
+        }
+    }    
+
+    return 0;
+}
+
+int DrawCircles(SDL_Renderer *rend, std::vector<Circle> circles) {
+    for (int i = 0; i < circles.size(); i++) {
+        DrawCircle(rend, circles[i].center, circles[i].radius);
+    }
+
     return 0;
 }

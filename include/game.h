@@ -5,7 +5,7 @@
 #include <SDL.h>
 
 #include "window.h"
-#include "point.h"
+#include "circle.h"
 
 class Game {
 private:
@@ -13,9 +13,10 @@ private:
     int ticks = 0;
     Window window;
     SDL_Renderer *renderer;
-    std::vector<Point> points;
+    std::vector<Circle> circles;
 
     int Init();
+    int Load();
     int HandleKeyDown(SDL_Keycode key);
     int HandleMouseDown(SDL_MouseButtonEvent button);
     int HandleEvents();

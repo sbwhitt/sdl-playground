@@ -30,8 +30,19 @@ int Game::Init() {
     return 0;
 }
 
+int Game::Load() {
+    for (int i = 0; i < 50; i++) {
+        Circle c{Point{10 + (i*10), 10 + (i*10)}, 25};
+        this->circles.push_back(c);
+    }    
+
+    return 0;
+}
+
 int Game::Execute() {
     if (this->Init() != 0) return 1;
+
+    if (this->Load() != 0) return 1;
 
     while(this->running) {
         // loose cap at 60 fps
@@ -63,7 +74,10 @@ int Game::HandleKeyDown(SDL_Keycode key) {
 int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
     switch (button.button) {
         case SDL_BUTTON_LEFT:
-            this->points.push_back(GetMousePosition());
+        case SDL_BUTTON_MIDDLE:
+        case SDL_BUTTON_RIGHT:
+        default:
+            return 0;
     }
     
     return 0;
@@ -96,13 +110,13 @@ int Game::Update(SDL_Renderer *rend) {
 }
 
 int Game::Draw(SDL_Renderer *rend) {
-    SDL_SetRenderDrawColor(rend, 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
     
     SDL_RenderClear(rend);
 
     SDL_SetRenderDrawColor(rend, 0, 0, 255, 255);
 
-    DrawPoints(rend, this->points);
+    DrawCircles(rend, this->circles);
 
     SDL_RenderPresent(rend);
     return 0;
