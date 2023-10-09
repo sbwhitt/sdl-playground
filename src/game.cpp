@@ -1,6 +1,5 @@
-#include <iostream>
-
 #include "game.h"
+#include "error.h"
 #include "graphics.h"
 #include "mouse.h"
 
@@ -8,13 +7,13 @@ Game::Game() {}
 
 int Game::Init() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        std::cout << "SDL video init error: " << SDL_GetError() << std::endl;
+        SDLErrorMsg("SDL video init error: ");
         return 1;
     }
 
     this->window.Create(300, 100, 960, 720);
     if (this->window.SDL_win == nullptr) {
-        std::cout << "SDL create window error: " << SDL_GetError() << std::endl;
+        SDLErrorMsg("SDL create window error: ");
         SDL_Quit();
         return 1;
     }
@@ -22,7 +21,7 @@ int Game::Init() {
     this->renderer = SDL_CreateRenderer(this->window.SDL_win, -1, 0);
     if (this->renderer == nullptr) {
         SDL_DestroyWindow(this->window.SDL_win);
-        std::cout << "SDL create renderer error: " << SDL_GetError() << std::endl;
+        SDLErrorMsg("SDL create renderer error: ");
         SDL_Quit();
         return 1;
     }
@@ -31,11 +30,6 @@ int Game::Init() {
 }
 
 int Game::Load() {
-    for (int i = 0; i < 50; i++) {
-        Circle c{Point{10 + (i*10), 10 + (i*10)}, 25};
-        this->circles.push_back(c);
-    }    
-
     return 0;
 }
 
@@ -113,10 +107,6 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
     
     SDL_RenderClear(rend);
-
-    SDL_SetRenderDrawColor(rend, 0, 0, 255, 255);
-
-    DrawCircles(rend, this->circles);
 
     SDL_RenderPresent(rend);
     return 0;

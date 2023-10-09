@@ -13,7 +13,6 @@ private:
     int ticks = 0;
     Window window;
     SDL_Renderer *renderer;
-    std::vector<Circle> circles;
 
     int Init();
     int Load();
