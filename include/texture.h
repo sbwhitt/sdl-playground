@@ -4,6 +4,7 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
+#include "resource.h"
 #include "point.h"
 
 class Texture {
@@ -11,8 +12,10 @@ private:
     SDL_Texture *sdl_tex;
     SDL_Rect dest_rect;
 public:
-    int Load(SDL_Renderer *rend, const char *file);
-    int Draw(SDL_Renderer *rend, Point pos);
+    ~Texture();
+    int LoadFromResource(SDL_Renderer *rend, Resource res);
+    int Move(int x, int y);
+    int Draw(SDL_Renderer *rend);
     int Destroy();
 };
 

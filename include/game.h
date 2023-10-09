@@ -13,7 +13,7 @@ private:
     int ticks = 0;
     Window window;
     SDL_Renderer *renderer;
-    Texture tex;
+    Texture fish;
 
     int Init();
     int Load(SDL_Renderer *rend);

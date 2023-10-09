@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "game.h"
 #include "error.h"
 #include "graphics.h"
@@ -30,8 +32,9 @@ int Game::Init() {
 }
 
 int Game::Load(SDL_Renderer *rend) {
-    if (this->tex.Load(rend, "res/fish.bmp") != 0) {
-        SDLErrorMsg("SDL error loading bmp: ");
+    Resource f{"res/fish.bmp", 200, 100};
+    if (this->fish.LoadFromResource(rend, f) != 0) {
+        SDLErrorMsg("SDL error loading resource: ");
         return 1;
     }
 
@@ -65,6 +68,19 @@ int Game::HandleKeyDown(SDL_Keycode key) {
     switch (key) {
         case SDLK_q:
             this->running = false;
+            break;
+        case SDLK_UP:
+            this->fish.Move(0, -10);
+            break;
+        case SDLK_DOWN:
+            this->fish.Move(0, 10);
+            break;
+        case SDLK_LEFT:
+            this->fish.Move(-10, 0);
+            break;
+        case SDLK_RIGHT:
+            this->fish.Move(10, 0);
+            break;
     }
 
     return 0;
@@ -113,7 +129,7 @@ int Game::Draw(SDL_Renderer *rend) {
     
     SDL_RenderClear(rend);
 
-    this->tex.Draw(rend, Point{100, 100});
+    this->fish.Draw(rend);
 
     SDL_RenderPresent(rend);
     return 0;
@@ -122,8 +138,6 @@ int Game::Draw(SDL_Renderer *rend) {
 int Game::Cleanup() {
     SDL_DestroyWindow(this->window.SDL_win);
     SDL_DestroyRenderer(this->renderer);
-
-    this->tex.Destroy();
 
     SDL_Quit();
     return 0;
