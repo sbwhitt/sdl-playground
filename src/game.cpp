@@ -65,29 +65,18 @@ int Game::Execute() {
 }
 
 int Game::HandleKeyDown(SDL_Keycode key) {
+    this->ctrl.SetKey(key, true);
     switch (key) {
         case SDLK_ESCAPE:
             this->running = false;
             break;
-        case SDLK_q:
-            this->fish.Rotate(-10);
-            break;
-        case SDLK_e:
-            this->fish.Rotate(10);
-            break;
-        case SDLK_UP:
-            this->fish.Move(0, -10);
-            break;
-        case SDLK_DOWN:
-            this->fish.Move(0, 10);
-            break;
-        case SDLK_LEFT:
-            this->fish.Move(-10, 0);
-            break;
-        case SDLK_RIGHT:
-            this->fish.Move(10, 0);
-            break;
     }
+
+    return 0;
+}
+
+int Game::HandleKeyUp(SDL_Keycode key) {
+    this->ctrl.SetKey(key, false);
 
     return 0;
 }
@@ -95,12 +84,36 @@ int Game::HandleKeyDown(SDL_Keycode key) {
 int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
     switch (button.button) {
         case SDL_BUTTON_LEFT:
+            break;
         case SDL_BUTTON_MIDDLE:
+            break;
         case SDL_BUTTON_RIGHT:
-        default:
-            return 0;
+            break;
     }
     
+    return 0;
+}
+
+int Game::HandleKeys() {
+    if (this->ctrl.CheckKey(SDLK_w)) {
+        this->fish.Move(0, -10);
+    }
+    if (this->ctrl.CheckKey(SDLK_s)) {
+        this->fish.Move(0, 10);
+    }
+    if (this->ctrl.CheckKey(SDLK_a)) {
+        this->fish.Move(-10, 0);
+    }
+    if (this->ctrl.CheckKey(SDLK_d)) {
+        this->fish.Move(10, 0);
+    }
+    if (this->ctrl.CheckKey(SDLK_q)) {
+        this->fish.Rotate(-10);
+    }
+    if (this->ctrl.CheckKey(SDLK_e)) {
+        this->fish.Rotate(10);
+    }
+
     return 0;
 }
 
@@ -110,10 +123,16 @@ int Game::HandleEvents() {
         switch(event.type) {
             case SDL_QUIT:
                 this->running = false;
+                break;
             case SDL_KEYDOWN:
                 this->HandleKeyDown(event.key.keysym.sym);
+                break;
+            case SDL_KEYUP:
+                this->HandleKeyUp(event.key.keysym.sym);
+                break;
             case SDL_MOUSEBUTTONDOWN:
                 this->HandleMouseDown(event.button);
+                break;
             default:
                 continue;
         }
@@ -124,6 +143,7 @@ int Game::HandleEvents() {
 
 int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
+    this->HandleKeys();
 
     this->ticks = SDL_GetTicks();
 
@@ -131,7 +151,7 @@ int Game::Update(SDL_Renderer *rend) {
 }
 
 int Game::Draw(SDL_Renderer *rend) {
-    SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(rend, 0, 100, 200, 255);
     
     SDL_RenderClear(rend);
 
