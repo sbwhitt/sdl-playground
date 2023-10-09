@@ -12,10 +12,12 @@ private:
     double angle = 0;
     SDL_Texture *sdl_tex;
     SDL_Rect dest_rect;
+
 public:
     ~Texture();
     int LoadFromResource(SDL_Renderer *rend, Resource res);
     int Move(int x, int y);
+    int Place(int x, int y);
     int Rotate(int d);
     int Draw(SDL_Renderer *rend);
     int Destroy();

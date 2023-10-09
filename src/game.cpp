@@ -38,6 +38,8 @@ int Game::Load(SDL_Renderer *rend) {
         return 1;
     }
 
+    this->fish.Place(this->window.w/2 - 100, this->window.h/2 - 50);
+
     return 0;
 }
 
@@ -135,7 +137,6 @@ int Game::HandleEvents() {
                 break;
         }
     }
-
     return 0;
 }
 
