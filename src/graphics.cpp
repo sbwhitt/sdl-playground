@@ -9,6 +9,22 @@ int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {
     return 0;
 }
 
+int DrawMouseLines(SDL_Renderer *rend, int w, int h) {
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+
+    SDL_RenderDrawLine(rend, 0, 0, x, y);
+    SDL_RenderDrawLine(rend, w, 0, x, y);
+    SDL_RenderDrawLine(rend, 0, h, x, y);
+    SDL_RenderDrawLine(rend, w, h, x, y);
+    SDL_RenderDrawLine(rend, w/2, h, x, y);
+    SDL_RenderDrawLine(rend, w, h/2, x, y);
+    SDL_RenderDrawLine(rend, w/2, 0, x, y);
+    SDL_RenderDrawLine(rend, 0, h/2, x, y);
+
+    return 0;
+}
+
 int DrawTriangle(SDL_Renderer *rend, int length, int x, int y) {
     Point top_left{x - length, y - length};
     Point top_right{x + length, y - length};

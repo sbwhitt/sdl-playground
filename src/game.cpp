@@ -83,22 +83,6 @@ int Game::Update(SDL_Renderer *rend) {
     return 0;
 }
 
-int Game::DrawMouseLines(SDL_Renderer *rend) {
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-
-    SDL_RenderDrawLine(rend, 0, 0, x, y);
-    SDL_RenderDrawLine(rend, this->window.w, 0, x, y);
-    SDL_RenderDrawLine(rend, 0, this->window.h, x, y);
-    SDL_RenderDrawLine(rend, this->window.w, this->window.h, x, y);
-    SDL_RenderDrawLine(rend, this->window.w/2, this->window.h, x, y);
-    SDL_RenderDrawLine(rend, this->window.w, this->window.h/2, x, y);
-    SDL_RenderDrawLine(rend, this->window.w/2, 0, x, y);
-    SDL_RenderDrawLine(rend, 0, this->window.h/2, x, y);
-
-    return 0;
-}
-
 int Game::Draw(SDL_Renderer *rend) {
     SDL_SetRenderDrawColor(rend, 0, 255, 0, 255);
     

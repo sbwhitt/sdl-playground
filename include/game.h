@@ -16,7 +16,6 @@ private:
     int HandleKeyDown(SDL_Keycode key);
     int HandleEvents();
     int Update(SDL_Renderer *rend);
-    int DrawMouseLines(SDL_Renderer * rend);
     int Draw(SDL_Renderer *rend);
     int Cleanup();
 
