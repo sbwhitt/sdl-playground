@@ -133,8 +133,6 @@ int Game::HandleEvents() {
             case SDL_MOUSEBUTTONDOWN:
                 this->HandleMouseDown(event.button);
                 break;
-            default:
-                continue;
         }
     }
 
@@ -151,8 +149,7 @@ int Game::Update(SDL_Renderer *rend) {
 }
 
 int Game::Draw(SDL_Renderer *rend) {
-    SDL_SetRenderDrawColor(rend, 0, 100, 200, 255);
-    
+    SDL_SetRenderDrawColor(rend, 50, 150, 200, 255);
     SDL_RenderClear(rend);
 
     this->fish.Draw(rend);
