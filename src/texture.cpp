@@ -30,13 +30,17 @@ int Texture::Move(int x, int y) {
     this->dest_rect.x += x;
     this->dest_rect.y += y;
 
-    std::cout << dest_rect.x << ", " << dest_rect.y << std::endl;
+    return 0;
+}
+
+int Texture::Rotate(int d) {
+    this->angle += d;
 
     return 0;
 }
 
 int Texture::Draw(SDL_Renderer *rend) {    
-    if (SDL_RenderCopy(rend, this->sdl_tex, NULL, &this->dest_rect) != 0) {
+    if (SDL_RenderCopyEx(rend, this->sdl_tex, NULL, &this->dest_rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {
         SDLErrorMsg("SDL error drawing texture: ");
         return 1;
     }

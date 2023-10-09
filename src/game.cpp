@@ -66,8 +66,14 @@ int Game::Execute() {
 
 int Game::HandleKeyDown(SDL_Keycode key) {
     switch (key) {
-        case SDLK_q:
+        case SDLK_ESCAPE:
             this->running = false;
+            break;
+        case SDLK_q:
+            this->fish.Rotate(-10);
+            break;
+        case SDLK_e:
+            this->fish.Rotate(10);
             break;
         case SDLK_UP:
             this->fish.Move(0, -10);
