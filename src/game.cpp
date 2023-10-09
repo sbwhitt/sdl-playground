@@ -59,6 +59,15 @@ int Game::HandleKeyDown(SDL_Keycode key) {
     return 0;
 }
 
+int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
+    switch (button.button) {
+        case SDL_BUTTON_LEFT:
+            std::cout << "left" << std::endl;
+    }
+    
+    return 0;
+}
+
 int Game::HandleEvents() {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
@@ -67,6 +76,8 @@ int Game::HandleEvents() {
                 this->running = false;
             case SDL_KEYDOWN:
                 this->HandleKeyDown(event.key.keysym.sym);
+            case SDL_MOUSEBUTTONDOWN:
+                this->HandleMouseDown(event.button);
             default:
                 continue;
         }
@@ -89,8 +100,6 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_RenderClear(rend);
 
     SDL_SetRenderDrawColor(rend, 0, 0, 255, 255);
-
-    DrawTriangle(rend, 50, 200, 200);
 
     SDL_RenderPresent(rend);
     return 0;

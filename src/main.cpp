@@ -5,9 +5,6 @@
 
 #include "game.h"
 
-#define SCR_WIDTH 960
-#define SCR_HEIGHT 720
-
 int main(int argc, char **argv) {
     Game game;
 
