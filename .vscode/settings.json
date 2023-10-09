@@ -1,5 +1,7 @@
 {
     "files.associations": {
         "new": "cpp"
-    }
+    },
+    "dotnet.defaultSolution": "disable",
+    "cmake.configureOnOpen": false
 }
