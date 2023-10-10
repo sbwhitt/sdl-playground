@@ -22,7 +22,6 @@ private:
     int Init();
     int Load(SDL_Renderer *rend);
     int HandleKeyDown(SDL_Keycode key);
-    int HandleKeyUp(SDL_Keycode key);
     int HandleMouseDown(SDL_MouseButtonEvent button);
     int HandleEvents();
     int HandleKeys();

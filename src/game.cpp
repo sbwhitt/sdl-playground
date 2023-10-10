@@ -79,12 +79,6 @@ int Game::HandleKeyDown(SDL_Keycode key) {
     return 0;
 }
 
-int Game::HandleKeyUp(SDL_Keycode key) {
-    this->ctrl.SetKey(key, false);
-
-    return 0;
-}
-
 int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
     switch (button.button) {
         case SDL_BUTTON_LEFT:
@@ -132,7 +126,7 @@ int Game::HandleEvents() {
                 this->HandleKeyDown(event.key.keysym.sym);
                 break;
             case SDL_KEYUP:
-                this->HandleKeyUp(event.key.keysym.sym);
+                this->ctrl.SetKey(event.key.keysym.sym, false);
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 this->HandleMouseDown(event.button);
