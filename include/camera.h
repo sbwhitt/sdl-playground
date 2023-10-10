@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAEMRA_H
 
+#include <SDL_rect.h>
+
 #include "point.h"
 
 class Camera {
@@ -13,7 +15,7 @@ public:
     Point center{0, 0};
 
     int Init(int w, int h);
-    bool Contains(Point p);
+    bool Contains(SDL_Rect r);
     int Follow(Point p);
 };
 

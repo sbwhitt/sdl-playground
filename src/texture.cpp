@@ -33,7 +33,7 @@ int Texture::Move(int x, int y) {
     return 0;
 }
 
-int Texture::Place(int x, int y) {
+int Texture::PlaceOnScreen(int x, int y) {
     this->dest_rect.x = x;
     this->dest_rect.y = y;
 
@@ -42,6 +42,10 @@ int Texture::Place(int x, int y) {
 
 Point Texture::GetPosition() {
     return Point{this->dest_rect.x, this->dest_rect.y};
+}
+
+SDL_Rect Texture::GetRect() {
+    return this->dest_rect;
 }
 
 int Texture::Rotate(int d) {

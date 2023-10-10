@@ -14,11 +14,14 @@ private:
     SDL_Rect dest_rect;
 
 public:
+    Point world_pos{0, 0};
+
     ~Texture();
     int LoadFromResource(SDL_Renderer *rend, Resource res);
     int Move(int x, int y);
-    int Place(int x, int y);
+    int PlaceOnScreen(int x, int y);
     Point GetPosition();
+    SDL_Rect GetRect();
     int Rotate(int d);
     int Draw(SDL_Renderer *rend);
     int Destroy();

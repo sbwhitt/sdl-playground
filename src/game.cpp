@@ -13,6 +13,7 @@ int Game::Init() {
         return 1;
     }
 
+    // TODO: move error handling into window.Create
     this->window.Create(300, 100, 960, 720);
     if (this->window.SDL_win == nullptr) {
         SDLErrorMsg("SDL create window error: ");
@@ -20,6 +21,7 @@ int Game::Init() {
         return 1;
     }
 
+    // TODO: add renderer to window obj?
     this->renderer = SDL_CreateRenderer(this->window.SDL_win, -1, 0);
     if (this->renderer == nullptr) {
         SDL_DestroyWindow(this->window.SDL_win);
@@ -40,7 +42,7 @@ int Game::Load(SDL_Renderer *rend) {
         return 1;
     }
 
-    this->fish.Place(this->window.w/2 - 100, this->window.h/2 - 50);
+    this->fish.PlaceOnScreen(this->window.w/2 - 100, this->window.h/2 - 50);
 
     return 0;
 }
@@ -151,7 +153,11 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_SetRenderDrawColor(rend, 50, 150, 200, 255);
     SDL_RenderClear(rend);
 
-    if (this->cam.Contains(this->fish.GetPosition())) {
+    // draw cam center
+    SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+    DrawCircle(rend, Point{this->cam.center.x, this->cam.center.y}, 10);
+
+    if (this->cam.Contains(this->fish.GetRect())) {
         this->fish.Draw(rend);
     }
 

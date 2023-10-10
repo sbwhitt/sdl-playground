@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SDL_rect.h>
 
 #include "camera.h"
 #include "texture.h"
@@ -11,13 +12,14 @@ int Camera::Init(int w, int h) {
     return 0;
 }
 
-bool Camera::Contains(Point p) {
-    int x0 = this->center.x - (this->width/2);
-    int x1 = this->center.x + (this->width/2);
-    int y0 = this->center.y - (this->height/2);
-    int y1 = this->center.y + (this->height/2);
+bool Camera::Contains(SDL_Rect r) {
+    SDL_Rect cam_rect;
+    cam_rect.x = this->center.x - (this->width/2);
+    cam_rect.y = this->center.y - (this->height/2);
+    cam_rect.w = this->width;
+    cam_rect.h = this->height;
 
-    return (p.x >= x0 and p.x <= x1 and p.y >= y0 and p.y <= y1);
+    return SDL_HasIntersection(&cam_rect, &r);
 }
 
 int Camera::Follow(Point p) {
