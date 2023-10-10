@@ -6,6 +6,7 @@
 
 #include "window.h"
 #include "control.h"
+#include "camera.h"
 #include "texture.h"
 
 class Game {
@@ -15,6 +16,7 @@ private:
     Window window;
     SDL_Renderer *renderer;
     Control ctrl;
+    Camera cam;
     Texture fish;
 
     int Init();

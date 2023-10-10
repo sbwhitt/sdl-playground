@@ -28,6 +28,8 @@ int Game::Init() {
         return 1;
     }
 
+    this->cam.Init(this->window.w, this->window.h);
+
     return 0;
 }
 
@@ -144,6 +146,8 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
     this->HandleKeys();
 
+    //this->cam.Follow(this->fish.GetPosition());
+
     this->ticks = SDL_GetTicks();
 
     return 0;
@@ -153,7 +157,9 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_SetRenderDrawColor(rend, 50, 150, 200, 255);
     SDL_RenderClear(rend);
 
-    this->fish.Draw(rend);
+    if (this->cam.Contains(this->fish.GetPosition())) {
+        this->fish.Draw(rend);
+    }
 
     SDL_RenderPresent(rend);
     return 0;

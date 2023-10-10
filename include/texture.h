@@ -18,6 +18,7 @@ public:
     int LoadFromResource(SDL_Renderer *rend, Resource res);
     int Move(int x, int y);
     int Place(int x, int y);
+    Point GetPosition();
     int Rotate(int d);
     int Draw(SDL_Renderer *rend);
     int Destroy();

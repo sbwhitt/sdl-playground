@@ -40,13 +40,17 @@ int Texture::Place(int x, int y) {
     return 0;
 }
 
+Point Texture::GetPosition() {
+    return Point{this->dest_rect.x, this->dest_rect.y};
+}
+
 int Texture::Rotate(int d) {
     this->angle += d;
 
     return 0;
 }
 
-int Texture::Draw(SDL_Renderer *rend) {    
+int Texture::Draw(SDL_Renderer *rend) {
     if (SDL_RenderCopyEx(rend, this->sdl_tex, NULL, &this->dest_rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {
         SDLErrorMsg("SDL error drawing texture: ");
         return 1;
