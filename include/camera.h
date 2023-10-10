@@ -4,7 +4,7 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
-#include "texture.h"
+#include "entity.h"
 #include "point.h"
 
 class Camera {
@@ -20,7 +20,7 @@ public:
     int Init(int w, int h);
     bool Contains(SDL_Rect r);
     Point GetPosition();
-    int Follow(Texture *tex);
+    int Follow(Entity *ent);
     int DrawOutline(SDL_Renderer *rend);
     int Move(int x, int y);
 };

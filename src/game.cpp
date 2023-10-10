@@ -157,7 +157,7 @@ int Game::Draw(SDL_Renderer *rend) {
         this->fish.Draw(rend);
     }
 
-    this->cam.DrawOutline(rend);
+    //this->cam.DrawOutline(rend);
 
     SDL_RenderPresent(rend);
     return 0;

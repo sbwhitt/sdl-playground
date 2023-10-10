@@ -2,16 +2,16 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
-#include "texture.h"
+#include "entity.h"
 #include "error.h"
 #include "point.h"
 
-Texture::~Texture() {
+Entity::~Entity() {
     SDL_DestroyTexture(this->sdl_tex);
     this->sdl_tex = NULL;
 }
 
-int Texture::LoadFromResource(SDL_Renderer *rend, Resource res) {
+int Entity::LoadFromResource(SDL_Renderer *rend, Resource res) {
     this->sdl_tex = SDL_CreateTextureFromSurface(rend, SDL_LoadBMP(res.file));
     if (this->sdl_tex == nullptr) {
         SDLErrorMsg("SDL error loading texture: ");
@@ -26,14 +26,14 @@ int Texture::LoadFromResource(SDL_Renderer *rend, Resource res) {
     return 0;
 }
 
-int Texture::Move(int x, int y) {
+int Entity::Move(int x, int y) {
     this->world_pos.x += x;
     this->world_pos.y += y;
 
     return 0;
 }
 
-int Texture::PlaceOnScreen(Point p) {
+int Entity::PlaceOnScreen(Point p) {
     // place at point centered
     this->dest_rect.x = p.x - this->dest_rect.w/2;
     this->dest_rect.y = p.y - this->dest_rect.h/2;
@@ -41,22 +41,22 @@ int Texture::PlaceOnScreen(Point p) {
     return 0;
 }
 
-Point Texture::GetScreenPosition() {
+Point Entity::GetScreenPosition() {
     // get position centered
     return Point{this->dest_rect.x + this->dest_rect.w/2, this->dest_rect.y + this->dest_rect.h/2};
 }
 
-SDL_Rect Texture::GetRect() {
+SDL_Rect Entity::GetRect() {
     return this->dest_rect;
 }
 
-int Texture::Rotate(int d) {
+int Entity::Rotate(int d) {
     this->angle += d;
 
     return 0;
 }
 
-int Texture::Draw(SDL_Renderer *rend) {
+int Entity::Draw(SDL_Renderer *rend) {
     if (SDL_RenderCopyEx(rend, this->sdl_tex, NULL, &this->dest_rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {
         SDLErrorMsg("SDL error drawing texture: ");
         return 1;

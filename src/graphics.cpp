@@ -3,7 +3,6 @@
 
 #include "graphics.h"
 #include "mouse.h"
-#include "circle.h"
 #include "point.h"
 
 int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {
@@ -82,14 +81,6 @@ int DrawCircle(SDL_Renderer *rend, Point center, int radius) {
             err += dx - (radius << 1);
         }
     }    
-
-    return 0;
-}
-
-int DrawCircles(SDL_Renderer *rend, std::vector<Circle> circles) {
-    for (int i = 0; i < circles.size(); i++) {
-        DrawCircle(rend, circles[i].center, circles[i].radius);
-    }
 
     return 0;
 }

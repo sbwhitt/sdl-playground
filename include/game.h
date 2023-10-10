@@ -7,7 +7,7 @@
 #include "window.h"
 #include "control.h"
 #include "camera.h"
-#include "texture.h"
+#include "entity.h"
 
 class Game {
 private:
@@ -17,7 +17,7 @@ private:
     SDL_Renderer *renderer;
     Control ctrl;
     Camera cam;
-    Texture fish;
+    Entity fish;
 
     int Init();
     int Load(SDL_Renderer *rend);

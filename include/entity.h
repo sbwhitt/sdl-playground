@@ -1,5 +1,5 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <SDL_render.h>
 #include <SDL_rect.h>
@@ -7,7 +7,7 @@
 #include "resource.h"
 #include "point.h"
 
-class Texture {
+class Entity {
 private:
     double angle = 0;
     SDL_Texture *sdl_tex;
@@ -16,7 +16,7 @@ private:
 public:
     Point world_pos{0, 0};
 
-    ~Texture();
+    ~Entity();
     int LoadFromResource(SDL_Renderer *rend, Resource res);
     int Move(int x, int y);
     int PlaceOnScreen(Point p);
@@ -24,7 +24,6 @@ public:
     SDL_Rect GetRect();
     int Rotate(int d);
     int Draw(SDL_Renderer *rend);
-    int Destroy();
 };
 
 #endif

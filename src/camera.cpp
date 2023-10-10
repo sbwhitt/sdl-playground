@@ -6,7 +6,7 @@
 #include "camera.h"
 #include "point.h"
 #include "graphics.h"
-#include "texture.h"
+#include "entity.h"
 
 int Camera::Init(int w, int h) {
     this->width = w;
@@ -30,14 +30,14 @@ Point Camera::GetPosition() {
     return Point{this->center.x - this->width/2, this->center.y - this->height/2};
 }
 
-int Camera::Follow(Texture *tex) {
+int Camera::Follow(Entity *ent) {
     // get difference in fish and cam world position
-    Point d = tex->world_pos - this->world_pos;
+    Point d = ent->world_pos - this->world_pos;
     // place fish on screen wrt cam center offset by d
-    tex->PlaceOnScreen(this->center + d);
+    ent->PlaceOnScreen(this->center + d);
 
     // update cam world pos to follow fish
-    Point p = tex->GetScreenPosition();
+    Point p = ent->GetScreenPosition();
     int dx = p.x - this->center.x;
     int dy = p.y - this->center.y;
     this->Move((int)(dx/8), (int)(dy/8));
