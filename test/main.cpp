@@ -8,6 +8,7 @@ int main(int argc, char **argv) {
 
     v1 += v2;
 
-    printf("%f, %f\n", v1.x, v1.y);
+    printf("v1: %f, %f\n", v1.x, v1.y);
+    printf("v2: %f, %f\n", v2.x, v2.y);
     return 0;
 }

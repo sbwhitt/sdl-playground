@@ -95,23 +95,26 @@ int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
 }
 
 int Game::HandleKeys() {
-    if (this->ctrl.CheckKey(SDLK_w)) {
-        this->fish.Move(0, -10);
-    }
-    if (this->ctrl.CheckKey(SDLK_s)) {
-        this->fish.Move(0, 10);
-    }
-    if (this->ctrl.CheckKey(SDLK_a)) {
-        this->fish.Move(-10, 0);
-    }
-    if (this->ctrl.CheckKey(SDLK_d)) {
-        this->fish.Move(10, 0);
-    }
+    // if (this->ctrl.CheckKey(SDLK_w)) {
+    //     this->fish.Push(0, -0.3);
+    // }
+    // if (this->ctrl.CheckKey(SDLK_s)) {
+    //     this->fish.Push(0, 0.3);
+    // }
+    // if (this->ctrl.CheckKey(SDLK_a)) {
+    //     this->fish.Push(-0.3, 0);
+    // }
+    // if (this->ctrl.CheckKey(SDLK_d)) {
+    //     this->fish.Push(0.3, 0);
+    // }
     if (this->ctrl.CheckKey(SDLK_q)) {
-        this->fish.Rotate(-10);
+        this->fish.Rotate(-2.5);
     }
     if (this->ctrl.CheckKey(SDLK_e)) {
-        this->fish.Rotate(10);
+        this->fish.Rotate(2.5);
+    }
+    if (this->ctrl.CheckKey(SDLK_SPACE)) {
+        this->fish.Push(1);
     }
 
     return 0;
@@ -142,6 +145,8 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
     this->HandleKeys();
 
+    this->fish.Update();
+
     this->cam.Follow(&this->fish);
 
     this->ticks = SDL_GetTicks();
@@ -157,7 +162,7 @@ int Game::Draw(SDL_Renderer *rend) {
         this->fish.Draw(rend);
     }
 
-    //this->cam.DrawOutline(rend);
+    // this->cam.DrawOutline(rend);
 
     SDL_RenderPresent(rend);
     return 0;

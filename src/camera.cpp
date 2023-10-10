@@ -40,7 +40,7 @@ int Camera::Follow(Entity *ent) {
     Point p = ent->GetScreenPosition();
     int dx = p.x - this->center.x;
     int dy = p.y - this->center.y;
-    this->Move((int)(dx/8), (int)(dy/8));
+    this->Move((int)(dx/2), (int)(dy/2));
 
     return 0;
 }

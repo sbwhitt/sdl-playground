@@ -1,10 +1,12 @@
 #include <iostream>
+#include <math.h>
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
 #include "entity.h"
 #include "error.h"
 #include "point.h"
+#include "vec2.h"
 
 Entity::~Entity() {
     SDL_DestroyTexture(this->sdl_tex);
@@ -30,6 +32,29 @@ int Entity::Move(int x, int y) {
     this->world_pos.x += x;
     this->world_pos.y += y;
 
+    // printf("fish posish: %d, %d\n", this->world_pos.x, this->world_pos.y);
+
+    return 0;
+}
+
+int Entity::Push(double amnt) {
+    // x = cos(angle*pi / 180), y = sin(angle*pi / 180) (converting angle from degrees to radians)
+    Vec2 p{cos((this->angle*M_PI)/180)*amnt, sin((this->angle*M_PI)/180)*amnt};
+    this->acc += p;
+
+    return 0;
+}
+
+int Entity::Push(Vec2 v) {
+    this->acc += v;
+
+    return 0;
+}
+
+int Entity::Push(double x, double y) {
+    this->acc.x += x;
+    this->acc.y += y;
+
     return 0;
 }
 
@@ -51,7 +76,31 @@ SDL_Rect Entity::GetRect() {
 }
 
 int Entity::Rotate(int d) {
-    this->angle += d;
+    // keeping angle between 0 and 360 degrees because... i want to?
+    if ((this->angle + d) > 360) {
+        this->angle = (this->angle + d) - 360;
+    }
+    else if ((this->angle + d) < 0) {
+        this->angle = (this->angle + d) + 360;
+    }
+    else this->angle += d;
+
+    return 0;
+}
+
+int Entity::Update() {
+    this->vel += this->acc;
+
+    // TODO: terribly handling vel/acc decay
+    this->acc.x = this->acc.x/4;
+    this->acc.y = this->acc.y/4;
+
+    if (this->vel.x > 0) this->vel.x -= 0.2;
+    else if (this->vel.x < 0) this->vel.x += 0.2;
+    if (this->vel.y > 0) this->vel.y -= 0.2;
+    else if (this->vel.y < 0) this->vel.y += 0.2;
+
+    this->Move((int)this->vel.x, (int)this->vel.y);
 
     return 0;
 }

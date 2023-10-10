@@ -16,6 +16,11 @@ struct Point {
     Point operator-(Point a) {
         return Point{x - a.x, y - a.y};
     }
+    Point& operator+=(Point v) {
+        x += v.x;
+        y += v.y;
+        return *this;
+    }
 };
 
 #endif
