@@ -4,5 +4,7 @@
 #include "error.h"
 
 void SDLErrorMsg(const char *msg) {
-    std::cout << msg << SDL_GetError() << std::endl;
+    printf(msg);
+    printf(SDL_GetError());
+    // std::cout << msg << SDL_GetError() << std::endl;
 }

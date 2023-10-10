@@ -1,7 +1,11 @@
 #include <iostream>
+
+#include <SDL_render.h>
 #include <SDL_rect.h>
 
 #include "camera.h"
+#include "point.h"
+#include "graphics.h"
 #include "texture.h"
 
 int Camera::Init(int w, int h) {
@@ -22,9 +26,37 @@ bool Camera::Contains(SDL_Rect r) {
     return SDL_HasIntersection(&cam_rect, &r);
 }
 
+Point Camera::GetPosition() {
+    return Point{this->center.x - this->width/2, this->center.y - this->height/2};
+}
+
 int Camera::Follow(Point p) {
-    this->center.x = p.x;
-    this->center.y = p.y;
+    int dx = p.x - this->center.x;
+    int dy = p.y - this->center.y;
+
+    this->Move((int)(dx/4), (int)(dy/4));
+
+    return 0;
+}
+
+int Camera::Move(int x, int y) {
+    this->world_pos.x += x;
+    this->world_pos.y += y;
+
+    return 0;
+}
+
+int Camera::DrawOutline(SDL_Renderer *rend) {
+    // draw cam center
+    SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+    DrawCircle(rend, Point{this->center.x, this->center.y}, 10);
+    
+    SDL_Rect cam_rect;
+    cam_rect.x = this->center.x - this->width/2;
+    cam_rect.y = this->center.y - this->height/2;
+    cam_rect.w = this->width;
+    cam_rect.h = this->height;
+    SDL_RenderDrawRect(rend, &cam_rect);
 
     return 0;
 }

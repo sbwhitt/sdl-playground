@@ -27,20 +27,20 @@ int Texture::LoadFromResource(SDL_Renderer *rend, Resource res) {
 }
 
 int Texture::Move(int x, int y) {
-    this->dest_rect.x += x;
-    this->dest_rect.y += y;
+    this->world_pos.x += x;
+    this->world_pos.y += y;
 
     return 0;
 }
 
-int Texture::PlaceOnScreen(int x, int y) {
-    this->dest_rect.x = x;
-    this->dest_rect.y = y;
+int Texture::PlaceOnScreen(Point p) {
+    this->dest_rect.x = p.x;
+    this->dest_rect.y = p.y;
 
     return 0;
 }
 
-Point Texture::GetPosition() {
+Point Texture::GetScreenPosition() {
     return Point{this->dest_rect.x, this->dest_rect.y};
 }
 

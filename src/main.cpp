@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
     Game game;
 
     if (game.Execute() != 0) {
-        std::cout << "error exiting game.run" << std::endl;
+        printf("error exiting game.run");
     }
 
     return 0;

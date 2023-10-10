@@ -10,6 +10,12 @@ struct Point {
         x = px;
         y = py;
     }
+    Point operator+(Point a) {
+        return Point{x + a.x, y + a.y};
+    }
+    Point operator-(Point a) {
+        return Point{x - a.x, y - a.y};
+    }
 };
 
 #endif

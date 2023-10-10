@@ -19,8 +19,8 @@ public:
     ~Texture();
     int LoadFromResource(SDL_Renderer *rend, Resource res);
     int Move(int x, int y);
-    int PlaceOnScreen(int x, int y);
-    Point GetPosition();
+    int PlaceOnScreen(Point p);
+    Point GetScreenPosition();
     SDL_Rect GetRect();
     int Rotate(int d);
     int Draw(SDL_Renderer *rend);

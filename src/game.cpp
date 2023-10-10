@@ -42,7 +42,7 @@ int Game::Load(SDL_Renderer *rend) {
         return 1;
     }
 
-    this->fish.PlaceOnScreen(this->window.w/2 - 100, this->window.h/2 - 50);
+    this->fish.PlaceOnScreen(this->cam.center);
 
     return 0;
 }
@@ -142,7 +142,12 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
     this->HandleKeys();
 
-    //this->cam.Follow(this->fish.GetPosition());
+    // get difference in fish and cam world position
+    Point d = this->fish.world_pos - this->cam.world_pos;
+    // place fish on screen wrt cam center offset by d
+    this->fish.PlaceOnScreen(this->cam.center + d);
+    // update cam world pos to follow fish
+    this->cam.Follow(this->fish.GetScreenPosition());
 
     this->ticks = SDL_GetTicks();
 
@@ -153,13 +158,11 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_SetRenderDrawColor(rend, 50, 150, 200, 255);
     SDL_RenderClear(rend);
 
-    // draw cam center
-    SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
-    DrawCircle(rend, Point{this->cam.center.x, this->cam.center.y}, 10);
-
     if (this->cam.Contains(this->fish.GetRect())) {
         this->fish.Draw(rend);
     }
+
+    this->cam.DrawOutline(rend);
 
     SDL_RenderPresent(rend);
     return 0;
