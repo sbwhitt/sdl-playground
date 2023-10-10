@@ -40,7 +40,7 @@ int Camera::Follow(Texture *tex) {
     Point p = tex->GetScreenPosition();
     int dx = p.x - this->center.x;
     int dy = p.y - this->center.y;
-    this->Move((int)(dx/4), (int)(dy/4));
+    this->Move((int)(dx/8), (int)(dy/8));
 
     return 0;
 }

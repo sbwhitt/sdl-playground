@@ -34,14 +34,16 @@ int Texture::Move(int x, int y) {
 }
 
 int Texture::PlaceOnScreen(Point p) {
-    this->dest_rect.x = p.x;
-    this->dest_rect.y = p.y;
+    // place at point centered
+    this->dest_rect.x = p.x - this->dest_rect.w/2;
+    this->dest_rect.y = p.y - this->dest_rect.h/2;
 
     return 0;
 }
 
 Point Texture::GetScreenPosition() {
-    return Point{this->dest_rect.x, this->dest_rect.y};
+    // get position centered
+    return Point{this->dest_rect.x + this->dest_rect.w/2, this->dest_rect.y + this->dest_rect.h/2};
 }
 
 SDL_Rect Texture::GetRect() {
