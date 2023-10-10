@@ -41,6 +41,18 @@
             "environment": [],
             "console": "integratedTerminal",
             "preLaunchTask": "cppbuild",
+        },
+        {
+            "name": "(Windows) Launch test",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/build/main.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "integratedTerminal",
+            "preLaunchTask": "cppbuild test",
         }
     ]
 }

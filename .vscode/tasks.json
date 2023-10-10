@@ -26,6 +26,27 @@
 			],
 			"group": "build",
 			"detail": "compiler: C:/Users/sbw98/Downloads/winlibs-x86_64-posix-seh-gcc-13.2.0-llvm-16.0.6-mingw-w64ucrt-11.0.0-r1/mingw64/bin/g++.exe"
+		},
+		{
+			"type": "cppbuild",
+			"label": "cppbuild test",
+			"command": "C:/Users/sbw98/Downloads/winlibs-x86_64-posix-seh-gcc-13.2.0-llvm-16.0.6-mingw-w64ucrt-11.0.0-r1/mingw64/bin/g++.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${workspaceFolder}\\test\\*.cpp",
+				"-I${workspaceFolder}\\include",
+				"-o",
+				"${workspaceFolder}\\test\\build\\main",
+			],
+			"options": {
+				"cwd": "C:/Users/sbw98/Downloads/winlibs-x86_64-posix-seh-gcc-13.2.0-llvm-16.0.6-mingw-w64ucrt-11.0.0-r1/mingw64/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:/Users/sbw98/Downloads/winlibs-x86_64-posix-seh-gcc-13.2.0-llvm-16.0.6-mingw-w64ucrt-11.0.0-r1/mingw64/bin/g++.exe"
 		}
 	]
 }
