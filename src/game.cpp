@@ -142,12 +142,7 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
     this->HandleKeys();
 
-    // get difference in fish and cam world position
-    Point d = this->fish.world_pos - this->cam.world_pos;
-    // place fish on screen wrt cam center offset by d
-    this->fish.PlaceOnScreen(this->cam.center + d);
-    // update cam world pos to follow fish
-    this->cam.Follow(this->fish.GetScreenPosition());
+    this->cam.Follow(&this->fish);
 
     this->ticks = SDL_GetTicks();
 

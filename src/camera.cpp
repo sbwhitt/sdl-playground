@@ -30,10 +30,16 @@ Point Camera::GetPosition() {
     return Point{this->center.x - this->width/2, this->center.y - this->height/2};
 }
 
-int Camera::Follow(Point p) {
+int Camera::Follow(Texture *tex) {
+    // get difference in fish and cam world position
+    Point d = tex->world_pos - this->world_pos;
+    // place fish on screen wrt cam center offset by d
+    tex->PlaceOnScreen(this->center + d);
+
+    // update cam world pos to follow fish
+    Point p = tex->GetScreenPosition();
     int dx = p.x - this->center.x;
     int dy = p.y - this->center.y;
-
     this->Move((int)(dx/4), (int)(dy/4));
 
     return 0;
