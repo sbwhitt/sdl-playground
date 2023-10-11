@@ -1,14 +1,37 @@
 #include <iostream>
+#include <vector>
 
-#include "vec2.h"
+#include "matrix.h"
+#include "chunk.h"
+
+void print(Matrix<int> m) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%d ", m[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+void print(Matrix<Chunk> m) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%d ", m[i][j].type);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
 
 int main(int argc, char **argv) {
-    Vec2 v1{1, 1};
-    Vec2 v2{0, 1};
+    printf("test started\n");
 
-    v1 += v2;
+    Matrix<Chunk> m;
+    m.Build(3, 3);
+    m.FillAlternate(Chunk{BLUE, 0, 0}, Chunk{RED, 0, 0});
 
-    printf("v1: %f, %f\n", v1.x, v1.y);
-    printf("v2: %f, %f\n", v2.x, v2.y);
+    print(m);
+
     return 0;
 }
