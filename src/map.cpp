@@ -5,15 +5,11 @@
 
 #define GRID_SIZE 3
 
-int Map::InitGrid() {
-    ChunkType current = BLUE;
-    for (int i = 0; i < GRID_SIZE; i++) {
-        for (int j = 0; j < GRID_SIZE; j++) {
-            this->grid[i][j] = current;
-            if (current == BLUE) current = RED;
-            else current = BLUE;
-        }
-    }
+int Map::InitChunkMatrix(int w, int h) {
+    this->chunk_matrix.Build(3, 3);
+    Chunk c1{BLUE, w, h};
+    Chunk c2{RED, w, h};
+    this->chunk_matrix.FillAlternate(c1, c2);
 
     return 0;
 }
