@@ -33,8 +33,6 @@ int Game::Init() {
 
     this->cam.Init(this->window.w, this->window.h);
 
-    this->map.InitGrid();
-
     return 0;
 }
 

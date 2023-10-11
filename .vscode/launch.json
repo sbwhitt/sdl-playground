@@ -43,16 +43,30 @@
             "preLaunchTask": "cppbuild",
         },
         {
-            "name": "(Windows) Launch test",
-            "type": "cppvsdbg",
+            "name": "(gdb) Launch test",
+            "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/test/build/main.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/test",
             "environment": [],
-            "console": "integratedTerminal",
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/Users/sbw98/Downloads/winlibs-x86_64-posix-seh-gcc-13.2.0-llvm-16.0.6-mingw-w64ucrt-11.0.0-r1/mingw64/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
             "preLaunchTask": "cppbuild test",
-        }
+        },
     ]
 }
