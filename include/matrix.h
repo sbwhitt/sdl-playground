@@ -17,7 +17,6 @@ public:
     int Fill(T t) {
         if (outer.size() < 1) return 1;
         for (int i = 0; i < outer.size(); i++) {
-            int s = outer[i].size();
             for (int j = 0; j < outer[i].size(); j++) {
                 outer[i][j] = t;
             }
