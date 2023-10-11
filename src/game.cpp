@@ -6,6 +6,9 @@
 #include "mouse.h"
 #include "map.h"
 
+#define WIN_WIDTH 960
+#define WIN_HEIGHT 720
+
 Game::Game() {}
 
 int Game::Init() {
@@ -15,7 +18,7 @@ int Game::Init() {
     }
 
     // TODO: move error handling into window.Create
-    this->window.Create(300, 100, 960, 720);
+    this->window.Create(300, 100, WIN_WIDTH, WIN_HEIGHT);
     if (this->window.SDL_win == nullptr) {
         SDLErrorMsg("SDL create window error: ");
         SDL_Quit();
@@ -31,7 +34,9 @@ int Game::Init() {
         return 1;
     }
 
-    this->cam.Init(this->window.w, this->window.h);
+    this->cam.Init(WIN_WIDTH, WIN_HEIGHT);
+
+    this->map.InitChunkMatrix(WIN_WIDTH/3, WIN_HEIGHT/3);
 
     return 0;
 }
@@ -158,6 +163,8 @@ int Game::Update(SDL_Renderer *rend) {
 int Game::Draw(SDL_Renderer *rend) {
     SDL_SetRenderDrawColor(rend, 50, 150, 200, 255);
     SDL_RenderClear(rend);
+
+    this->map.RenderChunks(rend);
 
     if (this->cam.Contains(this->fish.GetRect())) {
         this->fish.Draw(rend);

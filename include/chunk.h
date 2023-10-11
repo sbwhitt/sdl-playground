@@ -11,6 +11,7 @@ struct Chunk {
     int height;
     ChunkType type;
 
+    Chunk() {}
     Chunk(ChunkType t, int w, int h) {
         this->type = t;
         this->width = w;

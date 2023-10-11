@@ -4,17 +4,15 @@
 #include <vector>
 #include <SDL.h>
 
+#include "matrix.h"
 #include "chunk.h"
 
 class Map {
 private:
-    std::vector<std::vector<ChunkType>> grid;
+    Matrix<Chunk> chunk_matrix;
 
 public:
-    Map() {
-        this->grid = std::vector<std::vector<ChunkType>>(3, std::vector<ChunkType>(3));
-    }
-    int InitGrid();
+    int InitChunkMatrix(int w, int h);
     int RenderChunks(SDL_Renderer *rend);
 };
 

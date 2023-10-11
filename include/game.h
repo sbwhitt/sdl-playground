@@ -7,6 +7,7 @@
 #include "window.h"
 #include "control.h"
 #include "camera.h"
+#include "map.h"
 #include "entity.h"
 
 class Game {
