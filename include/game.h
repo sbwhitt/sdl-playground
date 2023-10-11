@@ -17,6 +17,7 @@ private:
     SDL_Renderer *renderer;
     Control ctrl;
     Camera cam;
+    Map map;
     Entity fish;
 
     int Init();
