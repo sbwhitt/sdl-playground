@@ -42,10 +42,10 @@ int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
             if (this->chunk_matrix[i][j].type == BLUE) {
-                SDL_SetRenderDrawColor(rend, 0, 0, 255, 255);
+                SDL_SetRenderDrawColor(rend, 50, 50, 200, 255);
             }
             else if (this->chunk_matrix[i][j].type == RED) {
-                SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+                SDL_SetRenderDrawColor(rend, 200, 50, 50, 255);
             }
             SDL_Rect r = this->chunk_matrix[i][j].dest_rect;
             if (cam.Contains(r)) {
