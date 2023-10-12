@@ -16,7 +16,7 @@ int Map::InitChunkMatrix(int r, int c, int w, int h) {
             else {
                 this->chunk_matrix[i][j] = Chunk{RED, w, h};
             }
-            Point p{(i) * this->chunk_matrix[i][j].dest_rect.w, (j) * this->chunk_matrix[i][j].dest_rect.h};
+            Point p{(-i + 1) * this->chunk_matrix[i][j].dest_rect.w, (-j + 1) * this->chunk_matrix[i][j].dest_rect.h};
             this->chunk_matrix[i][j].world_pos = p;
             first = !first;
         }
