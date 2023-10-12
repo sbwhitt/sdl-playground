@@ -14,6 +14,7 @@ private:
 
 public:
     int InitChunkMatrix(int w, int h);
+    int UpdateChunks(Camera cam);
     int RenderChunks(SDL_Renderer *rend, Camera cam);
 };
 

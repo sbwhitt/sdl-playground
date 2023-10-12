@@ -36,7 +36,7 @@ int Game::Init() {
 
     this->cam.Init(WIN_WIDTH, WIN_HEIGHT);
 
-    this->map.InitChunkMatrix(WIN_WIDTH/3, WIN_HEIGHT/3);
+    this->map.InitChunkMatrix(WIN_WIDTH/2, WIN_HEIGHT/2);
 
     return 0;
 }

@@ -5,10 +5,7 @@
 #include "camera.h"
 
 int Map::InitChunkMatrix(int w, int h) {
-    this->chunk_matrix.Build(3, 3);
-    // don't need?
-    // this->chunk_matrix.FillAlternate(c1, c2);
-    //
+    this->chunk_matrix.Build(5, 5);
     bool first = true;
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
@@ -23,6 +20,12 @@ int Map::InitChunkMatrix(int w, int h) {
             first = !first;
         }
     }
+
+    return 0;
+}
+
+int Map::UpdateChunks(Camera cam) {
+    // update relative on-screen position wrt cam and apply to rect
 
     return 0;
 }
