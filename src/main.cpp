@@ -5,12 +5,12 @@
 
 #include "game.h"
 
-int main(int argc, char **argv) {
-    Game game;
+// int main(int argc, char **argv) {
+//     Game game;
 
-    if (game.Execute() != 0) {
-        printf("error exiting game.run");
-    }
+//     if (game.Execute() != 0) {
+//         printf("error exiting game.run");
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
