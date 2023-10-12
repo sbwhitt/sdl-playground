@@ -1,6 +1,7 @@
 #include <SDL_render.h>
 
 #include "map.h"
+#include "error.h"
 #include "chunk.h"
 #include "camera.h"
 
@@ -48,7 +49,10 @@ int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
             }
             SDL_Rect r = this->chunk_matrix[i][j].dest_rect;
             if (cam.Contains(r)) {
-                SDL_RenderFillRect(rend, &r);
+                if (SDL_RenderFillRect(rend, &r) != 0) {
+                    SDLErrorMsg("map.cpp error rendering chunk rect: ");
+                    return 1;
+                }
             }
         }
     }
