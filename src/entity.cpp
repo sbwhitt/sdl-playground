@@ -33,7 +33,7 @@ int Entity::Move(int x, int y) {
     this->world_pos.x += x;
     this->world_pos.y += y;
 
-    // printf("fish posish: %d, %d\n", this->world_pos.x, this->world_pos.y);
+    // printf("player posish: %d, %d\n", this->world_pos.x, this->world_pos.y);
 
     return 0;
 }
@@ -103,9 +103,9 @@ int Entity::Update(Camera cam) {
 
     this->Move((int)this->vel.x, (int)this->vel.y);
 
-    // get difference in fish and cam world position
+    // get difference in player and cam world position
     Point d = this->world_pos - cam.world_pos;
-    // place fish on screen wrt cam center offset by d
+    // place player on screen wrt cam center offset by d
     this->PlaceOnScreen(cam.center + d);
 
     return 0;

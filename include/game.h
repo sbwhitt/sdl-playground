@@ -19,7 +19,7 @@ private:
     Control ctrl;
     Camera cam;
     Map map;
-    Entity fish;
+    Entity player;
 
     int Init();
     int Load(SDL_Renderer *rend);

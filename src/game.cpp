@@ -33,19 +33,19 @@ int Game::Init() {
 
     this->cam.Init(WIN_WIDTH, WIN_HEIGHT);
 
-    this->map.InitChunkMatrix(101, 101, WIN_WIDTH, WIN_HEIGHT);
+    this->map.InitChunkMatrix(3, 3, WIN_WIDTH, WIN_HEIGHT);
 
     return 0;
 }
 
 int Game::Load(SDL_Renderer *rend) {
     Resource f{"res/fish.bmp", 200, 100};
-    if (this->fish.LoadFromResource(rend, f) != 0) {
+    if (this->player.LoadFromResource(rend, f) != 0) {
         SDLErrorMsg("SDL error loading resource: ");
         return 1;
     }
 
-    this->fish.PlaceOnScreen(this->cam.center);
+    this->player.PlaceOnScreen(this->cam.center);
 
     return 0;
 }
@@ -99,25 +99,25 @@ int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
 
 int Game::HandleKeys() {
     // if (this->ctrl.CheckKey(SDLK_w)) {
-    //     this->fish.Push(0, -0.3);
+    //     this->player.Push(0, -0.3);
     // }
     // if (this->ctrl.CheckKey(SDLK_s)) {
-    //     this->fish.Push(0, 0.3);
+    //     this->player.Push(0, 0.3);
     // }
     // if (this->ctrl.CheckKey(SDLK_a)) {
-    //     this->fish.Push(-0.3, 0);
+    //     this->player.Push(-0.3, 0);
     // }
     // if (this->ctrl.CheckKey(SDLK_d)) {
-    //     this->fish.Push(0.3, 0);
+    //     this->player.Push(0.3, 0);
     // }
     if (this->ctrl.CheckKey(SDLK_q)) {
-        this->fish.Rotate(-3.5);
+        this->player.Rotate(-3.5);
     }
     if (this->ctrl.CheckKey(SDLK_e)) {
-        this->fish.Rotate(3.5);
+        this->player.Rotate(3.5);
     }
     if (this->ctrl.CheckKey(SDLK_SPACE)) {
-        this->fish.Push(1);
+        this->player.Push(1);
     }
 
     return 0;
@@ -149,9 +149,9 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleKeys();
 
     this->map.UpdateChunks(this->cam);
-    this->fish.Update(this->cam);
+    this->player.Update(this->cam);
 
-    this->cam.Follow(this->fish.GetScreenPosition());
+    this->cam.Follow(this->player.GetScreenPosition());
 
     this->ticks = SDL_GetTicks();
 
@@ -163,7 +163,7 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_RenderClear(rend);
 
     this->map.RenderChunks(rend, this->cam);
-    this->fish.Draw(rend, this->cam);
+    this->player.Draw(rend, this->cam);
 
     // this->cam.DrawOutline(rend);
 
