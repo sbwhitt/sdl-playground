@@ -111,10 +111,12 @@ int Entity::Update(Camera cam) {
     return 0;
 }
 
-int Entity::Draw(SDL_Renderer *rend) {
-    if (SDL_RenderCopyEx(rend, this->sdl_tex, NULL, &this->dest_rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {
-        SDLErrorMsg("SDL error drawing texture: ");
-        return 1;
+int Entity::Draw(SDL_Renderer *rend, Camera cam) {
+    if (cam.Contains(this->GetRect())) {
+        if (SDL_RenderCopyEx(rend, this->sdl_tex, NULL, &this->dest_rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {
+            SDLErrorMsg("SDL error drawing texture: ");
+            return 1;
+        }
     }
 
     return 0;

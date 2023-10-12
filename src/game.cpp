@@ -166,10 +166,7 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_RenderClear(rend);
 
     this->map.RenderChunks(rend, this->cam);
-
-    if (this->cam.Contains(this->fish.GetRect())) {
-        this->fish.Draw(rend);
-    }
+    this->fish.Draw(rend, this->cam);
 
     // this->cam.DrawOutline(rend);
 

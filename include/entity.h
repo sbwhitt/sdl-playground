@@ -31,7 +31,7 @@ public:
     SDL_Rect GetRect();
     int Rotate(int d);
     int Update(Camera cam);
-    int Draw(SDL_Renderer *rend);
+    int Draw(SDL_Renderer *rend, Camera cam);
 };
 
 #endif
