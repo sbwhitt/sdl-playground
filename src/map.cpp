@@ -4,8 +4,8 @@
 #include "chunk.h"
 #include "camera.h"
 
-int Map::InitChunkMatrix(int w, int h) {
-    this->chunk_matrix.Build(5, 5);
+int Map::InitChunkMatrix(int r, int c, int w, int h) {
+    this->chunk_matrix.Build(r, c);
     bool first = true;
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
@@ -15,7 +15,7 @@ int Map::InitChunkMatrix(int w, int h) {
             else {
                 this->chunk_matrix[i][j] = Chunk{RED, w, h};
             }
-            Point p{(i) * this->chunk_matrix[i][j].width, (j) * this->chunk_matrix[i][j].height};
+            Point p{(i) * this->chunk_matrix[i][j].dest_rect.w, (j) * this->chunk_matrix[i][j].dest_rect.h};
             this->chunk_matrix[i][j].world_pos = p;
             first = !first;
         }
@@ -26,6 +26,13 @@ int Map::InitChunkMatrix(int w, int h) {
 
 int Map::UpdateChunks(Camera cam) {
     // update relative on-screen position wrt cam and apply to rect
+    for (int i = 0; i < this->chunk_matrix.rows; i++) {
+        for (int j = 0; j < this->chunk_matrix.cols; j++) {
+            Point d = this->chunk_matrix[i][j].world_pos - (cam.world_pos);
+            this->chunk_matrix[i][j].dest_rect.x = d.x;
+            this->chunk_matrix[i][j].dest_rect.y = d.y;
+        }
+    }
 
     return 0;
 }
@@ -39,14 +46,7 @@ int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
             else if (this->chunk_matrix[i][j].type == RED) {
                 SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
             }
-            Point d = this->chunk_matrix[i][j].world_pos - (cam.world_pos);
-            // Chunk.GetRect() should do this
-            SDL_Rect r;
-            r.x = d.x;
-            r.y = d.y;
-            r.w = this->chunk_matrix[i][j].width;
-            r.h = this->chunk_matrix[i][j].height;
-            //
+            SDL_Rect r = this->chunk_matrix[i][j].dest_rect;
             if (cam.Contains(r)) {
                 SDL_RenderFillRect(rend, &r);
             }

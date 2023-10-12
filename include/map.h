@@ -13,7 +13,7 @@ private:
     Matrix<Chunk> chunk_matrix;
 
 public:
-    int InitChunkMatrix(int w, int h);
+    int InitChunkMatrix(int r, int c, int w, int h);
     int UpdateChunks(Camera cam);
     int RenderChunks(SDL_Renderer *rend, Camera cam);
 };

@@ -7,6 +7,7 @@
 #include "error.h"
 #include "point.h"
 #include "vec2.h"
+#include "camera.h"
 
 Entity::~Entity() {
     SDL_DestroyTexture(this->sdl_tex);
@@ -88,7 +89,7 @@ int Entity::Rotate(int d) {
     return 0;
 }
 
-int Entity::Update() {
+int Entity::Update(Camera cam) {
     this->vel += this->acc;
 
     // TODO: terribly handling vel/acc decay
@@ -101,6 +102,11 @@ int Entity::Update() {
     else if (this->vel.y < 0) this->vel.y += 0.2;
 
     this->Move((int)this->vel.x, (int)this->vel.y);
+
+    // get difference in fish and cam world position
+    Point d = this->world_pos - cam.world_pos;
+    // place fish on screen wrt cam center offset by d
+    this->PlaceOnScreen(cam.center + d);
 
     return 0;
 }

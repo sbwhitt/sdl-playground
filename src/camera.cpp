@@ -30,16 +30,10 @@ Point Camera::GetPosition() {
     return Point{this->center.x - this->width/2, this->center.y - this->height/2};
 }
 
-int Camera::Follow(Entity *ent) {
-    // get difference in fish and cam world position
-    Point d = ent->world_pos - this->world_pos;
-    // place fish on screen wrt cam center offset by d
-    ent->PlaceOnScreen(this->center + d);
-
-    // update cam world pos to follow fish
-    Point p = ent->GetScreenPosition();
-    int dx = p.x - this->center.x;
-    int dy = p.y - this->center.y;
+int Camera::Follow(Point scr_pos) {
+    // update cam world pos to follow point
+    int dx = scr_pos.x - this->center.x;
+    int dy = scr_pos.y - this->center.y;
     this->Move(dx, dy);
 
     return 0;

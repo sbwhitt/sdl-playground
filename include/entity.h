@@ -7,6 +7,7 @@
 #include "resource.h"
 #include "point.h"
 #include "vec2.h"
+#include "camera.h"
 
 class Entity {
 private:
@@ -29,7 +30,7 @@ public:
     Point GetScreenPosition();
     SDL_Rect GetRect();
     int Rotate(int d);
-    int Update();
+    int Update(Camera cam);
     int Draw(SDL_Renderer *rend);
 };
 

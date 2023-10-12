@@ -36,7 +36,7 @@ int Game::Init() {
 
     this->cam.Init(WIN_WIDTH, WIN_HEIGHT);
 
-    this->map.InitChunkMatrix(WIN_WIDTH/2, WIN_HEIGHT/2);
+    this->map.InitChunkMatrix(101, 101, WIN_WIDTH, WIN_HEIGHT);
 
     return 0;
 }
@@ -114,10 +114,10 @@ int Game::HandleKeys() {
     //     this->fish.Push(0.3, 0);
     // }
     if (this->ctrl.CheckKey(SDLK_q)) {
-        this->fish.Rotate(-2.5);
+        this->fish.Rotate(-3.5);
     }
     if (this->ctrl.CheckKey(SDLK_e)) {
-        this->fish.Rotate(2.5);
+        this->fish.Rotate(3.5);
     }
     if (this->ctrl.CheckKey(SDLK_SPACE)) {
         this->fish.Push(1);
@@ -151,12 +151,10 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
     this->HandleKeys();
 
-    // ???
-    // this->map.Update(this->cam);
-    // this->fish.Update(this->cam);
-    this->fish.Update();
+    this->map.UpdateChunks(this->cam);
+    this->fish.Update(this->cam);
 
-    this->cam.Follow(&this->fish);
+    this->cam.Follow(this->fish.GetScreenPosition());
 
     this->ticks = SDL_GetTicks();
 
