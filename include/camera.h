@@ -1,5 +1,5 @@
 #ifndef CAMERA_H
-#define CAEMRA_H
+#define CAMERA_H
 
 #include <SDL_render.h>
 #include <SDL_rect.h>

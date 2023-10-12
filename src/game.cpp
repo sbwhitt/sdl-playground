@@ -151,6 +151,9 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
     this->HandleKeys();
 
+    // ???
+    // this->map.Update(this->cam);
+    // this->fish.Update(this->cam);
     this->fish.Update();
 
     this->cam.Follow(&this->fish);
@@ -164,7 +167,7 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_SetRenderDrawColor(rend, 50, 150, 200, 255);
     SDL_RenderClear(rend);
 
-    this->map.RenderChunks(rend);
+    this->map.RenderChunks(rend, this->cam);
 
     if (this->cam.Contains(this->fish.GetRect())) {
         this->fish.Draw(rend);
