@@ -148,7 +148,7 @@ int Game::Update(SDL_Renderer *rend) {
     this->HandleEvents();
     this->HandleKeys();
 
-    this->map.UpdateChunks(this->cam);
+    this->map.UpdateChunks(this->player.world_pos, this->cam);
     this->player.Update(this->cam);
 
     this->cam.Follow(this->player.GetScreenPosition());

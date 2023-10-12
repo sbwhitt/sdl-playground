@@ -6,6 +6,7 @@
 
 #include "matrix.h"
 #include "chunk.h"
+#include "point.h"
 #include "camera.h"
 
 class Map {
@@ -14,7 +15,8 @@ private:
 
 public:
     int InitChunkMatrix(int r, int c, int w, int h);
-    int UpdateChunks(Camera cam);
+    Matrix<Chunk> GetChunkMatrix();
+    int UpdateChunks(Point player_pos, Camera cam);
     int RenderChunks(SDL_Renderer *rend, Camera cam);
 };
 

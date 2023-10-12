@@ -35,6 +35,7 @@
 				"-fdiagnostics-color=always",
 				"-g",
 				"${workspaceFolder}\\test\\*.cpp",
+				"${workspaceFolder}\\src\\*.cpp",
 				"-I${workspaceFolder}\\SDL\\include",
 				"-I${workspaceFolder}\\include",
 				"-I${workspaceFolder}\\src",

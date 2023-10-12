@@ -7,7 +7,6 @@
 #include "error.h"
 #include "point.h"
 #include "vec2.h"
-#include "camera.h"
 
 Entity::~Entity() {
     SDL_DestroyTexture(this->sdl_tex);

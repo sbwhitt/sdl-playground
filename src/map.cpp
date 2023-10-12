@@ -3,7 +3,6 @@
 #include "map.h"
 #include "error.h"
 #include "chunk.h"
-#include "camera.h"
 
 int Map::InitChunkMatrix(int r, int c, int w, int h) {
     this->chunk_matrix.Build(r, c);
@@ -25,7 +24,12 @@ int Map::InitChunkMatrix(int r, int c, int w, int h) {
     return 0;
 }
 
-int Map::UpdateChunks(Camera cam) {
+Matrix<Chunk> Map::GetChunkMatrix() {
+    return this->chunk_matrix;
+}
+
+// TODO: use player_pos to get center of chunk mat and extend accordingly
+int Map::UpdateChunks(Point player_pos, Camera cam) {
     // update relative on-screen position wrt cam and apply to rect
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {

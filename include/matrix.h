@@ -56,6 +56,15 @@ public:
 
         return 0;
     }
+    int ExtendDown(std::vector<T> row) {
+        if (rows <= 1) return 1;
+        for (int i = 1; i < rows; i++) {
+            outer[i-1] = outer[i];
+        }
+        outer[rows-1] = row;
+
+        return 0;
+    }
     std::vector<T>& operator[](int i) {
         return outer[i];
     }
