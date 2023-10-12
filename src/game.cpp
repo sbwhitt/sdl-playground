@@ -17,10 +17,7 @@ int Game::Init() {
         return 1;
     }
 
-    // TODO: move error handling into window.Create
-    this->window.Create(300, 100, WIN_WIDTH, WIN_HEIGHT);
-    if (this->window.SDL_win == nullptr) {
-        SDLErrorMsg("SDL create window error: ");
+    if (this->window.Create(300, 100, WIN_WIDTH, WIN_HEIGHT) != 0) {
         SDL_Quit();
         return 1;
     }
