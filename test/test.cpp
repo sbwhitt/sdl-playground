@@ -45,6 +45,13 @@ void print(Matrix<Chunk> m, int r, int c) {
     printf("\n");
 }
 
+void printVec(std::vector<Chunk> v) {
+    for (int i = 0; i < v.size(); i++) {
+        printf("%d ", v[i].type);
+    }
+    printf("\n");
+}
+
 int main(int argc, char **argv) {
     printf("test started\n");
 
@@ -53,9 +60,18 @@ int main(int argc, char **argv) {
     print(m.GetChunkMatrix());
 
     Matrix mat = m.GetChunkMatrix();
-    std::vector<Chunk> s{Chunk{RED, 101, 101}, Chunk{RED, 101, 101}, Chunk{RED, 101, 101}};
-    mat.Extend(LEFT, s);
-    print(mat);
+    // std::vector<Chunk> s{Chunk{RED, 101, 101}, Chunk{RED, 101, 101}, Chunk{RED, 101, 101}};
+    // mat.Extend(LEFT, s);
+    // print(mat);
+
+    auto vr = mat.GetCol(2);
+    auto vc = mat.GetCol(1);
+
+    printf("get row 2: \n");
+    printVec(vr);
+    printf("get col 1: \n");
+    printVec(vc);
+
     // mat.Extend(UP, s);
     // print(mat, 1, 1);
 
