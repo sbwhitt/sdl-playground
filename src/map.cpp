@@ -31,6 +31,7 @@ Matrix<Chunk> Map::GetChunkMatrix() {
 }
 
 int Map::GenerateChunks(ExtendDir dir) {
+    // TODO: need way to fill new chunk positions
     Chunk c{GREEN, this->chunk_width, this->chunk_height};
     std::vector<Chunk> v{c, c, c};
     switch (dir) {
