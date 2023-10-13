@@ -32,6 +32,10 @@ int Map::GenerateChunks(ExtendDir dir) {
     return 0;
 }
 
+int Map::CenterChunks(int r, int c) {
+    return 0;
+}
+
 // TODO: use player_pos to get center of chunk mat and extend accordingly
 int Map::UpdateChunks(Point player_pos, Camera cam) {
     // update relative on-screen position wrt cam and apply to rect
@@ -40,6 +44,9 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
             Point d = this->chunk_matrix[i][j].world_pos - (cam.world_pos);
             this->chunk_matrix[i][j].dest_rect.x = d.x;
             this->chunk_matrix[i][j].dest_rect.y = d.y;
+            if (this->chunk_matrix[i][j].Contains(player_pos)) {
+                this->CenterChunks(i, j);
+            }
             SDL_Rect r = this->chunk_matrix[i][j].dest_rect;
             if (cam.Contains(r)) {
                 this->to_render.push_back(this->chunk_matrix[i][j]);

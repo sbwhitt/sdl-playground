@@ -64,7 +64,7 @@ public:
         return 0;
     }
     int Extend(ExtendDir dir, std::vector<T> add) {
-        if (rows <= 1) return 1;
+        if (rows <= 1 || add.size() != cols) return 1;
         switch (dir) {
             case UP:
                 for (int i = rows-2; i >= 0; i--) {
@@ -73,6 +73,12 @@ public:
                 outer[0] = add;
                 break;
             case LEFT:
+                for (int i = 0; i < rows; i++) {
+                    for (int j = cols-2; j >= 0; j--) {
+                        outer[i][j+1] = outer[i][j];
+                    }
+                    outer[i][0] = add[i];
+                }
                 break;
             case DOWN:
                 for (int i = 1; i < rows; i++) {
@@ -81,6 +87,12 @@ public:
                 outer[rows-1] = add;
                 break;
             case RIGHT:
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 1; j < cols; j++) {
+                        outer[i][j-1] = outer[i][j];
+                    }
+                    outer[i][cols-1] = add[i];
+                }
                 break;
         }
 

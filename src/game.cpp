@@ -6,7 +6,7 @@
 #include "mouse.h"
 #include "map.h"
 
-#define WIN_WIDTH 960
+#define WIN_WIDTH 1080
 #define WIN_HEIGHT 720
 
 Game::Game() {}

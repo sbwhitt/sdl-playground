@@ -21,6 +21,16 @@ void print(Matrix<int> m, int r, int c) {
     printf("\n");
 }
 
+void print(Matrix<Chunk> m) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%d\t", m[i][j].type);   
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
 void print(Matrix<Chunk> m, int r, int c) {
     for (int i = 0; i < 3; i++) {
         printf("row %d: \n", i);
@@ -35,19 +45,22 @@ void print(Matrix<Chunk> m, int r, int c) {
     printf("\n");
 }
 
-// void ShiftRow
-
 int main(int argc, char **argv) {
     printf("test started\n");
 
     Map m;
     m.InitChunkMatrix(3, 3, 100, 100);
-    print(m.GetChunkMatrix(), 1, 1);
+    print(m.GetChunkMatrix());
 
     Matrix mat = m.GetChunkMatrix();
     std::vector<Chunk> s{Chunk{RED, 101, 101}, Chunk{RED, 101, 101}, Chunk{RED, 101, 101}};
-    mat.ExtendDown(s);
-    print(mat, 1, 1);
+    mat.Extend(LEFT, s);
+    print(mat);
+    // mat.Extend(UP, s);
+    // print(mat, 1, 1);
+
+    // mat.Extend(DOWN, s);
+    // print(mat, 1, 1);
 
     return 0;
 }
