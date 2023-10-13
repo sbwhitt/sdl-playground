@@ -63,6 +63,17 @@ public:
 
         return 0;
     }
+    std::vector<T> GetRow(int r) {
+        // if (r < 0 || r >= rows) return NULL;
+        return outer[r];
+    }
+    std::vector<T> GetCol(int c) {
+        std::vector<T> col;
+        for (int i = 0; i < rows; i++) {
+            col.push_back(outer[i][c]);
+        }
+        return col;
+    }
     int Extend(ExtendDir dir, std::vector<T> add) {
         if (rows <= 1 || add.size() != cols) return 1;
         switch (dir) {
