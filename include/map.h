@@ -11,6 +11,8 @@
 
 class Map {
 private:
+    int chunk_height;
+    int chunk_width;
     Matrix<Chunk> chunk_matrix;
     std::vector<Chunk> to_render;
 

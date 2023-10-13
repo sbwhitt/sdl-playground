@@ -5,6 +5,8 @@
 #include "chunk.h"
 
 int Map::InitChunkMatrix(int r, int c, int w, int h) {
+    this->chunk_width = w;
+    this->chunk_height = h;
     this->chunk_matrix.Build(r, c);
     bool first = true;
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
@@ -29,16 +31,41 @@ Matrix<Chunk> Map::GetChunkMatrix() {
 }
 
 int Map::GenerateChunks(ExtendDir dir) {
+    Chunk c{GREEN, this->chunk_width, this->chunk_height};
+    std::vector<Chunk> v{c, c, c};
+    switch (dir) {
+        case UP:
+        case DOWN:
+        case LEFT:
+        case RIGHT:
+    }
     return 0;
 }
 
 int Map::CenterChunks(int r, int c) {
+    if (r < this->chunk_matrix.rows || r > this->chunk_matrix.rows ||
+        c < this->chunk_matrix.cols || c > this->chunk_matrix.cols) return 1;
+
+    if (r == 0) {
+        this->GenerateChunks(UP);
+    }
+    else if (r == this->chunk_matrix.rows) {
+        this->GenerateChunks(DOWN);
+    }
+    if (c == 0) {
+        this->GenerateChunks(LEFT);
+    }
+    else if (c == this->chunk_matrix.cols) {
+        this->GenerateChunks(RIGHT);
+    }
+
     return 0;
 }
 
 // TODO: use player_pos to get center of chunk mat and extend accordingly
 int Map::UpdateChunks(Point player_pos, Camera cam) {
     // update relative on-screen position wrt cam and apply to rect
+    // then generate new chunks to center around player pos
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
             Point d = this->chunk_matrix[i][j].world_pos - (cam.world_pos);
@@ -64,6 +91,9 @@ int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
         }
         else if (this->to_render[i].type == RED) {
             SDL_SetRenderDrawColor(rend, 200, 50, 50, 255);
+        }
+        else if (this->to_render[i].type == GREEN) {
+            SDL_SetRenderDrawColor(rend, 50, 200, 50, 255);
         }
         SDL_Rect r = this->to_render[i].dest_rect;
         if (cam.Contains(r)) {

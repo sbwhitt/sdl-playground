@@ -72,6 +72,12 @@ public:
                 }
                 outer[0] = add;
                 break;
+            case DOWN:
+                for (int i = 1; i < rows; i++) {
+                    outer[i-1] = outer[i];
+                }
+                outer[rows-1] = add;
+                break;
             case LEFT:
                 for (int i = 0; i < rows; i++) {
                     for (int j = cols-2; j >= 0; j--) {
@@ -79,12 +85,6 @@ public:
                     }
                     outer[i][0] = add[i];
                 }
-                break;
-            case DOWN:
-                for (int i = 1; i < rows; i++) {
-                    outer[i-1] = outer[i];
-                }
-                outer[rows-1] = add;
                 break;
             case RIGHT:
                 for (int i = 0; i < rows; i++) {
