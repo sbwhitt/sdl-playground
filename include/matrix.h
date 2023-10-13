@@ -3,6 +3,13 @@
 
 #include <vector>
 
+enum ExtendDir {
+    UP = 0,
+    LEFT = 1,
+    DOWN = 2,
+    RIGHT = 3
+};
+
 template <typename T>
 class Matrix {
 private:
@@ -56,12 +63,26 @@ public:
 
         return 0;
     }
-    int ExtendDown(std::vector<T> row) {
+    int Extend(ExtendDir dir, std::vector<T> add) {
         if (rows <= 1) return 1;
-        for (int i = 1; i < rows; i++) {
-            outer[i-1] = outer[i];
+        switch (dir) {
+            case UP:
+                for (int i = rows-2; i >= 0; i--) {
+                    outer[i+1] = outer[i];
+                }
+                outer[0] = add;
+                break;
+            case LEFT:
+                break;
+            case DOWN:
+                for (int i = 1; i < rows; i++) {
+                    outer[i-1] = outer[i];
+                }
+                outer[rows-1] = add;
+                break;
+            case RIGHT:
+                break;
         }
-        outer[rows-1] = row;
 
         return 0;
     }
