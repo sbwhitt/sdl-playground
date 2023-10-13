@@ -24,7 +24,7 @@ struct Chunk {
     }
     bool Contains(Point p) {
         return (p.x >= dest_rect.x && p.x <= dest_rect.x + dest_rect.w &&
-                p.y >= dest_rect.h && p.y <= dest_rect.y + dest_rect.h);
+                p.y >= dest_rect.y && p.y <= dest_rect.y + dest_rect.h);
     }
 };
 
