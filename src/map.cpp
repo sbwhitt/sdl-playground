@@ -36,9 +36,13 @@ int Map::GenerateChunks(ExtendDir dir) {
     std::vector<Chunk> v{c, c, c};
     switch (dir) {
         case UP:
+            break;
         case DOWN:
+            break;
         case LEFT:
+            break;
         case RIGHT:
+            break;
     }
     return 0;
 }
