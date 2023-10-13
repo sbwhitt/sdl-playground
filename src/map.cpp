@@ -67,7 +67,6 @@ int Map::CenterChunks(int r, int c) {
     return 0;
 }
 
-// TODO: use player_pos to get center of chunk mat and extend accordingly
 int Map::UpdateChunks(Point player_pos, Camera cam) {
     // update relative on-screen position wrt cam and apply to rect
     // then generate new chunks to center around player pos
