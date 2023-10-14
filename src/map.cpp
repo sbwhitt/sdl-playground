@@ -31,7 +31,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case UP: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetColorIncremented(adj[i].color), this->chunk_width, this->chunk_height};
+                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
                 c.world_pos.x = adj[i].world_pos.x;
                 c.world_pos.y += adj[i].world_pos.y - this->chunk_height;
                 v.push_back(c);
@@ -42,7 +42,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case DOWN: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetColorDecremented(adj[i].color), this->chunk_width, this->chunk_height};
+                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
                 c.world_pos.x = adj[i].world_pos.x;
                 c.world_pos.y += adj[i].world_pos.y + this->chunk_height;
                 v.push_back(c);
@@ -53,7 +53,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case LEFT: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetColorDecremented(adj[i].color), this->chunk_width, this->chunk_height};
+                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
                 c.world_pos.x += adj[i].world_pos.x - this->chunk_width;
                 c.world_pos.y = adj[i].world_pos.y;
                 v.push_back(c);
@@ -64,7 +64,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case RIGHT: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetColorIncremented(adj[i].color), this->chunk_width, this->chunk_height};
+                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
                 c.world_pos.x += adj[i].world_pos.x + this->chunk_width;
                 c.world_pos.y = adj[i].world_pos.y;
                 v.push_back(c);
