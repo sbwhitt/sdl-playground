@@ -64,7 +64,6 @@ int Game::Execute() {
     if (this->Load(this->renderer) != 0) return 1;
 
     while(this->running) {
-        // int dt = SDL_GetTicks() - this->ticks;
         while (SDL_GetTicks() - this->ticks < FRAME_DELAY) {
             continue;
         }
