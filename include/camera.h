@@ -13,12 +13,11 @@ private:
 public:
     int width;
     int height;
-    Point center{0, 0};
     Point world_pos{0, 0};
 
     int Init(int w, int h);
+    Point GetCenter();
     bool Contains(SDL_Rect r);
-    Point GetPosition();
     int Follow(Point scr_pos);
     int DrawOutline(SDL_Renderer *rend);
     int Move(int x, int y);

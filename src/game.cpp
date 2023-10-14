@@ -45,7 +45,7 @@ int Game::Load(SDL_Renderer *rend) {
         return 1;
     }
 
-    this->player.PlaceOnScreen(this->cam.center);
+    this->player.PlaceOnScreen(this->cam.GetCenter());
 
     return 0;
 }
