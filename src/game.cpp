@@ -58,8 +58,8 @@ int Game::Execute() {
     if (this->Load(this->renderer) != 0) return 1;
 
     while(this->running) {
-        // loose cap at 60 fps
-        while (SDL_GetTicks() - this->ticks < FRAME_DELAY) {
+        int dt = SDL_GetTicks() - this->ticks;
+        while (dt < FRAME_DELAY) {
             continue;
         }
 
