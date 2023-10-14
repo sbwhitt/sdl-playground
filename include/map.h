@@ -16,7 +16,7 @@ private:
     Matrix<Chunk> chunk_matrix;
     std::vector<Chunk> to_render;
 
-    int GenerateChunks(ExtendDir dir);
+    int GenerateChunks(ExtendDir dir, std::vector<Chunk> adj);
     int CenterChunks(int r, int c);
 
 public:

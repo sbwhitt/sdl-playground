@@ -23,8 +23,9 @@ struct Chunk {
         this->dest_rect.h = h;
     }
     bool Contains(Point p) {
-        return (p.x >= dest_rect.x && p.x <= dest_rect.x + dest_rect.w &&
-                p.y >= dest_rect.y && p.y <= dest_rect.y + dest_rect.h);
+        bool contains_x = p.x >= world_pos.x && p.x < world_pos.x + dest_rect.w;
+        bool contains_y = p.y >= world_pos.y && p.y < world_pos.y + dest_rect.h;
+        return contains_x && contains_y;
     }
 };
 

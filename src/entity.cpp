@@ -105,7 +105,8 @@ int Entity::Update(Camera cam) {
     // get difference in player and cam world position
     Point d = this->world_pos - cam.world_pos;
     // place player on screen wrt cam center offset by d
-    this->PlaceOnScreen(cam.center + d);
+    //this->PlaceOnScreen(cam.center + d);
+    this->PlaceOnScreen(d);
 
     return 0;
 }

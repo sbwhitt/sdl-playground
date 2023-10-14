@@ -17,7 +17,7 @@ int Map::InitChunkMatrix(int r, int c, int w, int h) {
             else {
                 this->chunk_matrix[i][j] = Chunk{RED, w, h};
             }
-            Point p{(-i + 1) * this->chunk_matrix[i][j].dest_rect.w, (-j + 1) * this->chunk_matrix[i][j].dest_rect.h};
+            Point p{(j - 1) * this->chunk_matrix[i][j].dest_rect.w, (i - 1) * this->chunk_matrix[i][j].dest_rect.h};
             this->chunk_matrix[i][j].world_pos = p;
             first = !first;
         }
@@ -30,38 +30,69 @@ Matrix<Chunk> Map::GetChunkMatrix() {
     return this->chunk_matrix;
 }
 
-int Map::GenerateChunks(ExtendDir dir) {
+int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
     // TODO: need way to fill new chunk positions
-    Chunk c{GREEN, this->chunk_width, this->chunk_height};
-    std::vector<Chunk> v{c, c, c};
     switch (dir) {
-        case UP:
+        case UP: {
+            std::vector<Chunk> v;
+            for (int i = 0; i < adj.size(); i++) {
+                Chunk c{GREEN, this->chunk_width, this->chunk_height};
+                c.world_pos.x = adj[i].world_pos.x;
+                c.world_pos.y += adj[i].world_pos.y - this->chunk_height;
+                v.push_back(c);
+            }
+            this->chunk_matrix.Extend(UP, v);
             break;
-        case DOWN:
+        }
+        case DOWN: {
+            std::vector<Chunk> v;
+            for (int i = 0; i < adj.size(); i++) {
+                Chunk c{GREEN, this->chunk_width, this->chunk_height};
+                c.world_pos.x = adj[i].world_pos.x;
+                c.world_pos.y += adj[i].world_pos.y + this->chunk_height;
+                v.push_back(c);
+            }
+            this->chunk_matrix.Extend(DOWN, v);
             break;
-        case LEFT:
+        }
+        case LEFT: {
+            std::vector<Chunk> v;
+            for (int i = 0; i < adj.size(); i++) {
+                Chunk c{GREEN, this->chunk_width, this->chunk_height};
+                c.world_pos.x += adj[i].world_pos.x - this->chunk_width;
+                c.world_pos.y = adj[i].world_pos.y;
+                v.push_back(c);
+            }
+            this->chunk_matrix.Extend(LEFT, v);
             break;
-        case RIGHT:
+        }
+        case RIGHT: {
+            std::vector<Chunk> v;
+            for (int i = 0; i < adj.size(); i++) {
+                Chunk c{GREEN, this->chunk_width, this->chunk_height};
+                c.world_pos.x += adj[i].world_pos.x + this->chunk_width;
+                c.world_pos.y = adj[i].world_pos.y;
+                v.push_back(c);
+            }
+            this->chunk_matrix.Extend(RIGHT, v);
             break;
+        }
     }
     return 0;
 }
 
 int Map::CenterChunks(int r, int c) {
-    if (r < this->chunk_matrix.rows || r > this->chunk_matrix.rows ||
-        c < this->chunk_matrix.cols || c > this->chunk_matrix.cols) return 1;
-
     if (r == 0) {
-        this->GenerateChunks(UP);
+        this->GenerateChunks(UP, this->chunk_matrix.GetRow(0));
     }
-    else if (r == this->chunk_matrix.rows) {
-        this->GenerateChunks(DOWN);
+    else if (r == this->chunk_matrix.rows-1) {
+        this->GenerateChunks(DOWN, this->chunk_matrix.GetRow(r));
     }
     if (c == 0) {
-        this->GenerateChunks(LEFT);
+        this->GenerateChunks(LEFT, this->chunk_matrix.GetCol(0));
     }
-    else if (c == this->chunk_matrix.cols) {
-        this->GenerateChunks(RIGHT);
+    else if (c == this->chunk_matrix.cols-1) {
+        this->GenerateChunks(RIGHT, this->chunk_matrix.GetCol(c));
     }
 
     return 0;
