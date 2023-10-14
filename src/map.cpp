@@ -31,6 +31,7 @@ Matrix<Chunk> Map::GetChunkMatrix() {
 }
 
 int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
+    // TODO: flashing after generating chunks down and to the right
     switch (dir) {
         case UP: {
             std::vector<Chunk> v;
