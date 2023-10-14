@@ -33,7 +33,7 @@ int Game::Init() {
 
     this->cam.Init(WIN_WIDTH, WIN_HEIGHT);
 
-    this->map.InitChunkMatrix(3, 3, WIN_WIDTH, WIN_HEIGHT);
+    this->map.InitChunkMatrix(3, 3, WIN_WIDTH*2, WIN_HEIGHT*2);
 
     return 0;
 }
@@ -159,7 +159,7 @@ int Game::Update(SDL_Renderer *rend) {
 }
 
 int Game::Draw(SDL_Renderer *rend) {
-    SDL_SetRenderDrawColor(rend, 50, 150, 200, 255);
+    SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
     SDL_RenderClear(rend);
 
     this->map.RenderChunks(rend, this->cam);

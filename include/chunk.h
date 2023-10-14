@@ -6,9 +6,8 @@
 #include "point.h"
 
 enum ChunkType {
-    RED = 0,
-    GREEN = 1,
-    BLUE = 2
+    RED = true,
+    BLUE = false
 };
 
 struct Chunk {
