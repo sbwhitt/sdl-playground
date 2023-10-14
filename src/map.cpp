@@ -25,54 +25,58 @@ Matrix<Chunk> Map::GetChunkMatrix() {
     return this->chunk_matrix;
 }
 
+Chunk Map::GenerateUpFrom(Chunk c1) {
+    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
+    c2.world_pos.x = c1.world_pos.x;
+    c2.world_pos.y += c1.world_pos.y - this->chunk_height;
+    return c2;
+}
+
+Chunk Map::GenerateDownFrom(Chunk c1) {
+    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
+    c2.world_pos.x = c1.world_pos.x;
+    c2.world_pos.y += c1.world_pos.y + this->chunk_height;
+    return c2;
+}
+
+Chunk Map::GenerateLeftFrom(Chunk c1) {
+    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
+    c2.world_pos.x += c1.world_pos.x - this->chunk_width;
+    c2.world_pos.y = c1.world_pos.y;
+    return c2;
+}
+
+Chunk Map::GenerateRightFrom(Chunk c1) {
+    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
+    c2.world_pos.x += c1.world_pos.x + this->chunk_width;
+    c2.world_pos.y = c1.world_pos.y;
+    return c2;
+}
+
 // TODO: too long
 int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
-    switch (dir) {
-        case UP: {
-            std::vector<Chunk> v;
-            for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
-                c.world_pos.x = adj[i].world_pos.x;
-                c.world_pos.y += adj[i].world_pos.y - this->chunk_height;
-                v.push_back(c);
+    std::vector<Chunk> v;
+    for (int i = 0; i < adj.size(); i++) {
+        switch (dir) {
+            case UP: {
+                v.push_back(GenerateUpFrom(adj[i]));
+                break;
             }
-            this->chunk_matrix.Extend(UP, v);
-            break;
-        }
-        case DOWN: {
-            std::vector<Chunk> v;
-            for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
-                c.world_pos.x = adj[i].world_pos.x;
-                c.world_pos.y += adj[i].world_pos.y + this->chunk_height;
-                v.push_back(c);
+            case DOWN: {
+                v.push_back(GenerateDownFrom(adj[i]));
+                break;
             }
-            this->chunk_matrix.Extend(DOWN, v);
-            break;
-        }
-        case LEFT: {
-            std::vector<Chunk> v;
-            for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
-                c.world_pos.x += adj[i].world_pos.x - this->chunk_width;
-                c.world_pos.y = adj[i].world_pos.y;
-                v.push_back(c);
+            case LEFT: {
+                v.push_back(GenerateLeftFrom(adj[i]));
+                break;
             }
-            this->chunk_matrix.Extend(LEFT, v);
-            break;
-        }
-        case RIGHT: {
-            std::vector<Chunk> v;
-            for (int i = 0; i < adj.size(); i++) {
-                Chunk c{GetRandomColor(), this->chunk_width, this->chunk_height};
-                c.world_pos.x += adj[i].world_pos.x + this->chunk_width;
-                c.world_pos.y = adj[i].world_pos.y;
-                v.push_back(c);
+            case RIGHT: {
+                v.push_back(GenerateRightFrom(adj[i]));
+                break;
             }
-            this->chunk_matrix.Extend(RIGHT, v);
-            break;
         }
     }
+    this->chunk_matrix.Extend(dir, v);
     return 0;
 }
 

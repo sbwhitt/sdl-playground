@@ -16,6 +16,10 @@ private:
     Matrix<Chunk> chunk_matrix;
     std::vector<Chunk> to_render;
 
+    Chunk GenerateUpFrom(Chunk c1);
+    Chunk GenerateDownFrom(Chunk c1);
+    Chunk GenerateLeftFrom(Chunk c1);
+    Chunk GenerateRightFrom(Chunk c1);
     int GenerateChunks(ExtendDir dir, std::vector<Chunk> adj);
     int CenterChunks(int r, int c);
 
