@@ -8,6 +8,9 @@
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
 
+#define FRAME_RATE 60
+#define FRAME_DELAY (int)(1000 / FRAME_RATE)
+
 Game::Game() {}
 
 int Game::Init() {
@@ -56,7 +59,7 @@ int Game::Execute() {
 
     while(this->running) {
         // loose cap at 60 fps
-        while (SDL_GetTicks() - this->ticks < 17) {
+        while (SDL_GetTicks() - this->ticks < FRAME_DELAY) {
             continue;
         }
 
