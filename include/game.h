@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "map.h"
 #include "entity.h"
+#include "player.h"
 
 class Game {
 private:
@@ -19,7 +20,7 @@ private:
     Control ctrl;
     Camera cam;
     Map map;
-    Entity player;
+    Player player;
     Entity buddy;
 
     int Init();

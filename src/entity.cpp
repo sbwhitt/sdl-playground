@@ -1,5 +1,3 @@
-#include <iostream>
-#include <math.h>
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
@@ -37,27 +35,6 @@ int Entity::Move(int x, int y) {
     return 0;
 }
 
-int Entity::Push(double amnt) {
-    // x = cos(angle*pi / 180), y = sin(angle*pi / 180) (converting angle from degrees to radians)
-    Vec2 p{cos((this->angle*M_PI)/180)*amnt, sin((this->angle*M_PI)/180)*amnt};
-    this->vel += p;
-
-    return 0;
-}
-
-int Entity::Push(Vec2 v) {
-    this->vel += v;
-
-    return 0;
-}
-
-int Entity::Push(double x, double y) {
-    this->vel.x += x;
-    this->vel.y += y;
-
-    return 0;
-}
-
 int Entity::PlaceOnScreen(Point p) {
     // place at point centered
     this->dest_rect.x = p.x - this->dest_rect.w/2;
@@ -89,17 +66,7 @@ int Entity::Rotate(int d) {
 }
 
 int Entity::Update(Camera cam) {
-    if (this->vel.x > 0) this->vel.x -= 0.2;
-    else if (this->vel.x < 0) this->vel.x += 0.2;
-    if (this->vel.y > 0) this->vel.y -= 0.2;
-    else if (this->vel.y < 0) this->vel.y += 0.2;
-
-    this->Move((int)this->vel.x, (int)this->vel.y);
-
-    // get difference in player and cam world position
     Point d = this->world_pos - cam.world_pos;
-    // place player on screen wrt cam center offset by d
-    //this->PlaceOnScreen(cam.center + d);
     this->PlaceOnScreen(d);
 
     return 0;
