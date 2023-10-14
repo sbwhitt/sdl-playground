@@ -40,20 +40,20 @@ int Entity::Move(int x, int y) {
 int Entity::Push(double amnt) {
     // x = cos(angle*pi / 180), y = sin(angle*pi / 180) (converting angle from degrees to radians)
     Vec2 p{cos((this->angle*M_PI)/180)*amnt, sin((this->angle*M_PI)/180)*amnt};
-    this->acc += p;
+    this->vel += p;
 
     return 0;
 }
 
 int Entity::Push(Vec2 v) {
-    this->acc += v;
+    this->vel += v;
 
     return 0;
 }
 
 int Entity::Push(double x, double y) {
-    this->acc.x += x;
-    this->acc.y += y;
+    this->vel.x += x;
+    this->vel.y += y;
 
     return 0;
 }
@@ -89,12 +89,6 @@ int Entity::Rotate(int d) {
 }
 
 int Entity::Update(Camera cam) {
-    this->vel += this->acc;
-
-    // TODO: terribly handling vel/acc decay
-    this->acc.x = this->acc.x/4;
-    this->acc.y = this->acc.y/4;
-
     if (this->vel.x > 0) this->vel.x -= 0.2;
     else if (this->vel.x < 0) this->vel.x += 0.2;
     if (this->vel.y > 0) this->vel.y -= 0.2;

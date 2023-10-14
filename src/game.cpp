@@ -97,26 +97,14 @@ int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
 }
 
 int Game::HandleKeys() {
-    // if (this->ctrl.CheckKey(SDLK_w)) {
-    //     this->player.Push(0, -0.3);
-    // }
-    // if (this->ctrl.CheckKey(SDLK_s)) {
-    //     this->player.Push(0, 0.3);
-    // }
-    // if (this->ctrl.CheckKey(SDLK_a)) {
-    //     this->player.Push(-0.3, 0);
-    // }
-    // if (this->ctrl.CheckKey(SDLK_d)) {
-    //     this->player.Push(0.3, 0);
-    // }
     if (this->ctrl.CheckKey(SDLK_q)) {
-        this->player.Rotate(-3.5);
+        this->player.Rotate(-5);
     }
     if (this->ctrl.CheckKey(SDLK_e)) {
-        this->player.Rotate(3.5);
+        this->player.Rotate(5);
     }
     if (this->ctrl.CheckKey(SDLK_SPACE)) {
-        this->player.Push(1);
+        this->player.Push(0.66);
     }
 
     return 0;
