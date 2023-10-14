@@ -53,7 +53,6 @@ Chunk Map::GenerateRightFrom(Chunk c1) {
     return c2;
 }
 
-// TODO: too long
 int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
     std::vector<Chunk> v;
     for (int i = 0; i < adj.size(); i++) {
