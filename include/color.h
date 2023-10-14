@@ -1,21 +1,22 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <SDL_stdinc.h>
 #include <stdlib.h>
 
 struct Color {
-    int r;
-    int g;
-    int b;
-    int a = 255;
+    Uint8 r;
+    Uint8 g;
+    Uint8 b;
+    Uint8 a = 255;
 
     Color() {}
-    Color(int red, int green, int blue) {
+    Color(Uint8 red, Uint8 green, Uint8 blue) {
         r = red;
         g = green;
         b = blue;
     }
-    Color(int red, int green, int blue, int alpha) {
+    Color(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) {
         r = red;
         g = green;
         b = blue;
