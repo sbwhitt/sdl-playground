@@ -5,7 +5,7 @@
 #include "render.h"
 #include "map.h"
 
-#define WIN_WIDTH 1080
+#define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
 
 Game::Game() {}
@@ -16,7 +16,7 @@ int Game::Init() {
         return 1;
     }
 
-    if (this->window.Create(300, 100, WIN_WIDTH, WIN_HEIGHT) != 0) {
+    if (this->window.Create(150, 30, WIN_WIDTH, WIN_HEIGHT) != 0) {
         SDL_Quit();
         return 1;
     }
