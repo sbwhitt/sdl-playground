@@ -2,7 +2,7 @@
 
 #include "game.h"
 #include "error.h"
-#include "graphics.h"
+#include "render.h"
 #include "map.h"
 
 #define WIN_WIDTH 1080
@@ -158,7 +158,7 @@ int Game::Update(SDL_Renderer *rend) {
 }
 
 int Game::Draw(SDL_Renderer *rend) {
-    SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
+    SetRenderColor(rend, Color{0, 0, 0});
     SDL_RenderClear(rend);
 
     this->map.RenderChunks(rend, this->cam);

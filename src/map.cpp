@@ -3,6 +3,7 @@
 #include "map.h"
 #include "error.h"
 #include "chunk.h"
+#include "render.h"
 
 int Map::InitChunkMatrix(int r, int c, int w, int h) {
     this->chunk_width = w;
@@ -127,10 +128,10 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
 int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
     for (int i = 0; i < this->to_render.size(); i++) {
         if (this->to_render[i].type == BLUE) {
-            SDL_SetRenderDrawColor(rend, 50, 50, 200, 255);
+            SetRenderColor(rend, Color{50, 50, 200});
         }
         else if (this->to_render[i].type == RED) {
-            SDL_SetRenderDrawColor(rend, 200, 50, 50, 255);
+            SetRenderColor(rend, Color{200, 50, 50});
         }
         SDL_Rect r = this->to_render[i].dest_rect;
         if (SDL_RenderFillRect(rend, &r) != 0) {
