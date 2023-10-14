@@ -127,11 +127,9 @@ int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
             SDL_SetRenderDrawColor(rend, 200, 50, 50, 255);
         }
         SDL_Rect r = this->to_render[i].dest_rect;
-        if (cam.Contains(r)) {
-            if (SDL_RenderFillRect(rend, &r) != 0) {
-                SDLErrorMsg("map.cpp error rendering chunk rect: ");
-                return 1;
-            }
+        if (SDL_RenderFillRect(rend, &r) != 0) {
+            SDLErrorMsg("map.cpp error rendering chunk rect: ");
+            return 1;
         }
     }
     this->to_render.clear();
