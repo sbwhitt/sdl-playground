@@ -30,8 +30,8 @@ Matrix<Chunk> Map::GetChunkMatrix() {
     return this->chunk_matrix;
 }
 
+// TODO: too long
 int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
-    // TODO: flashing after generating chunks down and to the right
     switch (dir) {
         case UP: {
             std::vector<Chunk> v;
@@ -81,6 +81,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
     return 0;
 }
 
+// TODO: is this necessary?
 int Map::CenterChunks(int r, int c) {
     if (r == 0) {
         this->GenerateChunks(UP, this->chunk_matrix.GetRow(0));
@@ -98,19 +99,23 @@ int Map::CenterChunks(int r, int c) {
     return 0;
 }
 
+// TODO: too long
 int Map::UpdateChunks(Point player_pos, Camera cam) {
-    // update relative on-screen position wrt cam and apply to rect
-    // then generate new chunks to center around player pos
+    // checking if player is on an edge chunk so matrix can be extended
+    for (int i = 0; i < this->chunk_matrix.rows; i++) {
+        for (int j = 0; j < this->chunk_matrix.cols; j++) {
+            if (this->chunk_matrix[i][j].Contains(player_pos)) {
+                this->CenterChunks(i, j);
+            }
+        }
+    }
+    // updating chunks and finding which to render
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
             Point d = this->chunk_matrix[i][j].world_pos - (cam.world_pos);
             this->chunk_matrix[i][j].dest_rect.x = d.x;
             this->chunk_matrix[i][j].dest_rect.y = d.y;
-            if (this->chunk_matrix[i][j].Contains(player_pos)) {
-                this->CenterChunks(i, j);
-            }
-            SDL_Rect r = this->chunk_matrix[i][j].dest_rect;
-            if (cam.Contains(r)) {
+            if (cam.Contains(this->chunk_matrix[i][j].dest_rect)) {
                 this->to_render.push_back(this->chunk_matrix[i][j]);
             }
         }
