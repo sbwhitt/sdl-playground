@@ -2,6 +2,7 @@
 
 #include "map.h"
 #include "error.h"
+#include "color.h"
 #include "chunk.h"
 #include "render.h"
 
@@ -9,18 +10,11 @@ int Map::InitChunkMatrix(int r, int c, int w, int h) {
     this->chunk_width = w;
     this->chunk_height = h;
     this->chunk_matrix.Build(r, c);
-    bool first = true;
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
-            if (first) {
-                this->chunk_matrix[i][j] = Chunk{BLUE, w, h};
-            }
-            else {
-                this->chunk_matrix[i][j] = Chunk{RED, w, h};
-            }
+            this->chunk_matrix[i][j] = Chunk{GetRandomColor(), w, h};
             Point p{(j - 1) * this->chunk_matrix[i][j].dest_rect.w, (i - 1) * this->chunk_matrix[i][j].dest_rect.h};
             this->chunk_matrix[i][j].world_pos = p;
-            first = !first;
         }
     }
 
@@ -37,7 +31,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case UP: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{(ChunkType)!adj[i].type, this->chunk_width, this->chunk_height};
+                Chunk c{GetColorIncremented(adj[i].color), this->chunk_width, this->chunk_height};
                 c.world_pos.x = adj[i].world_pos.x;
                 c.world_pos.y += adj[i].world_pos.y - this->chunk_height;
                 v.push_back(c);
@@ -48,7 +42,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case DOWN: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{(ChunkType)!adj[i].type, this->chunk_width, this->chunk_height};
+                Chunk c{GetColorDecremented(adj[i].color), this->chunk_width, this->chunk_height};
                 c.world_pos.x = adj[i].world_pos.x;
                 c.world_pos.y += adj[i].world_pos.y + this->chunk_height;
                 v.push_back(c);
@@ -59,7 +53,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case LEFT: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{(ChunkType)!adj[i].type, this->chunk_width, this->chunk_height};
+                Chunk c{GetColorDecremented(adj[i].color), this->chunk_width, this->chunk_height};
                 c.world_pos.x += adj[i].world_pos.x - this->chunk_width;
                 c.world_pos.y = adj[i].world_pos.y;
                 v.push_back(c);
@@ -70,7 +64,7 @@ int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
         case RIGHT: {
             std::vector<Chunk> v;
             for (int i = 0; i < adj.size(); i++) {
-                Chunk c{(ChunkType)!adj[i].type, this->chunk_width, this->chunk_height};
+                Chunk c{GetColorIncremented(adj[i].color), this->chunk_width, this->chunk_height};
                 c.world_pos.x += adj[i].world_pos.x + this->chunk_width;
                 c.world_pos.y = adj[i].world_pos.y;
                 v.push_back(c);
@@ -127,12 +121,7 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
 
 int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
     for (int i = 0; i < this->to_render.size(); i++) {
-        if (this->to_render[i].type == BLUE) {
-            SetRenderColor(rend, Color{50, 50, 200});
-        }
-        else if (this->to_render[i].type == RED) {
-            SetRenderColor(rend, Color{200, 50, 50});
-        }
+        SetRenderColor(rend, this->to_render[i].color);
         SDL_Rect r = this->to_render[i].dest_rect;
         if (SDL_RenderFillRect(rend, &r) != 0) {
             SDLErrorMsg("map.cpp error rendering chunk rect: ");

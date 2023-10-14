@@ -4,22 +4,18 @@
 #include <SDL_rect.h>
 
 #include "point.h"
-
-enum ChunkType {
-    RED = true,
-    BLUE = false
-};
+#include "color.h"
 
 struct Chunk {
     SDL_Rect dest_rect;
-    ChunkType type;
+    Color color;
     Point world_pos{0, 0};
 
     Chunk() {}
-    Chunk(ChunkType t, int w, int h) {
-        this->type = t;
-        this->dest_rect.w = w;
-        this->dest_rect.h = h;
+    Chunk(Color c, int w, int h) {
+        color = c;
+        dest_rect.w = w;
+        dest_rect.h = h;
     }
     bool Contains(Point p) {
         bool contains_x = p.x >= world_pos.x && p.x < world_pos.x + dest_rect.w;
