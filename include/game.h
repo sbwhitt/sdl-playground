@@ -20,6 +20,7 @@ private:
     Camera cam;
     Map map;
     Entity player;
+    Entity buddy;
 
     int Init();
     int Load(SDL_Renderer *rend);

@@ -46,8 +46,14 @@ int Game::Load(SDL_Renderer *rend) {
         SDLErrorMsg("SDL error loading resource: ");
         return 1;
     }
-
     this->player.PlaceOnScreen(this->cam.GetCenter());
+
+    Resource b{"res/blowfish.bmp", 120, 100};
+    if (this->buddy.LoadFromResource(rend, b) != 0) {
+        SDLErrorMsg("SDL error loading resource: ");
+        return 1;
+    }
+    this->buddy.PlaceOnScreen(this->cam.GetCenter());
 
     return 0;
 }
@@ -58,8 +64,8 @@ int Game::Execute() {
     if (this->Load(this->renderer) != 0) return 1;
 
     while(this->running) {
-        int dt = SDL_GetTicks() - this->ticks;
-        while (dt < FRAME_DELAY) {
+        // int dt = SDL_GetTicks() - this->ticks;
+        while (SDL_GetTicks() - this->ticks < FRAME_DELAY) {
             continue;
         }
 
@@ -140,8 +146,10 @@ int Game::Update(SDL_Renderer *rend) {
 
     this->map.UpdateChunks(this->player.world_pos, this->cam);
     this->player.Update(this->cam);
+    this->buddy.Update(this->cam);
 
     this->cam.Follow(this->player.GetScreenPosition());
+    this->buddy.Follow(this->player.world_pos);
 
     this->ticks = SDL_GetTicks();
 
@@ -153,9 +161,8 @@ int Game::Draw(SDL_Renderer *rend) {
     SDL_RenderClear(rend);
 
     this->map.RenderChunks(rend, this->cam);
+    this->buddy.Draw(rend, this->cam);
     this->player.Draw(rend, this->cam);
-
-    // this->cam.DrawOutline(rend);
 
     SDL_RenderPresent(rend);
     return 0;

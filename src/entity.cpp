@@ -105,6 +105,14 @@ int Entity::Update(Camera cam) {
     return 0;
 }
 
+int Entity::Follow(Point scr_pos) {
+    int dx = scr_pos.x - this->dest_rect.w - this->world_pos.x;
+    int dy = scr_pos.y - this->dest_rect.h - this->world_pos.y;
+    this->Move(dx/4, dy/4);
+
+    return 0;
+}
+
 int Entity::Draw(SDL_Renderer *rend, Camera cam) {
     if (cam.Contains(this->GetRect())) {
         if (SDL_RenderCopyEx(rend, this->sdl_tex, NULL, &this->dest_rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {

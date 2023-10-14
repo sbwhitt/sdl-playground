@@ -31,6 +31,7 @@ public:
     SDL_Rect GetRect();
     int Rotate(int d);
     int Update(Camera cam);
+    int Follow(Point scr_pos);
     int Draw(SDL_Renderer *rend, Camera cam);
 };
 
