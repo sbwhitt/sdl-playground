@@ -3,7 +3,6 @@
 #include "game.h"
 #include "error.h"
 #include "graphics.h"
-#include "mouse.h"
 #include "map.h"
 
 #define WIN_WIDTH 1080

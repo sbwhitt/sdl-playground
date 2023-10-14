@@ -2,7 +2,6 @@
 #include <SDL.h>
 
 #include "graphics.h"
-#include "mouse.h"
 #include "point.h"
 
 int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {
@@ -11,16 +10,16 @@ int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {
     return 0;
 }
 
-int DrawPoints(SDL_Renderer *rend, std::vector<Point> points) {
-    if (points.size() > 0) DrawLine(rend, points.back(), GetMousePosition());
-    if (points.size() < 2) return 0;
+// int DrawPoints(SDL_Renderer *rend, std::vector<Point> points) {
+//     if (points.size() > 0) DrawLine(rend, points.back(), GetMousePosition());
+//     if (points.size() < 2) return 0;
 
-    for (uint8_t i = 0; i < points.size()-1; i++) {
-        DrawLine(rend, points[i], points[i+1]);
-    }
+//     for (uint8_t i = 0; i < points.size()-1; i++) {
+//         DrawLine(rend, points[i], points[i+1]);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 int DrawMouseLines(SDL_Renderer *rend, int w, int h) {
     int x, y;
