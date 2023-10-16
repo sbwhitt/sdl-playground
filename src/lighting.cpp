@@ -15,6 +15,7 @@ Lighting::~Lighting() {
 int Lighting::Load(SDL_Renderer *rend, std::vector<Resource> rs) {
     for (int i = 0; i < rs.size(); i++) {
         this->textures.push_back(new Texture{rend, rs[i]});
+        this->textures[i]->SetAlpha(0);
     }
 
     return 0;
