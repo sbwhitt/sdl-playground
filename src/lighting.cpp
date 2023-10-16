@@ -20,6 +20,7 @@ int Lighting::Load(SDL_Renderer *rend, std::vector<Resource> rs) {
     return 0;
 }
 
+// TODO: animate all bg textures differently
 int Lighting::Update(int dt) {
     this->timer += dt;
     if (this->timer > 40) {
