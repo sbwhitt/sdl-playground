@@ -3,8 +3,8 @@
 #include "player.h"
 
 int Player::Push(double amnt) {
-    // x = cos(angle*pi / 180), y = sin(angle*pi / 180) (converting angle from degrees to radians)
-    Vec2 p{cos((this->angle*M_PI)/180)*amnt, sin((this->angle*M_PI)/180)*amnt};
+    // x = cos(angle*pi / 180), y = sin(tex->angle*pi / 180) (converting tex->angle from degrees to radians)
+    Vec2 p{cos((this->tex->angle*M_PI)/180)*amnt, sin((this->tex->angle*M_PI)/180)*amnt};
     this->vel += p;
 
     return 0;

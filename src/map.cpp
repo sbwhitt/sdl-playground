@@ -12,7 +12,7 @@ int Map::InitChunkMatrix(int r, int c, int w, int h) {
     this->chunk_matrix.Build(r, c);
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
-            this->chunk_matrix[i][j] = Chunk{GetRandomColor(), w, h};
+            this->chunk_matrix[i][j] = Chunk{Color{20, 80, 150}, w, h};
             Point p{(j - 1) * this->chunk_matrix[i][j].dest_rect.w, (i - 1) * this->chunk_matrix[i][j].dest_rect.h};
             this->chunk_matrix[i][j].world_pos = p;
         }

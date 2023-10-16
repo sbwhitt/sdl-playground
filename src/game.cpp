@@ -4,6 +4,7 @@
 #include "error.h"
 #include "render.h"
 #include "map.h"
+#include "texture.h"
 
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
@@ -41,19 +42,17 @@ int Game::Init() {
 }
 
 int Game::Load(SDL_Renderer *rend) {
-    Resource f{"res/fish.bmp", 200, 100};
-    if (this->player.LoadFromResource(rend, f) != 0) {
-        SDLErrorMsg("SDL error loading resource: ");
-        return 1;
-    }
+    this->player.LoadTexture(rend, Resource{"res/fish.bmp", 200, 100});
     this->player.PlaceOnScreen(this->cam.GetCenter());
 
-    Resource b{"res/blowfish.bmp", 120, 100};
-    if (this->buddy.LoadFromResource(rend, b) != 0) {
-        SDLErrorMsg("SDL error loading resource: ");
-        return 1;
-    }
+    this->buddy.LoadTexture(rend, Resource{"res/blowfish.bmp", 150, 100});
     this->buddy.PlaceOnScreen(this->cam.GetCenter());
+
+    Resource r1{"res/caustic_bg1.bmp", WIN_WIDTH, WIN_HEIGHT};
+    Resource r2{"res/caustic_bg2.bmp", WIN_WIDTH, WIN_HEIGHT};
+    Resource r3{"res/caustic_bg3.bmp", WIN_WIDTH, WIN_HEIGHT};
+    Resource r4{"res/caustic_bg4.bmp", WIN_WIDTH, WIN_HEIGHT};
+    this->lighting.Load(rend, std::vector<Resource>{r1, r2, r3, r4});
 
     return 0;
 }
@@ -63,12 +62,14 @@ int Game::Execute() {
 
     if (this->Load(this->renderer) != 0) return 1;
 
+    int dt = 0;
     while(this->running) {
         while (SDL_GetTicks() - this->ticks < FRAME_DELAY) {
             continue;
         }
 
-        if (this->Update(this->renderer) != 0 ||
+        dt = SDL_GetTicks() - this->ticks;
+        if (this->Update(this->renderer, dt) != 0 ||
             this->Draw(this->renderer)   != 0) 
         {
             return 1;
@@ -139,7 +140,7 @@ int Game::HandleEvents() {
     return 0;
 }
 
-int Game::Update(SDL_Renderer *rend) {
+int Game::Update(SDL_Renderer *rend, int dt) {
     this->HandleEvents();
     this->HandleKeys();
 
@@ -149,6 +150,8 @@ int Game::Update(SDL_Renderer *rend) {
 
     this->cam.Follow(this->player.GetScreenPosition());
     this->buddy.Follow(this->player.world_pos);
+
+    this->lighting.Update(dt);
 
     this->ticks = SDL_GetTicks();
 
@@ -162,6 +165,7 @@ int Game::Draw(SDL_Renderer *rend) {
     this->map.RenderChunks(rend, this->cam);
     this->buddy.Draw(rend, this->cam);
     this->player.Draw(rend, this->cam);
+    this->lighting.Draw(rend);
 
     SDL_RenderPresent(rend);
     return 0;

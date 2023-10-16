@@ -7,6 +7,7 @@
 #include "window.h"
 #include "control.h"
 #include "camera.h"
+#include "lighting.h"
 #include "map.h"
 #include "entity.h"
 #include "player.h"
@@ -22,6 +23,7 @@ private:
     Map map;
     Player player;
     Entity buddy;
+    Lighting lighting;
 
     int Init();
     int Load(SDL_Renderer *rend);
@@ -29,7 +31,7 @@ private:
     int HandleMouseDown(SDL_MouseButtonEvent button);
     int HandleEvents();
     int HandleKeys();
-    int Update(SDL_Renderer *rend);
+    int Update(SDL_Renderer *rend, int dt);
     int Draw(SDL_Renderer *rend);
     int Cleanup();
 

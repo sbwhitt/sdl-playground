@@ -5,23 +5,15 @@
 #include "error.h"
 #include "point.h"
 #include "vec2.h"
+#include "resource.h"
 
 Entity::~Entity() {
-    SDL_DestroyTexture(this->sdl_tex);
-    this->sdl_tex = NULL;
+    delete this->tex;
+    this->tex = NULL;
 }
 
-int Entity::LoadFromResource(SDL_Renderer *rend, Resource res) {
-    this->sdl_tex = SDL_CreateTextureFromSurface(rend, SDL_LoadBMP(res.file));
-    if (this->sdl_tex == nullptr) {
-        SDLErrorMsg("SDL error loading texture: ");
-        return 1;
-    }
-
-    this->dest_rect.x = 0;
-    this->dest_rect.y = 0;
-    this->dest_rect.w = res.width;
-    this->dest_rect.h = res.height;
+int Entity::LoadTexture(SDL_Renderer *rend, Resource r) {
+    this->tex->LoadFromResource(rend, r);
 
     return 0;
 }
@@ -37,30 +29,30 @@ int Entity::Move(int x, int y) {
 
 int Entity::PlaceOnScreen(Point p) {
     // place at point centered
-    this->dest_rect.x = p.x - this->dest_rect.w/2;
-    this->dest_rect.y = p.y - this->dest_rect.h/2;
+    this->tex->rect.x = p.x - this->tex->rect.w/2;
+    this->tex->rect.y = p.y - this->tex->rect.h/2;
 
     return 0;
 }
 
 Point Entity::GetScreenPosition() {
     // get position centered
-    return Point{this->dest_rect.x + this->dest_rect.w/2, this->dest_rect.y + this->dest_rect.h/2};
+    return Point{this->tex->rect.x + this->tex->rect.w/2, this->tex->rect.y + this->tex->rect.h/2};
 }
 
 SDL_Rect Entity::GetRect() {
-    return this->dest_rect;
+    return this->tex->rect;
 }
 
 int Entity::Rotate(int d) {
-    // keeping angle between 0 and 360 degrees because... i want to?
-    if ((this->angle + d) > 360) {
-        this->angle = (this->angle + d) - 360;
+    // keeping tex->angle between 0 and 360 degrees because... i want to?
+    if ((this->tex->angle + d) > 360) {
+        this->tex->angle = (this->tex->angle + d) - 360;
     }
-    else if ((this->angle + d) < 0) {
-        this->angle = (this->angle + d) + 360;
+    else if ((this->tex->angle + d) < 0) {
+        this->tex->angle = (this->tex->angle + d) + 360;
     }
-    else this->angle += d;
+    else this->tex->angle += d;
 
     return 0;
 }
@@ -73,19 +65,16 @@ int Entity::Update(Camera cam) {
 }
 
 int Entity::Follow(Point scr_pos) {
-    int dx = scr_pos.x - this->dest_rect.w - this->world_pos.x;
-    int dy = scr_pos.y - this->dest_rect.h - this->world_pos.y;
+    int dx = scr_pos.x - this->tex->rect.w - this->world_pos.x;
+    int dy = scr_pos.y - this->tex->rect.h - this->world_pos.y;
     this->Move(dx/4, dy/4);
 
     return 0;
 }
 
 int Entity::Draw(SDL_Renderer *rend, Camera cam) {
-    if (cam.Contains(this->GetRect())) {
-        if (SDL_RenderCopyEx(rend, this->sdl_tex, NULL, &this->dest_rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {
-            SDLErrorMsg("SDL error drawing texture: ");
-            return 1;
-        }
+    if (cam.Contains(this->tex->rect)) {
+        this->tex->Render(rend);
     }
 
     return 0;

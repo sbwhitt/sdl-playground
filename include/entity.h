@@ -8,20 +8,19 @@
 #include "point.h"
 #include "vec2.h"
 #include "camera.h"
+#include "texture.h"
 
 class Entity {
 protected:
-    double angle = 0;
     Vec2 vel{0, 0};
     Vec2 acc{0, 0};
-    SDL_Texture *sdl_tex;
-    SDL_Rect dest_rect;
+    Texture *tex = new Texture();
 
 public:
     Point world_pos{0, 0};
 
     ~Entity();
-    int LoadFromResource(SDL_Renderer *rend, Resource res);
+    int LoadTexture(SDL_Renderer *rend, Resource r);
     int Move(int x, int y);
     int PlaceOnScreen(Point p);
     Point GetScreenPosition();
