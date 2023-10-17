@@ -7,12 +7,14 @@
 
 #include "resource.h"
 #include "error.h"
+#include "animation.h"
 
 struct Texture {
     Uint8 alpha;
     double angle = 0;
     SDL_Texture *texture = NULL;
     SDL_Rect rect;
+    Animation a;
 
     Texture() {}
     Texture(SDL_Renderer *rend, Resource r) {
