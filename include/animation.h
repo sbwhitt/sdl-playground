@@ -5,14 +5,14 @@
 
 struct Animation {
     int timer = 0;
-    Uint8 value;
-    Uint8 from;
-    Uint8 to;
+    int value;
+    int from;
+    int to;
     int interval;
     bool dir = true;
 
     Animation() {}
-    Animation(Uint8 f, Uint8 t, int i) {
+    Animation(int f, int t, int i) {
         this->from = f;
         this->value = f;
         this->to = t;

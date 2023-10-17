@@ -1,6 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include <vector>
 #include <SDL_stdinc.h>
 #include <SDL_render.h>
 #include <SDL_rect.h>
@@ -14,7 +15,7 @@ struct Texture {
     double angle = 0;
     SDL_Texture *texture = NULL;
     SDL_Rect rect;
-    Animation a;
+    std::vector<Animation> anims;
 
     Texture() {}
     Texture(SDL_Renderer *rend, Resource r) {
@@ -56,6 +57,14 @@ struct Texture {
         {
             SDLErrorMsg("texture.h error setting alpha: ");
             return 1;
+        }
+
+        return 0;
+    }
+    int UpdateAnimations(int dt) {
+        for (int i = 0; i < this->anims.size(); i++) {
+            this->anims[i].Update(dt);
+            this->SetAlpha(this->anims[i].value);
         }
 
         return 0;
