@@ -8,14 +8,14 @@
 
 #include "resource.h"
 #include "error.h"
-#include "animation.h"
+#include "animations/animation.h"
 
 struct Texture {
     Uint8 alpha;
     double angle = 0;
     SDL_Texture *texture = NULL;
     SDL_Rect rect;
-    std::vector<Animation> anims;
+    std::vector<Animation*> anims;
 
     Texture() {}
     Texture(SDL_Renderer *rend, Resource r) {
@@ -24,6 +24,12 @@ struct Texture {
     ~Texture() {
         SDL_DestroyTexture(this->texture);
         this->texture = NULL;
+
+        for (int i = 0; i < this->anims.size(); i++) {
+            delete this->anims[i];
+            this->anims[i] = NULL;
+        }
+        this->anims.clear();
     }
     int LoadFromResource(SDL_Renderer *rend, Resource res) {
         this->texture = SDL_CreateTextureFromSurface(rend, SDL_LoadBMP(res.file));
@@ -63,8 +69,8 @@ struct Texture {
     }
     int UpdateAnimations(int dt) {
         for (int i = 0; i < this->anims.size(); i++) {
-            this->anims[i].Update(dt);
-            this->SetAlpha(this->anims[i].value);
+            this->anims[i]->Update(dt);
+            this->SetAlpha(this->anims[i]->value);
         }
 
         return 0;

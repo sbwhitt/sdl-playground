@@ -4,7 +4,10 @@
 #include "error.h"
 
 void SDLErrorMsg(const char *msg) {
-    printf(msg);
-    printf(SDL_GetError());
-    // std::cout << msg << SDL_GetError() << std::endl;
+    printf("%s\n", msg);
+    printf("\t%s\n", SDL_GetError());
+}
+
+void ErrorMsg(const char *msg) {
+    printf("Error: %s\n", msg);
 }
