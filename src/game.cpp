@@ -3,7 +3,7 @@
 #include "game.h"
 #include "utils/error.h"
 #include "render.h"
-#include "map.h"
+#include "map/map.h"
 #include "texture.h"
 
 #define WIN_WIDTH 1280

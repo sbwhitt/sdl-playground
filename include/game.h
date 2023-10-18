@@ -8,7 +8,7 @@
 #include "control.h"
 #include "game_objects/camera.h"
 #include "lighting.h"
-#include "map.h"
+#include "map/map.h"
 #include "game_objects/entity.h"
 #include "game_objects/player.h"
 

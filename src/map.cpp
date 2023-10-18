@@ -1,9 +1,9 @@
 #include <SDL_render.h>
 
-#include "map.h"
+#include "map/map.h"
 #include "utils/error.h"
 #include "utils/color.h"
-#include "chunk.h"
+#include "map/chunk.h"
 #include "render.h"
 
 int Map::InitChunkMatrix(int r, int c, int w, int h) {

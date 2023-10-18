@@ -4,9 +4,9 @@
 // stopping undefined reference to WinMain
 #define SDL_MAIN_HANDLED
 
-#include "map.h"
+#include "map/map.h"
 #include "utils/matrix.h"
-#include "chunk.h"
+#include "map/chunk.h"
 
 void print(Matrix<int> m, int r, int c) {
     for (int i = 0; i < 3; i++) {

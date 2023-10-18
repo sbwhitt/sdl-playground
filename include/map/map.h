@@ -5,7 +5,7 @@
 #include <SDL.h>
 
 #include "utils/matrix.h"
-#include "chunk.h"
+#include "map/chunk.h"
 #include "utils/point.h"
 #include "game_objects/camera.h"
 
