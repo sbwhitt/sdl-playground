@@ -164,7 +164,7 @@ int Game::Draw(SDL_Renderer *rend) {
     this->map.RenderChunks(rend, this->cam);
     this->buddy.Draw(rend, this->cam);
     this->player.Draw(rend, this->cam);
-    this->lighting.Draw(rend);
+    // this->lighting.Draw(rend);
 
     SDL_RenderPresent(rend);
     return 0;

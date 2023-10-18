@@ -33,14 +33,14 @@ Chunk Map::GenerateUpFrom(Chunk c1) {
 }
 
 Chunk Map::GenerateDownFrom(Chunk c1) {
-    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
+    Chunk c2{GetColorDecremented(c1.color), this->chunk_width, this->chunk_height};
     c2.world_pos.x = c1.world_pos.x;
     c2.world_pos.y += c1.world_pos.y + this->chunk_height;
     return c2;
 }
 
 Chunk Map::GenerateLeftFrom(Chunk c1) {
-    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
+    Chunk c2{GetColorDecremented(c1.color), this->chunk_width, this->chunk_height};
     c2.world_pos.x += c1.world_pos.x - this->chunk_width;
     c2.world_pos.y = c1.world_pos.y;
     return c2;
