@@ -5,7 +5,7 @@
 
 #include "game_objects/camera.h"
 #include "utils/point.h"
-#include "utils/graphics.h"
+#include "render/graphics.h"
 #include "game_objects/entity.h"
 
 int Camera::Init(int w, int h) {
