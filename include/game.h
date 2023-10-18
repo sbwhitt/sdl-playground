@@ -4,7 +4,7 @@
 #include <vector>
 #include <SDL.h>
 
-#include "window.h"
+#include "window/window.h"
 #include "control/control.h"
 #include "game_objects/camera.h"
 #include "render/lighting.h"

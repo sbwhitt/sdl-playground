@@ -1,4 +1,4 @@
-#include "window.h"
+#include "window/window.h"
 #include "utils/error.h"
 
 int Window::Create(int x, int y, int w, int h) {
