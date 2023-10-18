@@ -8,7 +8,7 @@
 #include "utils/point.h"
 #include "utils/vec2.h"
 #include "game_objects/camera.h"
-#include "texture.h"
+#include "render/texture.h"
 
 class Entity {
 protected:

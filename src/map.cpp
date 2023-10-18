@@ -4,7 +4,7 @@
 #include "utils/error.h"
 #include "utils/color.h"
 #include "map/chunk.h"
-#include "render.h"
+#include "render/render.h"
 
 int Map::InitChunkMatrix(int r, int c, int w, int h) {
     this->chunk_width = w;

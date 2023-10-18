@@ -4,7 +4,7 @@
 #include <vector>
 #include <SDL_render.h>
 
-#include "texture.h"
+#include "render/texture.h"
 #include "utils/resource.h"
 
 class Lighting {

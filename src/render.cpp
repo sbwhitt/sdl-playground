@@ -1,6 +1,6 @@
 #include <SDL_render.h>
 
-#include "render.h"
+#include "render/render.h"
 #include "utils/error.h"
 #include "utils/color.h"
 

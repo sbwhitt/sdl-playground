@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <SDL_render.h>
 
-#include "lighting.h"
+#include "render/lighting.h"
 #include "utils/error.h"
-#include "texture.h"
+#include "render/texture.h"
 #include "animations/a_from_to.h"
 
 Lighting::~Lighting() {

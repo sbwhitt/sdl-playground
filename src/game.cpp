@@ -2,9 +2,9 @@
 
 #include "game.h"
 #include "utils/error.h"
-#include "render.h"
+#include "render/render.h"
 #include "map/map.h"
-#include "texture.h"
+#include "render/texture.h"
 
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720

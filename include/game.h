@@ -7,7 +7,7 @@
 #include "window.h"
 #include "control/control.h"
 #include "game_objects/camera.h"
-#include "lighting.h"
+#include "render/lighting.h"
 #include "map/map.h"
 #include "game_objects/entity.h"
 #include "game_objects/player.h"
