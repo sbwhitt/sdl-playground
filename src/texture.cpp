@@ -67,6 +67,9 @@ int Texture::ApplyAnimation(Animation *a) {
         case POS_Y:
             this->rect.y = a->value;
             break;
+        case ANGLE:
+            this->angle = (double)a->value;
+            break;
     }
 
     return 0;
