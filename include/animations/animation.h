@@ -6,7 +6,8 @@
 enum AnimationType {
     ALPHA = 0,
     POS_X = 1,
-    POS_Y = 2
+    POS_Y = 2,
+    ANGLE = 3
 };
 
 class Animation {

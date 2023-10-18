@@ -19,6 +19,7 @@ public:
 
         if (this->from > this->to) this->dir = false;
     }
+
     int Update(int dt) override {
         this->timer += dt;
         if (this->timer >= this->interval*dt) {
