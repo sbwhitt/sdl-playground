@@ -1,7 +1,7 @@
 #include <vector>
 #include <SDL.h>
 
-#include "graphics.h"
+#include "utils/graphics.h"
 #include "point.h"
 
 int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {

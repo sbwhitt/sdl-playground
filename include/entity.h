@@ -6,7 +6,7 @@
 
 #include "resource.h"
 #include "point.h"
-#include "vec2.h"
+#include "utils/vec2.h"
 #include "camera.h"
 #include "texture.h"
 
