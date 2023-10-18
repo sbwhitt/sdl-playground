@@ -3,7 +3,7 @@
 
 #include "entity.h"
 #include "utils/error.h"
-#include "point.h"
+#include "utils/point.h"
 #include "utils/vec2.h"
 #include "resource.h"
 

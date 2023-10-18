@@ -5,7 +5,7 @@
 #define SDL_MAIN_HANDLED
 
 #include "map.h"
-#include "matrix.h"
+#include "utils/matrix.h"
 #include "chunk.h"
 
 void print(Matrix<int> m, int r, int c) {

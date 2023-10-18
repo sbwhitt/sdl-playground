@@ -4,7 +4,7 @@
 #include <vector>
 #include <SDL.h>
 
-#include "point.h"
+#include "utils/point.h"
 
 int DrawLine(SDL_Renderer *rend, Point p1, Point p2);
 int DrawPoints(SDL_Renderer *rend, std::vector<Point> points);

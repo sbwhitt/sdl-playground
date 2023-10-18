@@ -2,7 +2,7 @@
 #include <SDL.h>
 
 #include "utils/graphics.h"
-#include "point.h"
+#include "utils/point.h"
 
 int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {
     SDL_RenderDrawLine(rend, p1.x, p1.y, p2.x, p2.y);

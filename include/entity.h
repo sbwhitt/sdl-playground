@@ -5,7 +5,7 @@
 #include <SDL_rect.h>
 
 #include "resource.h"
-#include "point.h"
+#include "utils/point.h"
 #include "utils/vec2.h"
 #include "camera.h"
 #include "texture.h"

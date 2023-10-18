@@ -4,9 +4,9 @@
 #include <vector>
 #include <SDL.h>
 
-#include "matrix.h"
+#include "utils/matrix.h"
 #include "chunk.h"
-#include "point.h"
+#include "utils/point.h"
 #include "camera.h"
 
 class Map {

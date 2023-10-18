@@ -1,7 +1,7 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#include "point.h"
+#include "utils/point.h"
 
 struct Resource {
     const char *file;
