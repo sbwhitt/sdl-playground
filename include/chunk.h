@@ -4,7 +4,7 @@
 #include <SDL_rect.h>
 
 #include "point.h"
-#include "color.h"
+#include "utils/color.h"
 
 struct Chunk {
     SDL_Rect dest_rect;

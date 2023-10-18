@@ -2,7 +2,7 @@
 
 #include "map.h"
 #include "utils/error.h"
-#include "color.h"
+#include "utils/color.h"
 #include "chunk.h"
 #include "render.h"
 

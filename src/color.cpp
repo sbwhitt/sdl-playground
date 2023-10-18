@@ -1,6 +1,6 @@
 #include <SDL_stdinc.h>
 
-#include "color.h"
+#include "utils/color.h"
 
 Color GetRandomColor() {
     return Color{(Uint8)(rand() % 255 + 1), (Uint8)(rand() % 255 + 1), (Uint8)(rand() % 255 + 1)};
