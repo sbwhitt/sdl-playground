@@ -5,7 +5,7 @@
 #include <SDL_render.h>
 
 #include "texture.h"
-#include "resource.h"
+#include "utils/resource.h"
 
 class Lighting {
 private:

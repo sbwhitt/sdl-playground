@@ -1,7 +1,7 @@
 #include <unordered_map>
 #include <SDL_keycode.h>
 
-#include "control.h"
+#include "control/control.h"
 
 int Control::SetKey(SDL_Keycode key, bool state) {
     this->keys[key] = state;

@@ -6,7 +6,7 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
-#include "resource.h"
+#include "utils/resource.h"
 #include "utils/error.h"
 #include "animations/animation.h"
 

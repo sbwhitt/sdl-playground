@@ -5,7 +5,7 @@
 #include <SDL.h>
 
 #include "window.h"
-#include "control.h"
+#include "control/control.h"
 #include "game_objects/camera.h"
 #include "lighting.h"
 #include "map/map.h"

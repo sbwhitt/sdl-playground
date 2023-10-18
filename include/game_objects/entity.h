@@ -4,7 +4,7 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
-#include "resource.h"
+#include "utils/resource.h"
 #include "utils/point.h"
 #include "utils/vec2.h"
 #include "game_objects/camera.h"
