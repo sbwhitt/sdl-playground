@@ -51,8 +51,7 @@ int Game::Load(SDL_Renderer *rend) {
     Resource r1{"res/caustic_bg1.bmp", WIN_WIDTH, WIN_HEIGHT};
     Resource r2{"res/caustic_bg2.bmp", WIN_WIDTH, WIN_HEIGHT};
     Resource r3{"res/caustic_bg3.bmp", WIN_WIDTH, WIN_HEIGHT};
-    Resource r4{"res/caustic_bg4.bmp", WIN_WIDTH, WIN_HEIGHT};
-    this->lighting.Load(rend, std::vector<Resource>{r1, r2, r3, r4});
+    this->lighting.Load(rend, std::vector<Resource>{r1, r2});
 
     return 0;
 }
