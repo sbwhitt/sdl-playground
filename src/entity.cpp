@@ -2,7 +2,7 @@
 #include <SDL_rect.h>
 
 #include "entity.h"
-#include "error.h"
+#include "utils/error.h"
 #include "point.h"
 #include "vec2.h"
 #include "resource.h"

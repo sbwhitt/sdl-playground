@@ -7,7 +7,7 @@
 #include <SDL_rect.h>
 
 #include "resource.h"
-#include "error.h"
+#include "utils/error.h"
 #include "animations/animation.h"
 
 class Texture {

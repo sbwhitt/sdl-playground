@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "game.h"
-#include "error.h"
+#include "utils/error.h"
 #include "render.h"
 #include "map.h"
 #include "texture.h"

@@ -1,7 +1,7 @@
 #include <SDL_render.h>
 
 #include "map.h"
-#include "error.h"
+#include "utils/error.h"
 #include "color.h"
 #include "chunk.h"
 #include "render.h"

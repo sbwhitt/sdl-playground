@@ -1,7 +1,7 @@
 #include <SDL_render.h>
 
 #include "render.h"
-#include "error.h"
+#include "utils/error.h"
 #include "color.h"
 
 int SetRenderColor(SDL_Renderer *rend, Color c) {

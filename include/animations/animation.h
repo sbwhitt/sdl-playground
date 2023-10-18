@@ -1,7 +1,7 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include "error.h"
+#include "utils/error.h"
 
 enum AnimationType {
     ALPHA = 0,

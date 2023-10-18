@@ -2,7 +2,7 @@
 #include <SDL_render.h>
 
 #include "lighting.h"
-#include "error.h"
+#include "utils/error.h"
 #include "texture.h"
 #include "animations/a_from_to.h"
 
