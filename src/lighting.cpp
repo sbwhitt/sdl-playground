@@ -16,8 +16,9 @@ Lighting::~Lighting() {
 int Lighting::Load(SDL_Renderer *rend, std::vector<Resource> rs) {
     for (int i = 0; i < rs.size(); i++) {
         this->textures.push_back(new Texture{rend, rs[i]});
-        this->textures[i]->SetAlpha(0);
-        this->textures[i]->anims.push_back(new A_FromTo{0, 20, i+5});
+        this->textures[i]->AddAnimation(new A_FromTo{ALPHA, 0, 20, i+5});
+        if (i % 2 == 0) this->textures[i]->AddAnimation(new A_FromTo{POS_X, 0, 5, 4});
+        else this->textures[i]->AddAnimation(new A_FromTo{POS_Y, 5, 0, 4});
     }
 
     return 0;

@@ -10,11 +10,14 @@ private:
     bool dir = true;
 
 public:
-    A_FromTo(int f, int t, int i) {
-        this->from = f;
-        this->value = f;
-        this->to = t;
-        this->interval = i;
+    A_FromTo(AnimationType type, int from, int to, int interval) {
+        this->type = type;
+        this->from = from;
+        this->value = from;
+        this->to = to;
+        this->interval = interval;
+
+        if (this->from > this->to) this->dir = false;
     }
     int Update(int dt) override {
         this->timer += dt;

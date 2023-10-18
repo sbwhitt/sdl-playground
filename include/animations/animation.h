@@ -3,12 +3,19 @@
 
 #include "error.h"
 
+enum AnimationType {
+    ALPHA = 0,
+    POS_X = 1,
+    POS_Y = 2
+};
+
 class Animation {
 protected:
     int interval;
     int timer = 0;
 
 public:
+    AnimationType type;
     int value;
 
     Animation() {}
