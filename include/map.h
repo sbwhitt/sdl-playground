@@ -7,7 +7,7 @@
 #include "utils/matrix.h"
 #include "chunk.h"
 #include "utils/point.h"
-#include "camera.h"
+#include "game_objects/camera.h"
 
 class Map {
 private:

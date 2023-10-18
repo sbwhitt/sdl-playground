@@ -6,11 +6,11 @@
 
 #include "window.h"
 #include "control.h"
-#include "camera.h"
+#include "game_objects/camera.h"
 #include "lighting.h"
 #include "map.h"
-#include "entity.h"
-#include "player.h"
+#include "game_objects/entity.h"
+#include "game_objects/player.h"
 
 class Game {
 private:

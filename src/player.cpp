@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "player.h"
+#include "game_objects/player.h"
 
 int Player::Push(double amnt) {
     // x = cos(angle*pi / 180), y = sin(tex->angle*pi / 180) (converting tex->angle from degrees to radians)

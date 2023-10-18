@@ -3,10 +3,10 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
-#include "camera.h"
+#include "game_objects/camera.h"
 #include "utils/point.h"
 #include "utils/graphics.h"
-#include "entity.h"
+#include "game_objects/entity.h"
 
 int Camera::Init(int w, int h) {
     this->width = w;

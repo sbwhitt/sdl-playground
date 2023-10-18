@@ -1,7 +1,7 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
-#include "entity.h"
+#include "game_objects/entity.h"
 #include "utils/error.h"
 #include "utils/point.h"
 #include "utils/vec2.h"

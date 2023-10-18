@@ -7,7 +7,7 @@
 #include "resource.h"
 #include "utils/point.h"
 #include "utils/vec2.h"
-#include "camera.h"
+#include "game_objects/camera.h"
 #include "texture.h"
 
 class Entity {
