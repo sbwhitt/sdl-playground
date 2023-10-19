@@ -93,31 +93,36 @@ int DrawGradient(SDL_Renderer *rend, SDL_Rect r, Color c1, Color c2) {
     int y1 = r.y;
     int y2 = r.y + r.h;
 
-    // int dr = ((c1.r - c2.r) / r.w);
-    // int dg = ((c1.g - c2.g) / r.w);
-    // int db = ((c1.b - c2.b) / r.w);
+    float dr = (float)(c2.r - c1.r) / (float)r.w;
+    float dg = (float)(c2.g - c1.g) / (float)r.w;
+    float db = (float)(c2.b - c1.b) / (float)r.w;
+    float delta_r, delta_g, delta_b = 0.0;
 
-    // Color d{
-    //     dr,
-    //     dg,
-    //     db
-    // };
-    // Color current{
-    //     d.r,
-    //     d.g,
-    //     d.b
-    // };
-
+    Color current{c1.r, c1.g, c1.b};
     for (int i = 0; i < r.w; i++) {
-        // SetRenderColor(rend, current);
+        SetRenderColor(rend, current);
     
         SDL_RenderDrawLine(rend, x1, y1, x2, y2);
         x1++;
         x2++;
 
-        // current.r += d.r;
-        // current.g += d.g;
-        // current.b += d.b;
+        delta_r += dr;
+        if (delta_r <= -1 || delta_r >= 1) {
+            current.r += (Uint8)delta_r;
+            delta_r = 0.0;
+        }
+
+        delta_g += dg;
+        if (delta_g <= -1 || delta_g >= 1) {
+            current.g += (Uint8)delta_g;
+            delta_g = 0.0;
+        }
+
+        delta_b += db;
+        if (delta_b <= -1 || delta_b >= 1) {
+            current.b += (Uint8)delta_b;
+            delta_b = 0.0;
+        }
     }
 
     return 0;

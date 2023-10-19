@@ -172,7 +172,7 @@ int Game::Draw(SDL_Renderer *rend) {
     // r.y = 0;
     // r.w = WIN_WIDTH;
     // r.h = WIN_HEIGHT;
-    // DrawGradient(rend, r, Color{255, 0, 0}, Color{0, 0, 255});
+    // DrawGradient(rend, r, Color{125, 55, 200}, Color{10, 75, 25});
 
     SDL_RenderPresent(rend);
     return 0;
