@@ -24,7 +24,7 @@ private:
     int CenterChunks(int r, int c);
 
 public:
-    int InitChunkMatrix(int r, int c, int w, int h);
+    int InitChunkMatrix(int row, int col, int width, int height);
     Matrix<Chunk> GetChunkMatrix();
     int UpdateChunks(Point player_pos, Camera cam);
     int RenderChunks(SDL_Renderer *rend, Camera cam);
