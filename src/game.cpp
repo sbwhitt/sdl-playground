@@ -3,6 +3,7 @@
 #include "game.h"
 #include "utils/error.h"
 #include "render/render.h"
+#include "render/graphics.h";
 #include "map/map.h"
 #include "render/texture.h"
 
@@ -165,6 +166,13 @@ int Game::Draw(SDL_Renderer *rend) {
     this->buddy.Draw(rend, this->cam);
     this->player.Draw(rend, this->cam);
     // this->lighting.Draw(rend);
+
+    // SDL_Rect r;
+    // r.x = 0;
+    // r.y = 0;
+    // r.w = WIN_WIDTH;
+    // r.h = WIN_HEIGHT;
+    // DrawGradient(rend, r, Color{255, 0, 0}, Color{0, 0, 255});
 
     SDL_RenderPresent(rend);
     return 0;
