@@ -3,7 +3,7 @@
 #include "game.h"
 #include "utils/error.h"
 #include "render/render.h"
-#include "render/graphics.h";
+#include "render/graphics.h"
 #include "map/map.h"
 #include "render/texture.h"
 
