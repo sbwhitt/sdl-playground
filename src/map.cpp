@@ -1,10 +1,13 @@
+#include <vector>
 #include <SDL_render.h>
 
 #include "map/map.h"
+#include "map/chunk.h"
 #include "utils/error.h"
 #include "utils/color.h"
-#include "map/chunk.h"
+#include "utils/resource.h"
 #include "render/render.h"
+#include "render/texture.h"
 
 int Map::InitChunkMatrix(int row, int col, int width, int height) {
     this->chunk_width = width;
@@ -16,6 +19,23 @@ int Map::InitChunkMatrix(int row, int col, int width, int height) {
             Point p{(j - 1) * this->chunk_matrix[i][j].dest_rect.w, (i - 1) * this->chunk_matrix[i][j].dest_rect.h};
             this->chunk_matrix[i][j].world_pos = p;
         }
+    }
+
+    return 0;
+}
+
+int Map::LoadTiles(SDL_Renderer *rend) {
+    std::vector<Resource> res{
+        Resource{"res/tiles/tile_tl.bmp", 1000, 1000},
+        Resource{"res/tiles/tile_tr.bmp", 1000, 1000},
+        Resource{"res/tiles/tile_bl.bmp", 1000, 1000},
+        Resource{"res/tiles/tile_br.bmp", 1000, 1000},
+        Resource{"res/tiles/tile_hori.bmp", 1000, 1000},
+        Resource{"res/tiles/tile_vert.bmp", 1000, 1000}
+    };
+
+    for (int i = 0; i < res.size(); i++) {
+        this->tiles.push_back(new Texture{rend, res[i]});
     }
 
     return 0;

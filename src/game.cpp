@@ -43,6 +43,8 @@ int Game::Init() {
 }
 
 int Game::Load(SDL_Renderer *rend) {
+    this->map.LoadTiles(rend);
+
     this->player.LoadTexture(rend, Resource{"res/fish.bmp", 200, 100});
     this->player.PlaceOnScreen(this->cam.GetCenter());
 
