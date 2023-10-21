@@ -3,12 +3,7 @@
 
 #include <vector>
 
-enum ExtendDir {
-    UP = 0,
-    LEFT = 1,
-    DOWN = 2,
-    RIGHT = 3
-};
+#include "utils/direction.h"
 
 template <typename T>
 class Matrix {
@@ -74,7 +69,7 @@ public:
         }
         return col;
     }
-    int Extend(ExtendDir dir, std::vector<T> add) {
+    int Extend(Direction dir, std::vector<T> add) {
         if (rows <= 1 || add.size() != cols) return 1;
         switch (dir) {
             case UP:

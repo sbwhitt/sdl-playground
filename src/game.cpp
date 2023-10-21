@@ -1,10 +1,10 @@
 #include <iostream>
 
 #include "game.h"
+#include "map/map.h"
 #include "utils/error.h"
 #include "render/render.h"
 #include "render/graphics.h"
-#include "map/map.h"
 #include "render/texture.h"
 
 #define WIN_WIDTH 1280

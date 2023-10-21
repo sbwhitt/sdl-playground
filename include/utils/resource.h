@@ -8,6 +8,7 @@ struct Resource {
     int width;
     int height;
 
+    Resource() {}
     Resource(const char *path, int w, int h) {
         file = path;
         width = w;

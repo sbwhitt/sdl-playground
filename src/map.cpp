@@ -9,6 +9,13 @@
 #include "render/render.h"
 #include "render/texture.h"
 
+Map::~Map() {
+    for (int i = 0; i < this->tiles.size(); i++) {
+        delete this->tiles[i];
+        this->tiles[i] = NULL;
+    }
+}
+
 int Map::InitChunkMatrix(int row, int col, int width, int height) {
     this->chunk_width = width;
     this->chunk_height = height;
@@ -25,6 +32,7 @@ int Map::InitChunkMatrix(int row, int col, int width, int height) {
 }
 
 int Map::LoadTiles(SDL_Renderer *rend) {
+    auto r = Resource{"res/tiles/tile_tl.bmp", 1000, 1000};
     std::vector<Resource> res{
         Resource{"res/tiles/tile_tl.bmp", 1000, 1000},
         Resource{"res/tiles/tile_tr.bmp", 1000, 1000},
@@ -33,9 +41,11 @@ int Map::LoadTiles(SDL_Renderer *rend) {
         Resource{"res/tiles/tile_hori.bmp", 1000, 1000},
         Resource{"res/tiles/tile_vert.bmp", 1000, 1000}
     };
-
+    std::vector<TileType> types{TILE_TL, TILE_TR, TILE_BL, TILE_BR, TILE_HORI, TILE_VERT};
     for (int i = 0; i < res.size(); i++) {
-        this->tiles.push_back(new Texture{rend, res[i]});
+        Tile *t = new Tile();
+        t->Load(rend, res[i], types[i]);
+        this->tiles.push_back(t);
     }
 
     return 0;
@@ -73,7 +83,7 @@ Chunk Map::GenerateRightFrom(Chunk c1) {
     return c2;
 }
 
-int Map::GenerateChunks(ExtendDir dir, std::vector<Chunk> adj) {
+int Map::GenerateChunks(Direction dir, std::vector<Chunk> adj) {
     std::vector<Chunk> v;
     for (int i = 0; i < adj.size(); i++) {
         switch (dir) {
