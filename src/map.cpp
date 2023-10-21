@@ -32,7 +32,6 @@ int Map::InitChunkMatrix(int row, int col, int width, int height) {
 }
 
 int Map::LoadTiles(SDL_Renderer *rend) {
-    auto r = Resource{"res/tiles/tile_tl.bmp", 1000, 1000};
     std::vector<Resource> res{
         Resource{"res/tiles/tile_tl.bmp", 1000, 1000},
         Resource{"res/tiles/tile_tr.bmp", 1000, 1000},

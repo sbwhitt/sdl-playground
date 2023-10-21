@@ -16,13 +16,19 @@ enum TileType {
     TILE_TR = 5
 };
 
-struct Tile {
-    TileType type;
-    Texture *tex = new Texture();
+class Tile {
+private:
     // indexing from utils/direction.h
     // 0 = U; 1 = R; 2 = D; 3 = L;
     std::vector< std::vector<TileType> > neighbors{4};
+    Texture *tex = new Texture();
+    TileType type;
 
+    int SetupNeighbors() {
+        return 0;
+    }
+
+public:
     ~Tile() {
         delete this->tex;
         this->tex = NULL;
@@ -30,6 +36,8 @@ struct Tile {
     int Load(SDL_Renderer *rend, Resource res, TileType type) {
         this->tex->LoadFromResource(rend, res);
         this->type = type;
+
+        this->SetupNeighbors();
 
         return 0;
     }
