@@ -11,7 +11,7 @@ private:
 public:
     Tileset();
     ~Tileset();
-    int LoadNeighbors(const char *file);
+    int LoadNeighbors(SDL_Renderer *rend, const char *file);
 };
 
 #endif

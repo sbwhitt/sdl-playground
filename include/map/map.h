@@ -5,7 +5,7 @@
 #include <SDL.h>
 
 #include "map/chunk.h"
-#include "map/tile.h"
+#include "map/tileset.h"
 #include "utils/matrix.h"
 #include "utils/point.h"
 #include "utils/direction.h"
@@ -16,7 +16,7 @@ private:
     int chunk_height;
     int chunk_width;
     Matrix<Chunk> chunk_matrix;
-    std::vector<Tile*> tiles;
+    Tileset *tileset = new Tileset();
     std::vector<Chunk> to_render;
 
     Chunk GenerateUpFrom(Chunk c1);
@@ -30,7 +30,7 @@ public:
     ~Map();
     Matrix<Chunk> GetChunkMatrix();
     int InitChunkMatrix(int row, int col, int width, int height);
-    int LoadTiles(SDL_Renderer *rend);
+    int LoadTileset(SDL_Renderer *rend, std::string path);
     int UpdateChunks(Point player_pos, Camera cam);
     int RenderChunks(SDL_Renderer *rend, Camera cam);
 };

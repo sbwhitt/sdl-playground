@@ -18,7 +18,7 @@ Texture::~Texture() {
 }
 
 int Texture::LoadFromResource(SDL_Renderer *rend, Resource res) {
-    this->texture = SDL_CreateTextureFromSurface(rend, SDL_LoadBMP(res.file));
+    this->texture = SDL_CreateTextureFromSurface(rend, SDL_LoadBMP(res.file.c_str()));
     if (this->texture == nullptr) {
         SDLErrorMsg("SDL error loading texture: ");
         return 1;

@@ -1,18 +1,20 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
+#include <string>
+
 #include "utils/point.h"
 
 struct Resource {
-    const char *file;
+    std::string file;
     int width;
     int height;
 
     Resource() {}
-    Resource(const char *path, int w, int h) {
-        file = path;
-        width = w;
-        height = h;
+    Resource(std::string path, int width, int height) {
+        this->file = path;
+        this->width = width;
+        this->height = height;
     }
 };
 

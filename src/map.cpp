@@ -1,8 +1,10 @@
+#include <string>
 #include <vector>
 #include <SDL_render.h>
 
 #include "map/map.h"
 #include "map/chunk.h"
+#include "map/tileset.h"
 #include "utils/error.h"
 #include "utils/color.h"
 #include "utils/resource.h"
@@ -10,10 +12,8 @@
 #include "render/texture.h"
 
 Map::~Map() {
-    for (int i = 0; i < this->tiles.size(); i++) {
-        delete this->tiles[i];
-        this->tiles[i] = NULL;
-    }
+    delete this->tileset;
+    this->tileset = NULL;
 }
 
 int Map::InitChunkMatrix(int row, int col, int width, int height) {
@@ -31,21 +31,8 @@ int Map::InitChunkMatrix(int row, int col, int width, int height) {
     return 0;
 }
 
-int Map::LoadTiles(SDL_Renderer *rend) {
-    std::vector<Resource> res{
-        Resource{"res/tiles/tile_tl.bmp", 1000, 1000},
-        Resource{"res/tiles/tile_tr.bmp", 1000, 1000},
-        Resource{"res/tiles/tile_bl.bmp", 1000, 1000},
-        Resource{"res/tiles/tile_br.bmp", 1000, 1000},
-        Resource{"res/tiles/tile_hori.bmp", 1000, 1000},
-        Resource{"res/tiles/tile_vert.bmp", 1000, 1000}
-    };
-    std::vector<TileType> types{TILE_TL, TILE_TR, TILE_BL, TILE_BR, TILE_HORI, TILE_VERT};
-    for (int i = 0; i < res.size(); i++) {
-        Tile *t = new Tile();
-        t->Load(rend, res[i], types[i]);
-        this->tiles.push_back(t);
-    }
+int Map::LoadTileset(SDL_Renderer *rend, std::string path) {
+    this->tileset->LoadNeighbors(rend, "res/tilesets/simple.json");
 
     return 0;
 }

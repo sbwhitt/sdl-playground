@@ -19,13 +19,14 @@ enum TileType {
 // TODO: create tileset.h to store tile info and load tiles from res based on tileset type
 class Tile {
 private:
+    TileType type;
+    Texture *tex = new Texture();
+
+public:
     // indexing from utils/direction.h
     // 0 = U; 1 = R; 2 = D; 3 = L;
     std::vector< std::vector<TileType> > neighbors{4};
-    Texture *tex = new Texture();
-    TileType type;
 
-public:
     ~Tile();
     int Load(SDL_Renderer *rend, Resource res, TileType type);
     bool IsNeighbor(TileType type, Direction dir);
