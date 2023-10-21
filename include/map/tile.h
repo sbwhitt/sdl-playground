@@ -36,6 +36,7 @@ public:
         delete this->tex;
         this->tex = NULL;
     }
+
     int Load(SDL_Renderer *rend, Resource res, TileType type) {
         this->tex->LoadFromResource(rend, res);
         this->type = type;
@@ -44,6 +45,7 @@ public:
 
         return 0;
     }
+
     bool IsNeighbor(Direction dir, TileType type) {
         for (int i = 0; i < this->neighbors[dir].size(); i++) {
             if (this->type == this->neighbors[dir][i]) return true;
