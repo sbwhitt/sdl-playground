@@ -16,6 +16,7 @@ enum TileType {
     TILE_TR = 5
 };
 
+// TODO: create tileset.h to store tile info and load tiles from res based on tileset type
 class Tile {
 private:
     // indexing from utils/direction.h
@@ -25,6 +26,8 @@ private:
     TileType type;
 
     int SetupNeighbors() {
+        // need some sort of markup to define these tile connections...
+
         return 0;
     }
 
