@@ -25,33 +25,10 @@ private:
     Texture *tex = new Texture();
     TileType type;
 
-    int SetupNeighbors() {
-        // need some sort of markup to define these tile connections...
-
-        return 0;
-    }
-
 public:
-    ~Tile() {
-        delete this->tex;
-        this->tex = NULL;
-    }
-
-    int Load(SDL_Renderer *rend, Resource res, TileType type) {
-        this->tex->LoadFromResource(rend, res);
-        this->type = type;
-
-        this->SetupNeighbors();
-
-        return 0;
-    }
-
-    bool IsNeighbor(Direction dir, TileType type) {
-        for (int i = 0; i < this->neighbors[dir].size(); i++) {
-            if (this->type == this->neighbors[dir][i]) return true;
-        }
-        return false;
-    }
+    ~Tile();
+    int Load(SDL_Renderer *rend, Resource res, TileType type);
+    bool IsNeighbor(TileType type, Direction dir);
 };
 
 #endif
