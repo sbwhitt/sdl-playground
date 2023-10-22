@@ -16,7 +16,6 @@ enum TileType {
     TILE_TR = 5
 };
 
-// TODO: create tileset.h to store tile info and load tiles from res based on tileset type
 class Tile {
 private:
     TileType type;
