@@ -40,7 +40,6 @@ int Map::LoadTileset(SDL_Renderer *rend, std::string path) {
 }
 
 Chunk Map::GenerateUpFrom(Chunk c1) {
-    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
     Chunk c2{
         this->tileset->GetNeighbor(c1.tile_type, UP),
         this->tileset->tile_width,
@@ -52,7 +51,6 @@ Chunk Map::GenerateUpFrom(Chunk c1) {
 }
 
 Chunk Map::GenerateDownFrom(Chunk c1) {
-    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
     Chunk c2{
         this->tileset->GetNeighbor(c1.tile_type, DOWN),
         this->tileset->tile_width,
@@ -64,7 +62,6 @@ Chunk Map::GenerateDownFrom(Chunk c1) {
 }
 
 Chunk Map::GenerateLeftFrom(Chunk c1) {
-    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
     Chunk c2{
         this->tileset->GetNeighbor(c1.tile_type, LEFT),
         this->tileset->tile_width,
@@ -76,7 +73,6 @@ Chunk Map::GenerateLeftFrom(Chunk c1) {
 }
 
 Chunk Map::GenerateRightFrom(Chunk c1) {
-    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
     Chunk c2{
         this->tileset->GetNeighbor(c1.tile_type, RIGHT),
         this->tileset->tile_width,
