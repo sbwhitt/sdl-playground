@@ -46,8 +46,9 @@ TileType Tileset::GetRandomTileType() {
 }
 
 TileType Tileset::GetNeighbor(TileType type, Direction dir) {
-    auto neighbs = this->tiles[type]->neighbors[dir];
-    return neighbs[ (TileType)(rand() & neighbs.size()) ];
+    std::vector<TileType> neighbs = this->tiles[type]->neighbors[dir];
+    int choice = rand() % neighbs.size();
+    return neighbs[choice];
 }
 
 int Tileset::RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect) {

@@ -40,28 +40,48 @@ int Map::LoadTileset(SDL_Renderer *rend, std::string path) {
 }
 
 Chunk Map::GenerateUpFrom(Chunk c1) {
-    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    Chunk c2{
+        this->tileset->GetNeighbor(c1.tile_type, UP),
+        this->tileset->tile_width,
+        this->tileset->tile_height
+    };
     c2.world_pos.x = c1.world_pos.x;
     c2.world_pos.y += c1.world_pos.y - this->tileset->tile_height;
     return c2;
 }
 
 Chunk Map::GenerateDownFrom(Chunk c1) {
-    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    Chunk c2{
+        this->tileset->GetNeighbor(c1.tile_type, DOWN),
+        this->tileset->tile_width,
+        this->tileset->tile_height
+    };
     c2.world_pos.x = c1.world_pos.x;
     c2.world_pos.y += c1.world_pos.y + this->tileset->tile_height;
     return c2;
 }
 
 Chunk Map::GenerateLeftFrom(Chunk c1) {
-    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    Chunk c2{
+        this->tileset->GetNeighbor(c1.tile_type, LEFT),
+        this->tileset->tile_width,
+        this->tileset->tile_height
+    };
     c2.world_pos.x += c1.world_pos.x - this->tileset->tile_width;
     c2.world_pos.y = c1.world_pos.y;
     return c2;
 }
 
 Chunk Map::GenerateRightFrom(Chunk c1) {
-    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    // Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    Chunk c2{
+        this->tileset->GetNeighbor(c1.tile_type, RIGHT),
+        this->tileset->tile_width,
+        this->tileset->tile_height
+    };
     c2.world_pos.x += c1.world_pos.x + this->tileset->tile_width;
     c2.world_pos.y = c1.world_pos.y;
     return c2;

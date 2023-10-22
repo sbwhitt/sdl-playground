@@ -10,10 +10,7 @@ Chunk::Chunk(TileType type, int w, int h) {
     dest_rect.h = h;
 }
 
-Chunk::~Chunk() {
-    // delete this->tile;
-    // this->tile = NULL;
-}
+Chunk::~Chunk() {}
 
 bool Chunk::Contains(Point p) {
     bool contains_x = p.x >= world_pos.x && p.x < world_pos.x + dest_rect.w;
