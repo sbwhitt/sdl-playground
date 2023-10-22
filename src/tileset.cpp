@@ -45,6 +45,11 @@ TileType Tileset::GetRandomTileType() {
     return (TileType)(rand() % TYPE_COUNT);
 }
 
+TileType Tileset::GetNeighbor(TileType type, Direction dir) {
+    auto neighbs = this->tiles[type]->neighbors[dir];
+    return neighbs[ (TileType)(rand() & neighbs.size()) ];
+}
+
 int Tileset::RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect) {
     if (tiles[type]->Render(rend, rect) != 0) {
         SDLErrorMsg("tileset.cpp error rendering tile: ");
