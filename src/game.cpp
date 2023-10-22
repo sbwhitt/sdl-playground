@@ -2,11 +2,9 @@
 
 #include "game.h"
 #include "map/map.h"
-#include "map/tileset.h"
 #include "utils/error.h"
 #include "render/render.h"
 #include "render/graphics.h"
-#include "render/texture.h"
 
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
@@ -37,8 +35,6 @@ int Game::Init() {
     }
 
     this->cam.Init(WIN_WIDTH, WIN_HEIGHT);
-
-    this->map.InitChunkMatrix(3, 3, WIN_WIDTH, WIN_HEIGHT);
 
     return 0;
 }

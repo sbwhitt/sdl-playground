@@ -1,4 +1,3 @@
-#include <iostream>
 #include <fstream>
 #include <external/json.hpp>
 using json = nlohmann::json;
@@ -9,18 +8,19 @@ using json = nlohmann::json;
 Tileset::Tileset() {}
 
 Tileset::~Tileset() {
-    for (auto t : this->tiles) {
-        delete t;
-        t = NULL;
+    for (std::unordered_map<TileType, Tile*>::iterator it = this->tiles.begin(); it != this->tiles.end(); it++) {
+        delete (it->second);
     }
+    this->tiles.clear();
 }
 
 int Tileset::LoadNeighbors(SDL_Renderer *rend, const char *file) {
     std::ifstream f(file);
     json j = json::parse(f);
 
-    int width = j["width"];
-    int height = j["height"];
+    this->tile_width = j["width"];
+    this->tile_height = j["height"];
+
     auto tiles = j["tiles"];
     for (auto& t : tiles) {
         Tile *tile = new Tile();
@@ -33,9 +33,22 @@ int Tileset::LoadNeighbors(SDL_Renderer *rend, const char *file) {
 
         auto path = t["path"];
         TileType type = t["type"];
-        tile->Load(rend, Resource{path, width, height}, type);
+        tile->Load(rend, Resource{path, this->tile_width, this->tile_height}, type);
     
-        this->tiles.push_back(tile);
+        this->tiles[type] = tile;
+    }
+
+    return 0;
+}
+
+TileType Tileset::GetRandomTileType() {
+    return (TileType)(rand() % TYPE_COUNT);
+}
+
+int Tileset::RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect) {
+    if (tiles[type]->Render(rend, rect) != 0) {
+        SDLErrorMsg("tileset.cpp error rendering tile: ");
+        return 1;
     }
 
     return 0;

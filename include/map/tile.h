@@ -1,20 +1,11 @@
 #ifndef TILE_H
 #define TILE_H
 
-#include <vector>
+#include <SDL_render.h>
 
-#include "utils/resource.h"
-#include "utils/direction.h"
+#include "map/tile_type.h"
 #include "render/texture.h"
-
-enum TileType {
-    TILE_BL = 0,
-    TILE_BR = 1,
-    TILE_HORI = 2,
-    TILE_VERT = 3,
-    TILE_TL = 4,
-    TILE_TR = 5
-};
+#include "utils/direction.h"
 
 class Tile {
 private:
@@ -29,6 +20,7 @@ public:
     ~Tile();
     int Load(SDL_Renderer *rend, Resource res, TileType type);
     bool IsNeighbor(TileType type, Direction dir);
+    int Render(SDL_Renderer *rend, SDL_Rect rect);
 };
 
 #endif

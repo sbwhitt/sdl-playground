@@ -6,7 +6,6 @@
 #include "map/chunk.h"
 #include "map/tileset.h"
 #include "utils/error.h"
-#include "utils/color.h"
 #include "utils/resource.h"
 #include "render/render.h"
 #include "render/texture.h"
@@ -16,13 +15,15 @@ Map::~Map() {
     this->tileset = NULL;
 }
 
-int Map::InitChunkMatrix(int row, int col, int width, int height) {
-    this->chunk_width = width;
-    this->chunk_height = height;
+int Map::InitChunkMatrix(int row, int col) {
     this->chunk_matrix.Build(row, col);
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
-            this->chunk_matrix[i][j] = Chunk{Color{20, 80, 150}, width, height};
+            this->chunk_matrix[i][j] = Chunk{
+                this->tileset->GetRandomTileType(),
+                this->tileset->tile_width,
+                this->tileset->tile_height
+            };
             Point p{(j - 1) * this->chunk_matrix[i][j].dest_rect.w, (i - 1) * this->chunk_matrix[i][j].dest_rect.h};
             this->chunk_matrix[i][j].world_pos = p;
         }
@@ -33,38 +34,35 @@ int Map::InitChunkMatrix(int row, int col, int width, int height) {
 
 int Map::LoadTileset(SDL_Renderer *rend, std::string path) {
     this->tileset->LoadNeighbors(rend, "res/tilesets/simple.json");
+    this->InitChunkMatrix(3, 3);
 
     return 0;
 }
 
-Matrix<Chunk> Map::GetChunkMatrix() {
-    return this->chunk_matrix;
-}
-
 Chunk Map::GenerateUpFrom(Chunk c1) {
-    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
+    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
     c2.world_pos.x = c1.world_pos.x;
-    c2.world_pos.y += c1.world_pos.y - this->chunk_height;
+    c2.world_pos.y += c1.world_pos.y - this->tileset->tile_height;
     return c2;
 }
 
 Chunk Map::GenerateDownFrom(Chunk c1) {
-    Chunk c2{GetColorDecremented(c1.color), this->chunk_width, this->chunk_height};
+    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
     c2.world_pos.x = c1.world_pos.x;
-    c2.world_pos.y += c1.world_pos.y + this->chunk_height;
+    c2.world_pos.y += c1.world_pos.y + this->tileset->tile_height;
     return c2;
 }
 
 Chunk Map::GenerateLeftFrom(Chunk c1) {
-    Chunk c2{GetColorDecremented(c1.color), this->chunk_width, this->chunk_height};
-    c2.world_pos.x += c1.world_pos.x - this->chunk_width;
+    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    c2.world_pos.x += c1.world_pos.x - this->tileset->tile_width;
     c2.world_pos.y = c1.world_pos.y;
     return c2;
 }
 
 Chunk Map::GenerateRightFrom(Chunk c1) {
-    Chunk c2{GetColorIncremented(c1.color), this->chunk_width, this->chunk_height};
-    c2.world_pos.x += c1.world_pos.x + this->chunk_width;
+    Chunk c2{this->tileset->GetRandomTileType(), this->tileset->tile_width, this->tileset->tile_height};
+    c2.world_pos.x += c1.world_pos.x + this->tileset->tile_width;
     c2.world_pos.y = c1.world_pos.y;
     return c2;
 }
@@ -140,10 +138,8 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
 
 int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
     for (int i = 0; i < this->to_render.size(); i++) {
-        SetRenderColor(rend, this->to_render[i].color);
-        SDL_Rect r = this->to_render[i].dest_rect;
-        if (SDL_RenderFillRect(rend, &r) != 0) {
-            SDLErrorMsg("map.cpp error rendering chunk rect: ");
+        if (this->tileset->RenderTile(rend, this->to_render[i].tile_type, this->to_render[i].dest_rect) != 0) {
+            SDLErrorMsg("map.cpp error rendering chunk tile: ");
             return 1;
         }
     }
