@@ -51,6 +51,16 @@ TileType Tileset::GetNeighbor(TileType type, Direction dir) {
     return neighbs[choice];
 }
 
+TileType Tileset::GetNeighborMulti(TileType type1, Direction dir1, TileType type2, Direction dir2) {
+    std::vector<TileType> neighbs1 = this->tiles[type1]->neighbors[dir1];
+    std::vector<TileType> neighbs2 = this->tiles[type2]->neighbors[dir2];
+    for (auto n1 : neighbs1) {
+        for (auto n2 : neighbs2) {
+            if (n2 == n1) return n1;
+        }
+    }
+}
+
 int Tileset::RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect) {
     if (tiles[type]->Render(rend, rect) != 0) {
         SDLErrorMsg("tileset.cpp error rendering tile: ");

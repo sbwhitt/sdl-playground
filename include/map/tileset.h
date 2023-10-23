@@ -20,6 +20,7 @@ public:
     int LoadNeighbors(SDL_Renderer *rend, const char *file);
     TileType GetRandomTileType();
     TileType GetNeighbor(TileType type, Direction dir);
+    TileType GetNeighborMulti(TileType type1, Direction dir1, TileType type2, Direction dir2);
     int RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect);
 };
 

@@ -12,10 +12,10 @@ private:
     Tileset *tileset = new Tileset();
     std::vector<Chunk> to_render;
 
-    Chunk GenerateUpFrom(Chunk c1);
-    Chunk GenerateDownFrom(Chunk c1);
-    Chunk GenerateLeftFrom(Chunk c1);
-    Chunk GenerateRightFrom(Chunk c1);
+    Chunk GenerateUpFrom(std::unordered_map<Direction, TileType> neighbors, Point pos);
+    Chunk GenerateDownFrom(std::unordered_map<Direction, TileType> neighbors, Point pos);
+    Chunk GenerateLeftFrom(std::unordered_map<Direction, TileType> neighbors, Point pos);
+    Chunk GenerateRightFrom(std::unordered_map<Direction, TileType> neighbors, Point pos);
     int GenerateChunks(Direction dir, std::vector<Chunk> adj);
     int CenterChunks(int r, int c);
 

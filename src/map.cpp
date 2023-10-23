@@ -39,71 +39,94 @@ int Map::LoadTileset(SDL_Renderer *rend, std::string path) {
     return 0;
 }
 
-Chunk Map::GenerateUpFrom(Chunk c1) {
-    Chunk c2{
-        this->tileset->GetNeighbor(c1.tile_type, UP),
+// TODO: things are becoming quite incomprehensible here
+Chunk Map::GenerateUpFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
+    TileType type = neighbors.size() > 1 ?
+        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
+        this->tileset->GetNeighbor(neighbors[UP], UP);
+    Chunk c{
+        type,
         this->tileset->tile_width,
         this->tileset->tile_height
     };
-    c2.world_pos.x = c1.world_pos.x;
-    c2.world_pos.y += c1.world_pos.y - this->tileset->tile_height;
-    return c2;
+    c.world_pos.x = pos.x;
+    c.world_pos.y += pos.y - this->tileset->tile_height;
+    return c;
 }
 
-Chunk Map::GenerateDownFrom(Chunk c1) {
-    Chunk c2{
-        this->tileset->GetNeighbor(c1.tile_type, DOWN),
+Chunk Map::GenerateDownFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
+    TileType type = neighbors.size() > 1 ?
+        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
+        this->tileset->GetNeighbor(neighbors[UP], UP);
+    Chunk c{
+        type,
         this->tileset->tile_width,
         this->tileset->tile_height
     };
-    c2.world_pos.x = c1.world_pos.x;
-    c2.world_pos.y += c1.world_pos.y + this->tileset->tile_height;
-    return c2;
+    c.world_pos.x = pos.x;
+    c.world_pos.y += pos.y + this->tileset->tile_height;
+    return c;
 }
 
-Chunk Map::GenerateLeftFrom(Chunk c1) {
-    Chunk c2{
-        this->tileset->GetNeighbor(c1.tile_type, LEFT),
+Chunk Map::GenerateLeftFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
+    TileType type = neighbors.size() > 1 ?
+        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
+        this->tileset->GetNeighbor(neighbors[UP], UP);
+    Chunk c{
+        type,
         this->tileset->tile_width,
         this->tileset->tile_height
     };
-    c2.world_pos.x += c1.world_pos.x - this->tileset->tile_width;
-    c2.world_pos.y = c1.world_pos.y;
-    return c2;
+    c.world_pos.x += pos.x - this->tileset->tile_width;
+    c.world_pos.y = pos.y;
+    return c;
 }
 
-Chunk Map::GenerateRightFrom(Chunk c1) {
-    Chunk c2{
-        this->tileset->GetNeighbor(c1.tile_type, RIGHT),
+Chunk Map::GenerateRightFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
+    TileType type = neighbors.size() > 1 ?
+        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
+        this->tileset->GetNeighbor(neighbors[UP], UP);
+    Chunk c{
+        type,
         this->tileset->tile_width,
         this->tileset->tile_height
     };
-    c2.world_pos.x += c1.world_pos.x + this->tileset->tile_width;
-    c2.world_pos.y = c1.world_pos.y;
-    return c2;
+    c.world_pos.x += pos.x + this->tileset->tile_width;
+    c.world_pos.y = pos.y;
+    return c;
 }
 
 int Map::GenerateChunks(Direction dir, std::vector<Chunk> adj) {
     std::vector<Chunk> v;
+    std::unordered_map<Direction, TileType> neighbors;
     for (int i = 0; i < adj.size(); i++) {
         switch (dir) {
             case UP: {
-                v.push_back(GenerateUpFrom(adj[i]));
+                if (i > 1) neighbors[RIGHT] = v[i-1].tile_type;
+                neighbors[UP] = adj[i].tile_type;
+                v.push_back(GenerateUpFrom(neighbors, adj[i].world_pos));
                 break;
             }
             case DOWN: {
-                v.push_back(GenerateDownFrom(adj[i]));
+                if (i > 1) neighbors[RIGHT] = v[i-1].tile_type;
+                neighbors[DOWN] = adj[i].tile_type;
+                v.push_back(GenerateDownFrom(neighbors, adj[i].world_pos));
                 break;
             }
             case LEFT: {
-                v.push_back(GenerateLeftFrom(adj[i]));
+                if (i > 1) neighbors[DOWN] = v[i-1].tile_type;
+                neighbors[LEFT] = adj[i].tile_type;
+                v.push_back(GenerateLeftFrom(neighbors, adj[i].world_pos));
                 break;
             }
             case RIGHT: {
-                v.push_back(GenerateRightFrom(adj[i]));
+                if (i > 1) neighbors[DOWN] = v[i-1].tile_type;
+                neighbors[RIGHT] = adj[i].tile_type;
+                v.push_back(GenerateRightFrom(neighbors, adj[i].world_pos));
                 break;
             }
         }
+        neighbors.clear();
     }
     this->chunk_matrix.Extend(dir, v);
     return 0;
