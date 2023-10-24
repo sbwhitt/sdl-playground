@@ -112,7 +112,7 @@ int Game::HandleKeys() {
         this->player.Rotate(5);
     }
     if (this->ctrl.CheckKey(SDLK_SPACE)) {
-        this->player.Push(0.66);
+        this->player.Push(1);
     }
 
     return 0;
