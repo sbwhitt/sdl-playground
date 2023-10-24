@@ -3,5 +3,10 @@
         "new": "cpp"
     },
     "dotnet.defaultSolution": "disable",
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "workbench.colorCustomizations": {
+        "[Red]": {
+            "editorCursor.foreground": "#ee00ff",
+        }
+    }
 }

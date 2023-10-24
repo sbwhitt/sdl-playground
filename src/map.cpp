@@ -42,7 +42,7 @@ int Map::LoadTileset(SDL_Renderer *rend, std::string path) {
 // TODO: things are becoming quite incomprehensible here
 Chunk Map::GenerateUpFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
     TileType type = neighbors.size() > 1 ?
-        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
+        this->tileset->GetNeighborMulti(neighbors[UP], UP, neighbors[RIGHT], RIGHT) :
         this->tileset->GetNeighbor(neighbors[UP], UP);
     Chunk c{
         type,
@@ -56,8 +56,8 @@ Chunk Map::GenerateUpFrom(std::unordered_map<Direction, TileType> neighbors, Poi
 
 Chunk Map::GenerateDownFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
     TileType type = neighbors.size() > 1 ?
-        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
-        this->tileset->GetNeighbor(neighbors[UP], UP);
+        this->tileset->GetNeighborMulti(neighbors[DOWN], DOWN, neighbors[RIGHT], RIGHT) :
+        this->tileset->GetNeighbor(neighbors[DOWN], DOWN);
     Chunk c{
         type,
         this->tileset->tile_width,
@@ -70,8 +70,8 @@ Chunk Map::GenerateDownFrom(std::unordered_map<Direction, TileType> neighbors, P
 
 Chunk Map::GenerateLeftFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
     TileType type = neighbors.size() > 1 ?
-        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
-        this->tileset->GetNeighbor(neighbors[UP], UP);
+        this->tileset->GetNeighborMulti(neighbors[LEFT], LEFT, neighbors[DOWN], DOWN) :
+        this->tileset->GetNeighbor(neighbors[LEFT], LEFT);
     Chunk c{
         type,
         this->tileset->tile_width,
@@ -84,8 +84,8 @@ Chunk Map::GenerateLeftFrom(std::unordered_map<Direction, TileType> neighbors, P
 
 Chunk Map::GenerateRightFrom(std::unordered_map<Direction, TileType> neighbors, Point pos) {
     TileType type = neighbors.size() > 1 ?
-        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[UP], UP) :
-        this->tileset->GetNeighbor(neighbors[UP], UP);
+        this->tileset->GetNeighborMulti(neighbors[RIGHT], RIGHT, neighbors[DOWN], DOWN) :
+        this->tileset->GetNeighbor(neighbors[RIGHT], RIGHT);
     Chunk c{
         type,
         this->tileset->tile_width,
@@ -101,27 +101,37 @@ int Map::GenerateChunks(Direction dir, std::vector<Chunk> adj) {
     std::unordered_map<Direction, TileType> neighbors;
     for (int i = 0; i < adj.size(); i++) {
         switch (dir) {
+            // for UP and DOWN extended row generates RIGHT to LEFT
+            // ex:
+            //  ^   ^   ^
+            // [0] [1] [2]
+            //  v   v   v
             case UP: {
                 if (i > 1) neighbors[RIGHT] = v[i-1].tile_type;
-                neighbors[UP] = adj[i].tile_type;
+                neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateUpFrom(neighbors, adj[i].world_pos));
                 break;
             }
             case DOWN: {
                 if (i > 1) neighbors[RIGHT] = v[i-1].tile_type;
-                neighbors[DOWN] = adj[i].tile_type;
+                neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateDownFrom(neighbors, adj[i].world_pos));
                 break;
             }
+            // for LEFT and RIGHT extended row generates UP to DOWN
+            // ex:
+            // < [0] >
+            // < [1] >
+            // < [2] >
             case LEFT: {
                 if (i > 1) neighbors[DOWN] = v[i-1].tile_type;
-                neighbors[LEFT] = adj[i].tile_type;
+                neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateLeftFrom(neighbors, adj[i].world_pos));
                 break;
             }
             case RIGHT: {
                 if (i > 1) neighbors[DOWN] = v[i-1].tile_type;
-                neighbors[RIGHT] = adj[i].tile_type;
+                neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateRightFrom(neighbors, adj[i].world_pos));
                 break;
             }
