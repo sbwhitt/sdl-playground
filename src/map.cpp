@@ -20,7 +20,7 @@ int Map::InitChunkMatrix(int row, int col) {
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
             this->chunk_matrix[i][j] = Chunk{
-                this->tileset->GetRandomTileType(),
+                TILE_EMPTY,
                 this->tileset->tile_width,
                 this->tileset->tile_height
             };
@@ -107,13 +107,13 @@ int Map::GenerateChunks(Direction dir, std::vector<Chunk> adj) {
             // [0] [1] [2]
             //  v   v   v
             case UP: {
-                if (i > 1) neighbors[RIGHT] = v[i-1].tile_type;
+                if (i > 0) neighbors[RIGHT] = v[i-1].tile_type;
                 neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateUpFrom(neighbors, adj[i].world_pos));
                 break;
             }
             case DOWN: {
-                if (i > 1) neighbors[RIGHT] = v[i-1].tile_type;
+                if (i > 0) neighbors[RIGHT] = v[i-1].tile_type;
                 neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateDownFrom(neighbors, adj[i].world_pos));
                 break;
@@ -124,13 +124,13 @@ int Map::GenerateChunks(Direction dir, std::vector<Chunk> adj) {
             // < [1] >
             // < [2] >
             case LEFT: {
-                if (i > 1) neighbors[DOWN] = v[i-1].tile_type;
+                if (i > 0) neighbors[DOWN] = v[i-1].tile_type;
                 neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateLeftFrom(neighbors, adj[i].world_pos));
                 break;
             }
             case RIGHT: {
-                if (i > 1) neighbors[DOWN] = v[i-1].tile_type;
+                if (i > 0) neighbors[DOWN] = v[i-1].tile_type;
                 neighbors[dir] = adj[i].tile_type;
                 v.push_back(GenerateRightFrom(neighbors, adj[i].world_pos));
                 break;
