@@ -3,6 +3,7 @@
 
 #include "map/chunk.h"
 #include "map/tileset.h"
+#include "render/renderer.h"
 #include "utils/matrix.h"
 #include "game_objects/camera.h"
 
@@ -22,9 +23,9 @@ private:
 public:
     ~Map();
     int InitChunkMatrix(int row, int col);
-    int LoadTileset(SDL_Renderer *rend, std::string path);
+    int LoadTileset(Renderer *rend, std::string path);
     int UpdateChunks(Point player_pos, Camera cam);
-    int DrawChunks(SDL_Renderer *rend, Camera cam);
+    int DrawChunks(Renderer *rend, Camera cam);
 };
 
 #endif

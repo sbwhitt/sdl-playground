@@ -4,6 +4,7 @@ using json = nlohmann::json;
 
 #include "map/tileset.h"
 #include "utils/resource.h"
+#include "render/renderer.h"
 
 Tileset::Tileset() {}
 
@@ -14,7 +15,7 @@ Tileset::~Tileset() {
     this->tiles.clear();
 }
 
-int Tileset::LoadNeighbors(SDL_Renderer *rend, const char *file) {
+int Tileset::LoadNeighbors(Renderer *rend, const char *file) {
     std::ifstream f(file);
     json j = json::parse(f);
 
@@ -109,7 +110,7 @@ TileType Tileset::GetNeighborMulti(TileType type1, Direction dir1, TileType type
     return res;
 }
 
-int Tileset::RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect) {
+int Tileset::RenderTile(Renderer *rend, TileType type, SDL_Rect rect) {
     if (tiles[type]->Render(rend, rect) != 0) {
         SDLErrorMsg("tileset.cpp error rendering tile: ");
         return 1;

@@ -18,9 +18,9 @@ public:
     std::vector< std::vector<TileType> > neighbors{4};
 
     ~Tile();
-    int Load(SDL_Renderer *rend, Resource res, TileType type);
+    int Load(Renderer *rend, Resource res, TileType type);
     bool IsNeighbor(TileType type, Direction dir);
-    int Render(SDL_Renderer *rend, SDL_Rect rect);
+    int Render(Renderer *rend, SDL_Rect rect);
 };
 
 #endif

@@ -7,7 +7,7 @@
 #include "map/tileset.h"
 #include "utils/error.h"
 #include "utils/resource.h"
-#include "render/render.h"
+#include "render/renderer.h"
 #include "render/texture.h"
 
 Map::~Map() {
@@ -32,7 +32,7 @@ int Map::InitChunkMatrix(int row, int col) {
     return 0;
 }
 
-int Map::LoadTileset(SDL_Renderer *rend, std::string path) {
+int Map::LoadTileset(Renderer *rend, std::string path) {
     this->tileset->LoadNeighbors(rend, "res/tilesets/simple.json");
     this->InitChunkMatrix(3, 3);
 
@@ -185,7 +185,7 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
     return 0;
 }
 
-int Map::DrawChunks(SDL_Renderer *rend, Camera cam) {
+int Map::DrawChunks(Renderer *rend, Camera cam) {
     for (int i = 0; i < this->to_render.size(); i++) {
         if (this->tileset->RenderTile(rend, this->to_render[i].tile_type, this->to_render[i].dest_rect) != 0) {
             SDLErrorMsg("map.cpp error rendering chunk tile: ");

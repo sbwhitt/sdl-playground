@@ -1,8 +1,9 @@
+#include "render/renderer.h"
 #include "render/texture.h"
 
 Texture::Texture() {}
 
-Texture::Texture(SDL_Renderer *rend, Resource r) {
+Texture::Texture(Renderer *rend, Resource r) {
     this->LoadFromResource(rend, r);
 }
 
@@ -17,12 +18,8 @@ Texture::~Texture() {
     this->anims.clear();
 }
 
-int Texture::LoadFromResource(SDL_Renderer *rend, Resource res) {
-    this->texture = SDL_CreateTextureFromSurface(rend, SDL_LoadBMP(res.file.c_str()));
-    if (this->texture == nullptr) {
-        SDLErrorMsg("SDL error loading texture: ");
-        return 1;
-    }
+int Texture::LoadFromResource(Renderer *rend, Resource res) {
+    this->texture = rend->CreateTexture(res.file);
 
     this->rect.x = 0;
     this->rect.y = 0;
@@ -91,9 +88,9 @@ int Texture::UpdateAnimations(int dt) {
     return 0;
 }
 
-int Texture::Render(SDL_Renderer *rend) {
-    if (SDL_RenderCopyEx(rend, this->texture, NULL, &this->rect, this->angle, NULL, SDL_FLIP_NONE) != 0) {
-        SDLErrorMsg("SDL error drawing texture: ");
+int Texture::Render(Renderer *rend) {
+    if (rend->RenderTexture(this->texture, &this->rect, this->angle) != 0) {
+        SDLErrorMsg("texture.cpp error rendering texture: ");
         return 1;
     }
 

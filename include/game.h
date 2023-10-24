@@ -7,6 +7,7 @@
 #include "window/window.h"
 #include "control/control.h"
 #include "game_objects/camera.h"
+#include "render/renderer.h"
 #include "render/lighting.h"
 #include "map/map.h"
 #include "game_objects/entity.h"
@@ -16,8 +17,8 @@ class Game {
 private:
     bool running = true;
     int ticks = 0;
-    Window window;
-    SDL_Renderer *renderer;
+    Window *window = new Window();
+    Renderer *renderer = new Renderer();
     Control ctrl;
     Camera cam;
     Map map;
@@ -26,13 +27,13 @@ private:
     Lighting lighting;
 
     int Init();
-    int Load(SDL_Renderer *rend);
+    int Load();
     int HandleKeyDown(SDL_Keycode key);
     int HandleMouseDown(SDL_MouseButtonEvent button);
     int HandleEvents();
     int HandleKeys();
-    int Update(SDL_Renderer *rend, int dt);
-    int Draw(SDL_Renderer *rend);
+    int Update(int dt);
+    int Draw();
     int Cleanup();
 
 public:

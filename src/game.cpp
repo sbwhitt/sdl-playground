@@ -3,7 +3,7 @@
 #include "game.h"
 #include "map/map.h"
 #include "utils/error.h"
-#include "render/render.h"
+#include "render/renderer.h"
 #include "render/graphics.h"
 
 #define WIN_WIDTH 1280
@@ -20,38 +20,30 @@ int Game::Init() {
         return 1;
     }
 
-    if (this->window.Create(150, 30, WIN_WIDTH, WIN_HEIGHT) != 0) {
+    if (this->window->Create(150, 30, WIN_WIDTH, WIN_HEIGHT) != 0 ||
+        this->renderer->Create(this->window, 0) != 0 ||
+        this->cam.Init(WIN_WIDTH, WIN_HEIGHT) != 0) {
+        ErrorMsg("game.cpp error initializing");
         SDL_Quit();
         return 1;
     }
-
-    // TODO: add renderer to window obj?
-    this->renderer = SDL_CreateRenderer(this->window.SDL_win, -1, 0);
-    if (this->renderer == nullptr) {
-        SDL_DestroyWindow(this->window.SDL_win);
-        SDLErrorMsg("SDL create renderer error: ");
-        SDL_Quit();
-        return 1;
-    }
-
-    this->cam.Init(WIN_WIDTH, WIN_HEIGHT);
 
     return 0;
 }
 
-int Game::Load(SDL_Renderer *rend) {
-    this->map.LoadTileset(rend, "res/tilesets/simple.json");
+int Game::Load() {
+    this->map.LoadTileset(this->renderer, "res/tilesets/simple.json");
 
-    this->player.LoadTexture(rend, Resource{"res/fish.bmp", 200, 100});
+    this->player.LoadTexture(this->renderer, Resource{"res/fish.bmp", 200, 100});
     this->player.PlaceOnScreen(this->cam.GetCenter());
 
-    this->buddy.LoadTexture(rend, Resource{"res/blowfish.bmp", 150, 100});
+    this->buddy.LoadTexture(this->renderer, Resource{"res/blowfish.bmp", 150, 100});
     this->buddy.PlaceOnScreen(this->cam.GetCenter());
 
     Resource r1{"res/caustic_bg1.bmp", WIN_WIDTH, WIN_HEIGHT};
     Resource r2{"res/caustic_bg2.bmp", WIN_WIDTH, WIN_HEIGHT};
     Resource r3{"res/caustic_bg3.bmp", WIN_WIDTH, WIN_HEIGHT};
-    this->lighting.Load(rend, std::vector<Resource>{r1, r2});
+    this->lighting.Load(this->renderer, std::vector<Resource>{r1, r2});
 
     return 0;
 }
@@ -59,7 +51,7 @@ int Game::Load(SDL_Renderer *rend) {
 int Game::Execute() {
     if (this->Init() != 0) return 1;
 
-    if (this->Load(this->renderer) != 0) return 1;
+    if (this->Load() != 0) return 1;
 
     int dt = 0;
     while(this->running) {
@@ -68,8 +60,8 @@ int Game::Execute() {
         }
 
         dt = SDL_GetTicks() - this->ticks;
-        if (this->Update(this->renderer, dt) != 0 ||
-            this->Draw(this->renderer)   != 0) 
+        if (this->Update(dt) != 0 ||
+            this->Draw() != 0) 
         {
             return 1;
         }
@@ -139,7 +131,7 @@ int Game::HandleEvents() {
     return 0;
 }
 
-int Game::Update(SDL_Renderer *rend, int dt) {
+int Game::Update(int dt) {
     this->HandleEvents();
     this->HandleKeys();
 
@@ -157,22 +149,25 @@ int Game::Update(SDL_Renderer *rend, int dt) {
     return 0;
 }
 
-int Game::Draw(SDL_Renderer *rend) {
-    SetRenderColor(rend, Color{0, 0, 0});
-    SDL_RenderClear(rend);
+int Game::Draw() {
+    this->renderer->SetRenderColor(Color{0, 0, 0});
+    this->renderer->Clear();
 
-    this->map.DrawChunks(rend, this->cam);
-    this->buddy.Draw(rend, this->cam);
-    this->player.Draw(rend, this->cam);
-    // this->lighting.Draw(rend);
+    this->map.DrawChunks(this->renderer, this->cam);
+    this->buddy.Draw(this->renderer, this->cam);
+    this->player.Draw(this->renderer, this->cam);
+    // this->lighting.Draw(this->renderer);
 
-    SDL_RenderPresent(rend);
+    this->renderer->RenderPresent();
     return 0;
 }
 
 int Game::Cleanup() {
-    SDL_DestroyWindow(this->window.SDL_win);
-    SDL_DestroyRenderer(this->renderer);
+    delete this->window;
+    this->window = NULL;
+
+    delete this->renderer;
+    this->renderer = NULL;
 
     SDL_Quit();
     return 0;

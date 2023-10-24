@@ -12,6 +12,8 @@ public:
     int h;
     SDL_Window *SDL_win;
 
+    Window();
+    ~Window();
     int Create(int x, int y, int w, int h);
 };
 

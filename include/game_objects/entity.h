@@ -1,7 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <SDL_render.h>
 #include <SDL_rect.h>
 
 #include "utils/resource.h"
@@ -9,6 +8,7 @@
 #include "utils/vec2.h"
 #include "game_objects/camera.h"
 #include "render/texture.h"
+#include "render/renderer.h"
 
 class Entity {
 protected:
@@ -20,7 +20,7 @@ public:
     Point world_pos{0, 0};
 
     ~Entity();
-    int LoadTexture(SDL_Renderer *rend, Resource r);
+    int LoadTexture(Renderer *rend, Resource r);
     int Move(int x, int y);
     int PlaceOnScreen(Point p);
     Point GetScreenPosition();
@@ -28,7 +28,7 @@ public:
     int Rotate(int d);
     int Update(Camera cam);
     int Follow(Point scr_pos);
-    int Draw(SDL_Renderer *rend, Camera cam);
+    int Draw(Renderer *rend, Camera cam);
 };
 
 #endif

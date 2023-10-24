@@ -7,7 +7,7 @@ Tile::~Tile() {
     this->tex = NULL;
 }
 
-int Tile::Load(SDL_Renderer *rend, Resource res, TileType type) {
+int Tile::Load(Renderer *rend, Resource res, TileType type) {
     this->tex->LoadFromResource(rend, res);
     this->type = type;
 
@@ -21,7 +21,7 @@ bool Tile::IsNeighbor(TileType type, Direction dir) {
     return false;
 }
 
-int Tile::Render(SDL_Renderer *rend, SDL_Rect rect) {
+int Tile::Render(Renderer *rend, SDL_Rect rect) {
     this->tex->rect = rect;
     if (this->tex->Render(rend) != 0) {
         SDLErrorMsg("tile.cpp error rendering tile: ");

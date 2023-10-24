@@ -1,7 +1,7 @@
 #include <vector>
 #include <SDL.h>
 
-#include "render/render.h"
+#include "render/renderer.h"
 #include "render/graphics.h"
 #include "utils/point.h"
 
@@ -86,7 +86,7 @@ int DrawCircle(SDL_Renderer *rend, Point center, int radius) {
 }
 
 int DrawGradient(SDL_Renderer *rend, SDL_Rect r, Color c1, Color c2) {
-    SetRenderColor(rend, c1);
+    SDL_SetRenderDrawColor(rend, c1.r, c1.g, c1.b, c1.a);
 
     int x1 = r.x;
     int x2 = r.x;
@@ -100,7 +100,7 @@ int DrawGradient(SDL_Renderer *rend, SDL_Rect r, Color c1, Color c2) {
 
     Color current{c1.r, c1.g, c1.b};
     for (int i = 0; i < r.w; i++) {
-        SetRenderColor(rend, current);
+        SDL_SetRenderDrawColor(rend, current.r, current.g, current.b, current.a);
     
         SDL_RenderDrawLine(rend, x1, y1, x2, y2);
         x1++;

@@ -1,6 +1,6 @@
-#include <SDL_render.h>
 #include <SDL_rect.h>
 
+#include "render/renderer.h"
 #include "game_objects/entity.h"
 #include "utils/error.h"
 #include "utils/point.h"
@@ -12,7 +12,7 @@ Entity::~Entity() {
     this->tex = NULL;
 }
 
-int Entity::LoadTexture(SDL_Renderer *rend, Resource r) {
+int Entity::LoadTexture(Renderer *rend, Resource r) {
     this->tex->LoadFromResource(rend, r);
 
     return 0;
@@ -72,7 +72,7 @@ int Entity::Follow(Point scr_pos) {
     return 0;
 }
 
-int Entity::Draw(SDL_Renderer *rend, Camera cam) {
+int Entity::Draw(Renderer *rend, Camera cam) {
     if (cam.Contains(this->tex->rect)) {
         this->tex->Render(rend);
     }

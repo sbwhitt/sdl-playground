@@ -1,6 +1,13 @@
 #include "window/window.h"
 #include "utils/error.h"
 
+Window::Window() {}
+
+Window::~Window() {
+    SDL_DestroyWindow(this->SDL_win);
+    this->SDL_win = NULL;
+}
+
 int Window::Create(int x, int y, int w, int h) {
     this->x = x;
     this->y = y;

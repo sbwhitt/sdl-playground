@@ -14,7 +14,7 @@ Lighting::~Lighting() {
     }
 }
 
-int Lighting::Load(SDL_Renderer *rend, std::vector<Resource> rs) {
+int Lighting::Load(Renderer *rend, std::vector<Resource> rs) {
     for (int i = 0; i < rs.size(); i++) {
         this->textures.push_back(new Texture{rend, rs[i]});
         if (i == 0) {
@@ -37,7 +37,7 @@ int Lighting::Update(int dt) {
     return 0;
 }
 
-int Lighting::Draw(SDL_Renderer *rend) {
+int Lighting::Draw(Renderer *rend) {
     for (int i = 0; i < this->textures.size(); i++) {
         this->textures[i]->Render(rend);
     }

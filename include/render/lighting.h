@@ -2,8 +2,8 @@
 #define LIGHTING_H
 
 #include <vector>
-#include <SDL_render.h>
 
+#include "render/renderer.h"
 #include "render/texture.h"
 #include "utils/resource.h"
 
@@ -14,9 +14,9 @@ private:
 
 public:
     ~Lighting();
-    int Load(SDL_Renderer *rend, std::vector<Resource> rs);
+    int Load(Renderer *rend, std::vector<Resource> rs);
     int Update(int dt);
-    int Draw(SDL_Renderer *rend);
+    int Draw(Renderer *rend);
 };
 
 #endif

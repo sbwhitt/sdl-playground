@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <SDL_stdinc.h>
-#include <SDL_render.h>
 #include <SDL_rect.h>
 
+#include "render/renderer.h"
 #include "utils/resource.h"
 #include "utils/error.h"
 #include "animations/animation.h"
@@ -25,12 +25,12 @@ public:
     SDL_Rect rect;
 
     Texture();
-    Texture(SDL_Renderer *rend, Resource r);
+    Texture(Renderer *rend, Resource r);
     ~Texture();
-    int LoadFromResource(SDL_Renderer *rend, Resource res);
+    int LoadFromResource(Renderer *rend, Resource res);
     int AddAnimation(Animation *a);
     int UpdateAnimations(int dt);
-    int Render(SDL_Renderer *rend);
+    int Render(Renderer *rend);
 };
 
 #endif

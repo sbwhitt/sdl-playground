@@ -3,10 +3,10 @@
 
 #include <unordered_map>
 #include <SDL_rect.h>
-#include <SDL_render.h>
 
 #include "map/tile.h"
 #include "map/tile_type.h"
+#include "render/renderer.h"
 
 class Tileset {
 private:
@@ -17,11 +17,11 @@ public:
 
     Tileset();
     ~Tileset();
-    int LoadNeighbors(SDL_Renderer *rend, const char *file);
+    int LoadNeighbors(Renderer *rend, const char *file);
     TileType GetRandomTileType();
     TileType GetNeighbor(TileType type, Direction dir);
     TileType GetNeighborMulti(TileType type1, Direction dir1, TileType type2, Direction dir2);
-    int RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect);
+    int RenderTile(Renderer *rend, TileType type, SDL_Rect rect);
 };
 
 #endif
