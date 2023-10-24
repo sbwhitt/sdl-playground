@@ -161,17 +161,10 @@ int Game::Draw(SDL_Renderer *rend) {
     SetRenderColor(rend, Color{0, 0, 0});
     SDL_RenderClear(rend);
 
-    this->map.RenderChunks(rend, this->cam);
+    this->map.DrawChunks(rend, this->cam);
     this->buddy.Draw(rend, this->cam);
     this->player.Draw(rend, this->cam);
     // this->lighting.Draw(rend);
-
-    // SDL_Rect r;
-    // r.x = 0;
-    // r.y = 0;
-    // r.w = WIN_WIDTH;
-    // r.h = WIN_HEIGHT;
-    // DrawGradient(rend, r, Color{125, 55, 200}, Color{10, 75, 25});
 
     SDL_RenderPresent(rend);
     return 0;

@@ -24,7 +24,7 @@ public:
     int InitChunkMatrix(int row, int col);
     int LoadTileset(SDL_Renderer *rend, std::string path);
     int UpdateChunks(Point player_pos, Camera cam);
-    int RenderChunks(SDL_Renderer *rend, Camera cam);
+    int DrawChunks(SDL_Renderer *rend, Camera cam);
 };
 
 #endif

@@ -185,7 +185,7 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
     return 0;
 }
 
-int Map::RenderChunks(SDL_Renderer *rend, Camera cam) {
+int Map::DrawChunks(SDL_Renderer *rend, Camera cam) {
     for (int i = 0; i < this->to_render.size(); i++) {
         if (this->tileset->RenderTile(rend, this->to_render[i].tile_type, this->to_render[i].dest_rect) != 0) {
             SDLErrorMsg("map.cpp error rendering chunk tile: ");
