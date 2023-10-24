@@ -40,10 +40,10 @@ int Game::Load() {
     this->buddy.LoadTexture(this->renderer, Resource{"res/blowfish.bmp", 150, 100});
     this->buddy.PlaceOnScreen(this->cam.GetCenter());
 
-    Resource r1{"res/caustic_bg1.bmp", WIN_WIDTH, WIN_HEIGHT};
-    Resource r2{"res/caustic_bg2.bmp", WIN_WIDTH, WIN_HEIGHT};
-    Resource r3{"res/caustic_bg3.bmp", WIN_WIDTH, WIN_HEIGHT};
-    this->lighting.Load(this->renderer, std::vector<Resource>{r1, r2});
+    // Resource r1{"res/caustic_bg1.bmp", WIN_WIDTH, WIN_HEIGHT};
+    // Resource r2{"res/caustic_bg2.bmp", WIN_WIDTH, WIN_HEIGHT};
+    // Resource r3{"res/caustic_bg3.bmp", WIN_WIDTH, WIN_HEIGHT};
+    // this->lighting.Load(this->renderer, std::vector<Resource>{r1, r2});
 
     return 0;
 }
@@ -142,7 +142,7 @@ int Game::Update(int dt) {
     this->cam.Follow(this->player.GetScreenPosition());
     this->buddy.Follow(this->player.world_pos);
 
-    this->lighting.Update(dt);
+    // this->lighting.Update(dt);
 
     this->ticks = SDL_GetTicks();
 
