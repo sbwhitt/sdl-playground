@@ -99,12 +99,14 @@ void PrintType(TileType type) {
 TileType Tileset::GetNeighborMulti(TileType type1, Direction dir1, TileType type2, Direction dir2) {
     std::vector<TileType> neighbs1 = this->tiles[type1]->neighbors[dir1];
     std::vector<TileType> neighbs2 = this->tiles[type2]->neighbors[dir2];
+    TileType res = TILE_EMPTY;
 
     for (auto n1 : neighbs1) {
         for (auto n2 : neighbs2) {
             if (n2 == n1) return n1;
         }
     }
+    return res;
 }
 
 int Tileset::RenderTile(SDL_Renderer *rend, TileType type, SDL_Rect rect) {

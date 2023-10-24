@@ -1,6 +1,6 @@
 {
-    "width": 200,
-    "height": 200,
+    "width":  800,
+    "height": 800,
     "tiles": [
         {
             "path": "res/tiles/tile_bl.bmp",
