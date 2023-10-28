@@ -63,6 +63,27 @@ int Renderer::RenderTexture(SDL_Texture *texture, SDL_Rect *rect, double angle) 
     return 0;
 }
 
+int Renderer::RenderPoint(int x, int y) {
+    SDL_RenderDrawPoint(this->SDL_rend, x, y);
+
+    return 0;
+}
+
+int Renderer::RenderLine(int x1, int y1, int x2, int y2) {
+    if (SDL_RenderDrawLine(this->SDL_rend, x1, y1, x2, y2) != 0) {
+        SDLErrorMsg("renderer.cpp error drawing line: ");
+        return 1;
+    }
+
+    return 0;
+}
+
+int Renderer::RenderRect(SDL_Rect r) {
+    SDL_RenderDrawRect(this->SDL_rend, &r);
+
+    return 0;
+}
+
 void Renderer::RenderPresent() {
     SDL_RenderPresent(this->SDL_rend);
 }

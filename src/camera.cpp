@@ -6,6 +6,7 @@
 #include "game_objects/camera.h"
 #include "utils/point.h"
 #include "render/graphics.h"
+#include "render/renderer.h"
 #include "game_objects/entity.h"
 
 int Camera::Init(int w, int h) {
@@ -46,9 +47,9 @@ int Camera::Move(int x, int y) {
     return 0;
 }
 
-int Camera::DrawOutline(SDL_Renderer *rend) {
+int Camera::DrawOutline(Renderer *rend) {
     // draw cam center
-    SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+    rend->SetRenderColor(Color{255, 0, 0});
 
     DrawCircle(rend, Point{(int)this->width/2, (int)this->height/2}, 10);
     
@@ -57,7 +58,7 @@ int Camera::DrawOutline(SDL_Renderer *rend) {
     cam_rect.y = 0;
     cam_rect.w = this->width;
     cam_rect.h = this->height;
-    SDL_RenderDrawRect(rend, &cam_rect);
+    rend->RenderRect(cam_rect);
 
     return 0;
 }

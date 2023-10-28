@@ -1,9 +1,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <SDL_render.h>
 #include <SDL_rect.h>
 
+#include "render/renderer.h"
 #include "utils/point.h"
 
 class Camera {
@@ -19,7 +19,7 @@ public:
     Point GetCenter();
     bool Contains(SDL_Rect r);
     int Follow(Point scr_pos);
-    int DrawOutline(SDL_Renderer *rend);
+    int DrawOutline(Renderer *rend);
     int Move(int x, int y);
 };
 

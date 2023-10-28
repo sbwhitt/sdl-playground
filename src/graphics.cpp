@@ -4,41 +4,37 @@
 #include "render/renderer.h"
 #include "render/graphics.h"
 #include "utils/point.h"
+#include "utils/line.h"
 
-int DrawLine(SDL_Renderer *rend, Point p1, Point p2) {
-    SDL_RenderDrawLine(rend, p1.x, p1.y, p2.x, p2.y);
+int DrawLine(Renderer *rend, Point p1, Point p2) {
+    rend->RenderLine(p1.x, p1.y, p2.x, p2.y);
 
     return 0;
 }
 
-// int DrawPoints(SDL_Renderer *rend, std::vector<Point> points) {
-//     if (points.size() > 0) DrawLine(rend, points.back(), GetMousePosition());
-//     if (points.size() < 2) return 0;
+int DrawLine(Renderer *rend, Line l) {
+    rend->RenderLine(l.start.x, l.start.y, l.end.x, l.end.y);
 
-//     for (uint8_t i = 0; i < points.size()-1; i++) {
-//         DrawLine(rend, points[i], points[i+1]);
-//     }
+    return 0;
+}
 
-//     return 0;
-// }
-
-int DrawMouseLines(SDL_Renderer *rend, int w, int h) {
+int DrawMouseLines(Renderer *rend, int w, int h) {
     int x, y;
     SDL_GetMouseState(&x, &y);
 
-    SDL_RenderDrawLine(rend, 0, 0, x, y);
-    SDL_RenderDrawLine(rend, w, 0, x, y);
-    SDL_RenderDrawLine(rend, 0, h, x, y);
-    SDL_RenderDrawLine(rend, w, h, x, y);
-    SDL_RenderDrawLine(rend, w/2, h, x, y);
-    SDL_RenderDrawLine(rend, w, h/2, x, y);
-    SDL_RenderDrawLine(rend, w/2, 0, x, y);
-    SDL_RenderDrawLine(rend, 0, h/2, x, y);
+    DrawLine(rend, Point{0, 0}, Point{x, y});
+    DrawLine(rend, Point{w, 0}, Point{x, y});
+    DrawLine(rend, Point{0, h}, Point{x, y});
+    DrawLine(rend, Point{w, h}, Point{x, y});
+    DrawLine(rend, Point{w/2, h}, Point{x, y});
+    DrawLine(rend, Point{w, h/2}, Point{x, y});
+    DrawLine(rend, Point{w/2, 0}, Point{x, y});
+    DrawLine(rend, Point{0, h/2}, Point{x, y});
 
     return 0;
 }
 
-int DrawTriangle(SDL_Renderer *rend, int length, int x, int y) {
+int DrawTriangle(Renderer *rend, int length, int x, int y) {
     Point top_left{x - length, y - length};
     Point top_right{x + length, y - length};
     Point middle{x, y + length};
@@ -52,7 +48,7 @@ int DrawTriangle(SDL_Renderer *rend, int length, int x, int y) {
 
 // midpoint circle algorithm
 // https://en.wikipedia.org/w/index.php?title=Midpoint_circle_algorithm
-int DrawCircle(SDL_Renderer *rend, Point center, int radius) {
+int DrawCircle(Renderer *rend, Point center, int radius) {
     int x = radius-1;
     int y = 0;
     int dx = 1;
@@ -60,14 +56,14 @@ int DrawCircle(SDL_Renderer *rend, Point center, int radius) {
     int err = dx - (radius << 1);
 
     while (x >= y) {
-        SDL_RenderDrawPoint(rend, center.x + x, center.y + y);
-        SDL_RenderDrawPoint(rend, center.x + y, center.y + x);
-        SDL_RenderDrawPoint(rend, center.x - y, center.y + x);
-        SDL_RenderDrawPoint(rend, center.x - x, center.y + y);
-        SDL_RenderDrawPoint(rend, center.x - x, center.y - y);
-        SDL_RenderDrawPoint(rend, center.x - y, center.y - x);
-        SDL_RenderDrawPoint(rend, center.x + y, center.y - x);
-        SDL_RenderDrawPoint(rend, center.x + x, center.y - y);
+        rend->RenderPoint(center.x + x, center.y + y);
+        rend->RenderPoint(center.x + y, center.y + x);
+        rend->RenderPoint(center.x - y, center.y + x);
+        rend->RenderPoint(center.x - x, center.y + y);
+        rend->RenderPoint(center.x - x, center.y - y);
+        rend->RenderPoint(center.x - y, center.y - x);
+        rend->RenderPoint(center.x + y, center.y - x);
+        rend->RenderPoint(center.x + x, center.y - y);
 
         if (err <= 0) {
             y++;
@@ -85,8 +81,8 @@ int DrawCircle(SDL_Renderer *rend, Point center, int radius) {
     return 0;
 }
 
-int DrawGradient(SDL_Renderer *rend, SDL_Rect r, Color c1, Color c2) {
-    SDL_SetRenderDrawColor(rend, c1.r, c1.g, c1.b, c1.a);
+int DrawGradient(Renderer *rend, SDL_Rect r, Color c1, Color c2) {
+    rend->SetRenderColor(c1);
 
     int x1 = r.x;
     int x2 = r.x;
@@ -100,9 +96,9 @@ int DrawGradient(SDL_Renderer *rend, SDL_Rect r, Color c1, Color c2) {
 
     Color current{c1.r, c1.g, c1.b};
     for (int i = 0; i < r.w; i++) {
-        SDL_SetRenderDrawColor(rend, current.r, current.g, current.b, current.a);
+        rend->SetRenderColor(current);
     
-        SDL_RenderDrawLine(rend, x1, y1, x2, y2);
+        rend->RenderLine(x1, y1, x2, y2);
         x1++;
         x2++;
 

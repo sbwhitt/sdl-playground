@@ -6,12 +6,15 @@
 
 #include "utils/color.h"
 #include "utils/point.h"
+#include "utils/line.h"
+#include "render/renderer.h"
 
-int DrawLine(SDL_Renderer *rend, Point p1, Point p2);
-int DrawPoints(SDL_Renderer *rend, std::vector<Point> points);
-int DrawMouseLines(SDL_Renderer *rend, int w, int h);
-int DrawTriangle(SDL_Renderer *rend, int length, int x, int y);
-int DrawCircle(SDL_Renderer *rend, Point center, int radius);
-int DrawGradient(SDL_Renderer *rend, SDL_Rect r, Color c1, Color c2);
+int DrawLine(Renderer *rend, Point p1, Point p2);
+int DrawLine(Renderer *rend, Line l);
+int DrawPoints(Renderer *rend, std::vector<Point> points);
+int DrawMouseLines(Renderer *rend, int w, int h);
+int DrawTriangle(Renderer *rend, int length, int x, int y);
+int DrawCircle(Renderer *rend, Point center, int radius);
+int DrawGradient(Renderer *rend, SDL_Rect r, Color c1, Color c2);
 
 #endif
