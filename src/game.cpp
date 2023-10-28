@@ -21,8 +21,9 @@ int Game::Init() {
     }
 
     if (this->window->Create(150, 30, WIN_WIDTH, WIN_HEIGHT) != 0 ||
-        this->renderer->Create(this->window, 0) != 0 ||
-        this->cam.Init(WIN_WIDTH, WIN_HEIGHT) != 0) {
+        this->renderer->Create(this->window, 0)              != 0 ||
+        this->cam.Init(WIN_WIDTH, WIN_HEIGHT)                != 0)
+    {
         ErrorMsg("game.cpp error initializing");
         SDL_Quit();
         return 1;
@@ -36,14 +37,6 @@ int Game::Load() {
 
     this->player.LoadTexture(this->renderer, Resource{"res/fish.bmp", 200, 100});
     this->player.PlaceOnScreen(this->cam.GetCenter());
-
-    this->buddy.LoadTexture(this->renderer, Resource{"res/blowfish.bmp", 150, 100});
-    this->buddy.PlaceOnScreen(this->cam.GetCenter());
-
-    // Resource r1{"res/caustic_bg1.bmp", WIN_WIDTH, WIN_HEIGHT};
-    // Resource r2{"res/caustic_bg2.bmp", WIN_WIDTH, WIN_HEIGHT};
-    // Resource r3{"res/caustic_bg3.bmp", WIN_WIDTH, WIN_HEIGHT};
-    // this->lighting.Load(this->renderer, std::vector<Resource>{r1, r2});
 
     return 0;
 }
@@ -137,12 +130,8 @@ int Game::Update(int dt) {
 
     this->map.UpdateChunks(this->player.world_pos, this->cam);
     this->player.Update(this->cam);
-    this->buddy.Update(this->cam);
 
     this->cam.Follow(this->player.GetScreenPosition());
-    this->buddy.Follow(this->player.world_pos);
-
-    // this->lighting.Update(dt);
 
     this->ticks = SDL_GetTicks();
 
@@ -154,9 +143,7 @@ int Game::Draw() {
     this->renderer->Clear();
 
     this->map.DrawChunks(this->renderer, this->cam);
-    this->buddy.Draw(this->renderer, this->cam);
     this->player.Draw(this->renderer, this->cam);
-    // this->lighting.Draw(this->renderer);
 
     this->renderer->RenderPresent();
     return 0;

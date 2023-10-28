@@ -12,6 +12,7 @@
 #include "map/map.h"
 #include "game_objects/entity.h"
 #include "game_objects/player.h"
+#include "utils/line.h"
 
 class Game {
 private:
@@ -23,7 +24,6 @@ private:
     Camera cam;
     Map map;
     Player player;
-    Entity buddy;
     Lighting lighting;
 
     int Init();
