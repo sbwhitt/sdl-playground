@@ -23,16 +23,16 @@ struct Line {
         double starty = ((start.x - c.x) * sin(theta) + (start.y - c.y) * cos(theta)) + c.y;
 
         Point new1{
-            (int)(startx),
-            (int)(starty)
+            (int)round(startx),
+            (int)round(starty)
         };
 
         double endx = ((end.x - c.x) * cos(theta) - (end.y - c.y) * sin(theta)) + c.x;
         double endy = ((end.x - c.x) * sin(theta) + (end.y - c.y) * cos(theta)) + c.y;
 
         Point new2{
-            (int)(endx),
-            (int)(endy),
+            (int)round(endx),
+            (int)round(endy),
         };
 
         this->start = new1;
