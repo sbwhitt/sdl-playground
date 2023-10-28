@@ -22,9 +22,6 @@ struct Line {
         double startx = ((start.x - c.x) * cos(theta) - (start.y - c.y) * sin(theta)) + c.x;
         double starty = ((start.x - c.x) * sin(theta) + (start.y - c.y) * cos(theta)) + c.y;
 
-        // double startx = c.x + ( ((cos(theta) * -sin(theta))) * (start.x - c.x) );
-        // double starty = c.y + ( ((sin(theta) * cos(theta))) * (start.y - c.y) );
-
         Point new1{
             (int)(startx),
             (int)(starty)
@@ -32,9 +29,6 @@ struct Line {
 
         double endx = ((end.x - c.x) * cos(theta) - (end.y - c.y) * sin(theta)) + c.x;
         double endy = ((end.x - c.x) * sin(theta) + (end.y - c.y) * cos(theta)) + c.y;
-
-        // double endx = c.x + ( ((cos(theta) * -sin(theta))) * (end.x - c.x) );
-        // double endy = c.y + ( ((sin(theta) * cos(theta))) * (end.y - c.y) );
 
         Point new2{
             (int)(endx),
@@ -44,8 +38,8 @@ struct Line {
         this->start = new1;
         this->end = new2;
 
-        int l = sqrt(pow(abs(start.x - end.x), 2) + pow(abs(start.y - end.y), 2));
-        printf("length of new line: %d\n", l);
+        // int l = sqrt(pow(abs(start.x - end.x), 2) + pow(abs(start.y - end.y), 2));
+        // printf("length of new line: %d\n", l);
         return 0;
     }
 };
