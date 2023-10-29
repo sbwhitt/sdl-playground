@@ -6,6 +6,7 @@
 
 #include "window/window.h"
 #include "utils/color.h"
+#include "utils/line.h"
 
 class Renderer {
 private:
@@ -22,6 +23,7 @@ public:
     int RenderTexture(SDL_Texture *texture, SDL_Rect *rect, double angle);
     int RenderPoint(int x, int y);
     int RenderLine(int x1, int x2, int y1, int y2);
+    int RenderLine(Line l);
     int RenderRect(SDL_Rect r);
     void RenderPresent();
 };

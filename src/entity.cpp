@@ -2,6 +2,7 @@
 
 #include "render/renderer.h"
 #include "game_objects/entity.h"
+#include "game_objects/hitbox.h"
 #include "utils/error.h"
 #include "utils/point.h"
 #include "utils/vec2.h"
@@ -14,6 +15,7 @@ Entity::~Entity() {
 
 int Entity::LoadTexture(Renderer *rend, Resource r) {
     this->tex->LoadFromResource(rend, r);
+    this->hitbox = Hitbox{r.width, r.height, this->world_pos};
 
     return 0;
 }
@@ -23,6 +25,13 @@ int Entity::Move(int x, int y) {
     this->world_pos.y += y;
 
     // printf("player posish: %d, %d\n", this->world_pos.x, this->world_pos.y);
+
+    return 0;
+}
+
+int Entity::Place(Point p) {
+    this->world_pos.x = p.x;
+    this->world_pos.y = p.y;
 
     return 0;
 }
@@ -61,6 +70,8 @@ int Entity::Update(Camera cam) {
     Point d = this->world_pos - cam.world_pos;
     this->PlaceOnScreen(d);
 
+    this->hitbox.Update(this->GetScreenPosition(), this->tex->angle);
+
     return 0;
 }
 
@@ -75,6 +86,7 @@ int Entity::Follow(Point scr_pos) {
 int Entity::Draw(Renderer *rend, Camera cam) {
     if (cam.Contains(this->tex->rect)) {
         this->tex->Render(rend);
+        this->hitbox.Draw(rend);
     }
 
     return 0;

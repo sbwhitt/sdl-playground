@@ -78,6 +78,10 @@ int Renderer::RenderLine(int x1, int y1, int x2, int y2) {
     return 0;
 }
 
+int Renderer::RenderLine(Line l) {
+    return this->RenderLine(l.start.x, l.start.y, l.end.x, l.end.y);
+}
+
 int Renderer::RenderRect(SDL_Rect r) {
     SDL_RenderDrawRect(this->SDL_rend, &r);
 

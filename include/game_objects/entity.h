@@ -7,6 +7,7 @@
 #include "utils/point.h"
 #include "utils/vec2.h"
 #include "game_objects/camera.h"
+#include "game_objects/hitbox.h"
 #include "render/texture.h"
 #include "render/renderer.h"
 
@@ -15,6 +16,7 @@ protected:
     Vec2 vel{0, 0};
     Vec2 acc{0, 0};
     Texture *tex = new Texture();
+    Hitbox hitbox;
 
 public:
     Point world_pos{0, 0};
@@ -22,6 +24,7 @@ public:
     ~Entity();
     int LoadTexture(Renderer *rend, Resource r);
     int Move(int x, int y);
+    int Place(Point p);
     int PlaceOnScreen(Point p);
     Point GetScreenPosition();
     SDL_Rect GetRect();
