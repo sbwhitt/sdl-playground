@@ -21,6 +21,9 @@ struct Point {
         y += v.y;
         return *this;
     }
+    bool operator==(Point a) {
+        return (x == a.x && y == a.y);
+    }
 };
 
 #endif
