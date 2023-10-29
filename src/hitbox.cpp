@@ -9,32 +9,31 @@ Hitbox::Hitbox(int width, int height, Point center) {
     this->height = height;
     this->center = center;
 
-    this->top = Line{
+    this->lines[0] = Line{
         Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
     };
 
-    this->left = Line{
+    this->lines[1] = Line{
         Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
     };
 
-    this->bottom = Line{
+    this->lines[2] = Line{
         Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
     };
 
-    this->right = Line{
+    this->lines[3] = Line{
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
     };
 }
 
 int Hitbox::Rotate(double angle) {
-    this->top.RotateAround(angle, this->center);
-    this->left.RotateAround(angle, this->center);
-    this->bottom.RotateAround(angle, this->center);
-    this->right.RotateAround(angle, this->center);
+    for (int i = 0; i < this->lines.size(); i++) {
+        this->lines[i].RotateAround(angle, this->center);
+    }
 
     return 0;
 }
@@ -42,22 +41,22 @@ int Hitbox::Rotate(double angle) {
 int Hitbox::Update(Point c, double angle) {
     this->center = c;
 
-    this->top = Line{
+    this->lines[0] = Line{
         Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
     };
 
-    this->left = Line{
+    this->lines[1] = Line{
         Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
     };
 
-    this->bottom = Line{
+    this->lines[2] = Line{
         Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
     };
 
-    this->right = Line{
+    this->lines[3] = Line{
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
     };
@@ -68,16 +67,19 @@ int Hitbox::Update(Point c, double angle) {
 }
 
 bool Hitbox::Collides(Hitbox h) {
-    if (this->left.Intersects(h.top)) return true;
+    for (int i = 0; i < this->lines.size(); i++) {
+        for (int j = 0; j < h.lines.size(); j++) {
+            if (this->lines[i].Intersects(h.lines[j])) return true;
+        }
+    }
 
     return false;
 }
 
 int Hitbox::Draw(Renderer *rend) {
-    rend->RenderLine(this->top);
-    rend->RenderLine(this->left);
-    rend->RenderLine(this->bottom);
-    rend->RenderLine(this->right);
+    for (int i = 0; i < this->lines.size(); i++) {
+        rend->RenderLine(this->lines[i]);
+    }
 
     return 0;
 }

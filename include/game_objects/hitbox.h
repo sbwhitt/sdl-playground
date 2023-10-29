@@ -1,6 +1,8 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 
+#include <vector>
+
 #include "utils/line.h"
 #include "render/renderer.h"
 
@@ -9,10 +11,8 @@ private:
     int width;
     int height;
     Point center;
-    Line top;
-    Line left;
-    Line bottom;
-    Line right;
+    // top, left, bottom, right
+    std::vector<Line> lines{4};
 
 public:
     Hitbox();
