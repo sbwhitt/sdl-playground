@@ -1,6 +1,7 @@
 #include "game_objects/hitbox.h"
 #include "game_objects/entity.h"
 #include "render/renderer.h"
+#include "utils/direction.h"
 
 Hitbox::Hitbox() {}
 
@@ -9,24 +10,24 @@ Hitbox::Hitbox(int width, int height, Point center) {
     this->height = height;
     this->center = center;
 
-    this->lines[0] = Line{
+    this->lines[UP] = Line{
         Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
     };
 
-    this->lines[1] = Line{
-        Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
-        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
-    };
-
-    this->lines[2] = Line{
-        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
-        Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
-    };
-
-    this->lines[3] = Line{
+    this->lines[RIGHT] = Line{
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
+    };
+
+    this->lines[DOWN] = Line{
+        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
+        Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
+    };
+
+    this->lines[LEFT] = Line{
+        Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
+        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
     };
 }
 
@@ -41,24 +42,24 @@ int Hitbox::Rotate(double angle) {
 int Hitbox::Update(Point c, double angle) {
     this->center = c;
 
-    this->lines[0] = Line{
+    this->lines[UP] = Line{
         Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
     };
 
-    this->lines[1] = Line{
-        Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
-        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
-    };
-
-    this->lines[2] = Line{
-        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
-        Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
-    };
-
-    this->lines[3] = Line{
+    this->lines[RIGHT] = Line{
         Point{center.x + (int)(this->width/2), center.y - (int)(this->height/2)},
         Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
+    };
+
+    this->lines[DOWN] = Line{
+        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
+        Point{center.x + (int)(this->width/2), center.y + (int)(this->height/2)},
+    };
+
+    this->lines[LEFT] = Line{
+        Point{center.x - (int)(this->width/2), center.y - (int)(this->height/2)},
+        Point{center.x - (int)(this->width/2), center.y + (int)(this->height/2)},
     };
 
     this->Rotate(angle);

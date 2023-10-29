@@ -1,6 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <math.h>
+
 struct Point {
     int x;
     int y;
@@ -23,6 +25,9 @@ struct Point {
     }
     bool operator==(Point a) {
         return (x == a.x && y == a.y);
+    }
+    int Distance(Point p) {
+        return (int)( sqrt( pow(p.x - x, 2) + pow(p.y - y, 2) ) );
     }
 };
 

@@ -39,7 +39,7 @@ int Game::Load() {
     this->player.PlaceOnScreen(this->cam.GetCenter());
 
     this->rock.LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
-    this->rock.PlaceOnScreen(this->cam.GetCenter());
+    this->rock.Place(Point{-150, -150});
 
     return 0;
 }

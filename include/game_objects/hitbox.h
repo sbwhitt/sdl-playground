@@ -8,13 +8,14 @@
 
 class Hitbox {
 private:
-    int width;
-    int height;
     Point center;
-    // top, left, bottom, right
+    // UP, RIGHT, DOWN, LEFT
     std::vector<Line> lines{4};
 
 public:
+    int width;
+    int height;
+
     Hitbox();
     Hitbox(int width, int height, Point center);
     int Rotate(double angle);
