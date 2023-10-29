@@ -67,6 +67,12 @@ int Hitbox::Update(Point c, double angle) {
     return 0;
 }
 
+bool Hitbox::Collides(Hitbox h) {
+    if (this->left.Intersects(h.top)) return true;
+
+    return false;
+}
+
 int Hitbox::Draw(Renderer *rend) {
     rend->RenderLine(this->top);
     rend->RenderLine(this->left);

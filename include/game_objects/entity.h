@@ -16,10 +16,10 @@ protected:
     Vec2 vel{0, 0};
     Vec2 acc{0, 0};
     Texture *tex = new Texture();
-    Hitbox hitbox;
 
 public:
     Point world_pos{0, 0};
+    Hitbox hitbox;
 
     ~Entity();
     int LoadTexture(Renderer *rend, Resource r);
@@ -28,6 +28,7 @@ public:
     int PlaceOnScreen(Point p);
     Point GetScreenPosition();
     SDL_Rect GetRect();
+    bool Collides(Entity *e);
     int Rotate(int d);
     int Update(Camera cam);
     int Follow(Point scr_pos);

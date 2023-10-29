@@ -53,6 +53,10 @@ SDL_Rect Entity::GetRect() {
     return this->tex->rect;
 }
 
+bool Entity::Collides(Entity *e) {
+    return this->hitbox.Collides(e->hitbox);
+}
+
 int Entity::Rotate(int d) {
     // keeping tex->angle between 0 and 360 degrees because... i want to?
     if ((this->tex->angle + d) > 360) {

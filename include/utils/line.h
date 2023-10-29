@@ -42,6 +42,28 @@ struct Line {
         // printf("length of new line: %d\n", l);
         return 0;
     }
+    bool Intersects(Line l) {
+        if (this->start == l.start && this->end == l.end) return true;
+
+        if (
+            (
+                l.start.x <= this->start.x &&
+                ( 
+                    (l.start.y >= this->start.y && l.start.y <= this->end.y) ||
+                    (l.start.y <= this->start.y && l.start.y >= this->end.y)
+                ) &&
+                l.end.x >= this->start.x &&
+                (
+                    (l.end.y >= this->start.y && l.end.y <= this->end.y) ||
+                    (l.end.y <= this->start.y && l.end.y >= this->end.y)
+                )
+            )
+        ) {
+            return true;
+        }
+
+        return false;
+    }
 };
 
 #endif

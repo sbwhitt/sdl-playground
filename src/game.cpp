@@ -38,6 +38,9 @@ int Game::Load() {
     this->player.LoadTexture(this->renderer, Resource{"res/fish.bmp", 200, 100});
     this->player.PlaceOnScreen(this->cam.GetCenter());
 
+    this->rock.LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
+    this->rock.PlaceOnScreen(this->cam.GetCenter());
+
     return 0;
 }
 
@@ -129,7 +132,10 @@ int Game::Update(int dt) {
     this->HandleKeys();
 
     this->map.UpdateChunks(this->player.world_pos, this->cam);
+    this->rock.Update(this->cam);
     this->player.Update(this->cam);
+
+    if (this->player.Collides(&this->rock)) printf("collision\n");
 
     this->cam.Follow(this->player.GetScreenPosition());
 
@@ -143,6 +149,7 @@ int Game::Draw() {
     this->renderer->Clear();
 
     this->map.DrawChunks(this->renderer, this->cam);
+    this->rock.Draw(this->renderer, this->cam);
     this->player.Draw(this->renderer, this->cam);
 
     this->renderer->RenderPresent();

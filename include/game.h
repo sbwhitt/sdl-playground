@@ -23,6 +23,7 @@ private:
     Camera cam;
     Map map;
     Player player;
+    Entity rock;
 
     int Init();
     int Load();
