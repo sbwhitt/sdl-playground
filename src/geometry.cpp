@@ -19,18 +19,21 @@ bool Intersects(Line l1, Line l2) {
     return false;
 }
 
-// find point of intersection if it exists and store result in res
-bool GetIntersection(Line l1, Line l2, Point *res) {
-    Point s1{l1.end.x - l1.start.x, l1.end.y - l1.start.y};
-    Point s2{l2.end.x - l2.start.x, l2.end.y - l2.start.y};
+// find point of intersection between two lines if it exists and store result in res
+// # https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
+bool GetIntersection(Point p1, Point p2, Point p3, Point p4, Point *res) {
+    float s1_x = p2.x - p1.x; float s1_y = p2.y - p1.y;
+    float s2_x = p4.x - p3.x; float s2_y = p4.y - p3.y;
 
-    float s = (-s1.y * (l1.start.x - l2.start.x) + s1.x * (l1.start.y - l2.start.y)) / (-s2.x * s1.y + s1.x * s2.y);
-    float t = ( s2.x * (l1.start.y - l2.start.y) - s2.y * (l1.start.x - l2.start.x)) / (-s2.x * s1.y + s1.x * s2.y);
+    float s = (-s1_y * (p1.x - p3.x) + s1_x * (p1.y - p3.y)) / (-s2_x * s1_y + s1_x * s2_y);
+    float t = ( s2_x * (p1.y - p3.y) - s2_y * (p1.x - p3.x)) / (-s2_x * s1_y + s1_x * s2_y);
 
     if (s >= 0 and s <= 1 and t >= 0 and t <= 1) {
         if (res != NULL) {
-            res->x = l1.start.x + (t * s1.x);
-            res->y = l1.start.y + (t * s1.y);
+            float x = (float)p1.x + (t * s1_x);
+            float y = (float)p1.y + (t * s1_y);
+            res->x = (int)x;
+            res->y = (int)y;
         }
         return true;
     }

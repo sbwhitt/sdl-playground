@@ -6,6 +6,6 @@
 
 int Distance(Point p1, Point p2);
 bool Intersects(Line l1, Line l2);
-bool GetIntersection(Line l1, Line l2, Point *res);
+bool GetIntersection(Point p1, Point p2, Point p3, Point p4, Point *res);
 
 #endif
