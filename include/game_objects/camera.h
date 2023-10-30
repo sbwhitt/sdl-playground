@@ -4,7 +4,7 @@
 #include <SDL_rect.h>
 
 #include "render/renderer.h"
-#include "utils/point.h"
+#include "geometry/point.h"
 
 class Camera {
 private:

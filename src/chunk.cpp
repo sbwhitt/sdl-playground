@@ -1,6 +1,6 @@
 #include "map/chunk.h"
 #include "map/tile.h"
-#include "utils/point.h"
+#include "geometry/point.h"
 
 Chunk::Chunk() {}
 

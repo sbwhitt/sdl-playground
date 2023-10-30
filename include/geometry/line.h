@@ -1,7 +1,7 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include "utils/point.h"
+#include "geometry/point.h"
 
 class Line {
 private:

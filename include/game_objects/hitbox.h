@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "utils/line.h"
+#include "geometry/line.h"
 #include "render/renderer.h"
 
 class Hitbox {

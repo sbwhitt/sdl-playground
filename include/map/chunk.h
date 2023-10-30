@@ -4,7 +4,7 @@
 #include <SDL_rect.h>
 
 #include "map/tile.h"
-#include "utils/point.h"
+#include "geometry/point.h"
 
 struct Chunk {
     SDL_Rect dest_rect;

@@ -3,8 +3,8 @@
 
 #include "render/renderer.h"
 #include "render/graphics.h"
-#include "utils/point.h"
-#include "utils/line.h"
+#include "geometry/point.h"
+#include "geometry/line.h"
 
 int DrawLine(Renderer *rend, Point p1, Point p2) {
     rend->RenderLine(p1.x, p1.y, p2.x, p2.y);

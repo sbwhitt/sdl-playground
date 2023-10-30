@@ -5,8 +5,8 @@
 #include <SDL_rect.h>
 
 #include "utils/color.h"
-#include "utils/point.h"
-#include "utils/line.h"
+#include "geometry/point.h"
+#include "geometry/line.h"
 #include "render/renderer.h"
 
 int DrawLine(Renderer *rend, Point p1, Point p2);

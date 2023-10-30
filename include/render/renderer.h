@@ -6,7 +6,7 @@
 
 #include "window/window.h"
 #include "utils/color.h"
-#include "utils/line.h"
+#include "geometry/line.h"
 
 class Renderer {
 private:

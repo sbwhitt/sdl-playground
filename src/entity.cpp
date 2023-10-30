@@ -5,7 +5,8 @@
 #include "game_objects/entity.h"
 #include "game_objects/hitbox.h"
 #include "utils/error.h"
-#include "utils/point.h"
+#include "geometry/point.h"
+#include "geometry/geometry.h"
 #include "utils/vec2.h"
 #include "utils/resource.h"
 
@@ -56,7 +57,7 @@ SDL_Rect Entity::GetRect() {
 
 bool Entity::Collides(Entity *e) {
     // check if in range for collision first
-    if (this->world_pos.Distance(e->world_pos) >
+    if (Distance(this->world_pos, e->world_pos) >
         std::max(this->hitbox.width/2, this->hitbox.height/2) + std::max(e->hitbox.width/2, e->hitbox.height/2)
     ) {
         return false;

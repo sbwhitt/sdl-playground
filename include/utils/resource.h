@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "utils/point.h"
+#include "geometry/point.h"
 
 struct Resource {
     std::string file;

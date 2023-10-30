@@ -2,6 +2,7 @@
 #include "game_objects/entity.h"
 #include "render/renderer.h"
 #include "utils/direction.h"
+#include "geometry/geometry.h"
 
 Hitbox::Hitbox() {}
 
@@ -70,7 +71,7 @@ int Hitbox::Update(Point c, double angle) {
 bool Hitbox::Collides(Hitbox h) {
     for (int i = 0; i < this->lines.size(); i++) {
         for (int j = 0; j < h.lines.size(); j++) {
-            if (this->lines[i].Intersects(h.lines[j])) return true;
+            if (Intersects(this->lines[i], h.lines[j])) return true;
         }
     }
 
