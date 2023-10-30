@@ -15,11 +15,6 @@ int Player::Push(double amnt) {
 }
 
 int Player::Update(Camera cam) {
-    if (this->vel.x > 0) this->vel.x -= 0.2;
-    else if (this->vel.x < 0) this->vel.x += 0.2;
-    if (this->vel.y > 0) this->vel.y -= 0.2;
-    else if (this->vel.y < 0) this->vel.y += 0.2;
-
     this->Move((int)this->vel.x, (int)this->vel.y);
 
     // get difference in player and cam world position
@@ -28,6 +23,11 @@ int Player::Update(Camera cam) {
     this->PlaceOnScreen(d);
 
     this->hitbox.Update(this->GetScreenPosition(), this->tex->angle);
+
+    if (this->vel.x > 0) this->vel.x -= 0.2;
+    else if (this->vel.x < 0) this->vel.x += 0.2;
+    if (this->vel.y > 0) this->vel.y -= 0.2;
+    else if (this->vel.y < 0) this->vel.y += 0.2;
 
     return 0;
 }

@@ -3,6 +3,7 @@ class point:
         self.x = x
         self.y = y
 
+# https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
 def intersects(p1: point, p2: point, p3: point, p4: point) -> point:
     s1 = point(p2.x - p1.x, p2.y - p1.y)
     s2 = point(p4.x - p3.x, p4.y - p3.y)
