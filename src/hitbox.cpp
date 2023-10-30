@@ -69,6 +69,13 @@ int Hitbox::Update(Point c, double angle) {
 }
 
 bool Hitbox::Collides(Hitbox h) {
+    // check if in range for collision first
+    // length of both hitboxes from their centers to corner, min dist required to collide
+    int diag_length = Distance(this->center, this->lines[UP].start) + Distance(h.center, h.lines[UP].start);
+    if (Distance(this->center, h.center) > diag_length) {
+        return false;
+    }
+
     for (int i = 0; i < this->lines.size(); i++) {
         for (int j = 0; j < h.lines.size(); j++) {
             if (Intersects(this->lines[i], h.lines[j])) return true;

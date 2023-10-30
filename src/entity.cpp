@@ -56,13 +56,6 @@ SDL_Rect Entity::GetRect() {
 }
 
 bool Entity::Collides(Entity *e) {
-    // check if in range for collision first
-    if (Distance(this->world_pos, e->world_pos) >
-        std::max(this->hitbox.width/2, this->hitbox.height/2) + std::max(e->hitbox.width/2, e->hitbox.height/2)
-    ) {
-        return false;
-    }
-
     return this->hitbox.Collides(e->hitbox);
 }
 
