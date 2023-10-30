@@ -18,3 +18,22 @@ bool Intersects(Line l1, Line l2) {
 
     return false;
 }
+
+// find point of intersection if it exists and store result in res
+bool GetIntersection(Line l1, Line l2, Point *res) {
+    Point s1{l1.end.x - l1.start.x, l1.end.y - l1.start.y};
+    Point s2{l2.end.x - l2.start.x, l2.end.y - l2.start.y};
+
+    float s = (-s1.y * (l1.start.x - l2.start.x) + s1.x * (l1.start.y - l2.start.y)) / (-s2.x * s1.y + s1.x * s2.y);
+    float t = ( s2.x * (l1.start.y - l2.start.y) - s2.y * (l1.start.x - l2.start.x)) / (-s2.x * s1.y + s1.x * s2.y);
+
+    if (s >= 0 and s <= 1 and t >= 0 and t <= 1) {
+        if (res != NULL) {
+            res->x = l1.start.x + (t * s1.x);
+            res->y = l1.start.y + (t * s1.y);
+        }
+        return true;
+    }
+
+    return false;
+}
