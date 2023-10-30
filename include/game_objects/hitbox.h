@@ -12,6 +12,8 @@ private:
     // UP, RIGHT, DOWN, LEFT
     std::vector<Line> lines{4};
 
+    bool InCollisionRange(Hitbox h);
+
 public:
     int width;
     int height;
