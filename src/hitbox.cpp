@@ -86,10 +86,9 @@ bool Hitbox::Collides(Hitbox h) {
         for (int j = 0; j < h.lines.size(); j++) {
             if (Intersects(this->lines[i], h.lines[j])) {
                 Point p;
-                if (GetIntersection(this->lines[i], h.lines[j], &p)) {
-                    printf("intersection: %d, %d\n", p.x, p.y);
+                if (GetIntersection(this->lines[i].start, this->lines[i].end, h.lines[j].start, h.lines[j].end, &p)) {
+                    return true;
                 }
-                return true;
             }
         }
     }
