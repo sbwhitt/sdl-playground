@@ -3,11 +3,11 @@
 
 #include "render/renderer.h"
 #include "game_objects/entity.h"
-#include "game_objects/hitbox.h"
-#include "utils/error.h"
 #include "geometry/point.h"
 #include "geometry/geometry.h"
+#include "physics/physics.h"
 #include "utils/vec2.h"
+#include "utils/error.h"
 #include "utils/resource.h"
 
 Entity::~Entity() {
@@ -56,7 +56,7 @@ SDL_Rect Entity::GetRect() {
 }
 
 bool Entity::Collides(Entity *e) {
-    return this->hitbox.Collides(e->hitbox);
+    return HasCollision(this->hitbox, e->hitbox);
 }
 
 int Entity::Rotate(int d) {

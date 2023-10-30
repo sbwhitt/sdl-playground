@@ -8,13 +8,10 @@
 
 class Hitbox {
 private:
+public:
     Point center;
     // UP, RIGHT, DOWN, LEFT
     std::vector<Line> lines{4};
-
-    bool InCollisionRange(Hitbox h);
-
-public:
     int width;
     int height;
 
@@ -22,7 +19,6 @@ public:
     Hitbox(int width, int height, Point center);
     int Rotate(double angle);
     int Update(Point c, double angle);
-    bool Collides(Hitbox h);
     int Draw(Renderer *rend);
 };
 
