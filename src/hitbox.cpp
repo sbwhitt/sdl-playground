@@ -68,6 +68,7 @@ int Hitbox::Update(Point c, double angle) {
     return 0;
 }
 
+// TODO: draw according to cam position
 int Hitbox::Draw(Renderer *rend) {
     for (int i = 0; i < this->lines.size(); i++) {
         rend->RenderLine(this->lines[i]);
