@@ -17,6 +17,7 @@ public:
 
     int Init(int w, int h);
     Point GetCenter();
+    bool Contains(Point p);
     bool Contains(SDL_Rect r);
     int Follow(Point scr_pos);
     int DrawOutline(Renderer *rend);

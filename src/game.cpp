@@ -132,10 +132,8 @@ int Game::Update(int dt) {
     this->HandleKeys();
 
     this->map.UpdateChunks(this->player.world_pos, this->cam);
-    this->rock.Update(this->cam);
-    this->player.Update(this->cam);
-
-    if (this->player.Collides(&this->rock)) printf("collision\n");
+    this->rock.Update(dt);
+    this->player.Update(dt);
 
     this->cam.Follow(this->player.GetScreenPosition());
 

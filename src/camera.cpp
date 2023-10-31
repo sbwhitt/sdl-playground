@@ -20,6 +20,17 @@ Point Camera::GetCenter() {
     return Point{(int)this->width/2, (int)this->height/2};
 }
 
+bool Camera::Contains(Point p) {
+    SDL_Rect cam_rect;
+    cam_rect.x = 0;
+    cam_rect.y = 0;
+    cam_rect.w = this->width;
+    cam_rect.h = this->height;
+
+    return (p.x >= cam_rect.x && p.x <= cam_rect.x + cam_rect.w &&
+            p.y >= cam_rect.y && p.y <= cam_rect.y + cam_rect.h);
+}
+
 bool Camera::Contains(SDL_Rect r) {
     SDL_Rect cam_rect;
     cam_rect.x = 0;

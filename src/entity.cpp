@@ -26,8 +26,6 @@ int Entity::Move(int x, int y) {
     this->world_pos.x += x;
     this->world_pos.y += y;
 
-    // printf("player posish: %d, %d\n", this->world_pos.x, this->world_pos.y);
-
     return 0;
 }
 
@@ -55,10 +53,6 @@ SDL_Rect Entity::GetRect() {
     return this->tex->rect;
 }
 
-bool Entity::Collides(Entity *e) {
-    return HasCollision(this->hitbox, e->hitbox);
-}
-
 int Entity::Rotate(int d) {
     // keeping tex->angle between 0 and 360 degrees because... i want to?
     if ((this->tex->angle + d) > 360) {
@@ -72,11 +66,10 @@ int Entity::Rotate(int d) {
     return 0;
 }
 
-int Entity::Update(Camera cam) {
-    Point d = this->world_pos - cam.world_pos;
-    this->PlaceOnScreen(d);
+int Entity::Update(int dt) {
+    this->Move((int)this->vel.x, (int)this->vel.y);
 
-    this->hitbox.Update(this->GetScreenPosition(), this->tex->angle);
+    this->hitbox.Update(this->world_pos, this->tex->angle);
 
     return 0;
 }
@@ -90,9 +83,13 @@ int Entity::Follow(Point scr_pos) {
 }
 
 int Entity::Draw(Renderer *rend, Camera cam) {
+    // get difference in player and cam world position
+    Point d = this->world_pos - cam.world_pos;
+    // place player on screen wrt cam center offset by d
+    this->PlaceOnScreen(d);
+
     if (cam.Contains(this->tex->rect)) {
         this->tex->Render(rend);
-        this->hitbox.Draw(rend);
     }
 
     return 0;

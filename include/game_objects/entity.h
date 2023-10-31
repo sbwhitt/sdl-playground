@@ -28,9 +28,8 @@ public:
     int PlaceOnScreen(Point p);
     Point GetScreenPosition();
     SDL_Rect GetRect();
-    bool Collides(Entity *e);
     int Rotate(int d);
-    int Update(Camera cam);
+    int Update(int dt);
     int Follow(Point scr_pos);
     int Draw(Renderer *rend, Camera cam);
 };

@@ -14,15 +14,10 @@ int Player::Push(double amnt) {
     return 0;
 }
 
-int Player::Update(Camera cam) {
+int Player::Update(int dt) {
     this->Move((int)this->vel.x, (int)this->vel.y);
 
-    // get difference in player and cam world position
-    Point d = this->world_pos - cam.world_pos;
-    // place player on screen wrt cam center offset by d
-    this->PlaceOnScreen(d);
-
-    this->hitbox.Update(this->GetScreenPosition(), this->tex->angle);
+    this->hitbox.Update(this->world_pos, this->tex->angle);
 
     if (this->vel.x > 0) this->vel.x -= 0.2;
     else if (this->vel.x < 0) this->vel.x += 0.2;
