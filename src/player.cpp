@@ -13,16 +13,3 @@ int Player::Push(double amnt) {
 
     return 0;
 }
-
-int Player::Update(int dt) {
-    this->Move((int)this->vel.x, (int)this->vel.y);
-
-    this->hitbox.Update(this->world_pos, this->tex->angle);
-
-    if (this->vel.x > 0) this->vel.x -= 0.2;
-    else if (this->vel.x < 0) this->vel.x += 0.2;
-    if (this->vel.y > 0) this->vel.y -= 0.2;
-    else if (this->vel.y < 0) this->vel.y += 0.2;
-
-    return 0;
-}

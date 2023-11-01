@@ -5,6 +5,7 @@
 #include "utils/error.h"
 #include "render/renderer.h"
 #include "render/graphics.h"
+#include "physics/physics.h"
 
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
@@ -134,6 +135,9 @@ int Game::Update(int dt) {
     this->map.UpdateChunks(this->player.world_pos, this->cam);
     this->rock.Update(dt);
     this->player.Update(dt);
+
+    HandleFriction(&this->player);
+    HandleCollision(&this->player, &this->rock);
 
     this->cam.Follow(this->player.GetScreenPosition());
 

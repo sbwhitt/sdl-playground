@@ -13,11 +13,10 @@
 
 class Entity {
 protected:
-    Vec2 vel{0, 0};
-    Vec2 acc{0, 0};
     Texture *tex = new Texture();
 
 public:
+    Vec2 vel{0, 0};
     Point world_pos{0, 0};
     Hitbox hitbox;
 
