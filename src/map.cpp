@@ -160,8 +160,7 @@ int Map::CenterChunks(int r, int c) {
     return 0;
 }
 
-// TODO: too long
-int Map::UpdateChunks(Point player_pos, Camera cam) {
+int Map::UpdateChunks(Point player_pos) {
     // checking if player is on an edge chunk so matrix can be extended
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
@@ -170,7 +169,12 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
             }
         }
     }
-    // updating chunks and finding which to render
+
+    return 0;
+}
+
+int Map::DrawChunks(Renderer *rend, Camera cam) {
+    // updating chunks screen pos and finding which to render
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
             Point d = this->chunk_matrix[i][j].world_pos - cam.world_pos;
@@ -181,11 +185,6 @@ int Map::UpdateChunks(Point player_pos, Camera cam) {
             }
         }
     }
-
-    return 0;
-}
-
-int Map::DrawChunks(Renderer *rend, Camera cam) {
     for (int i = 0; i < this->to_render.size(); i++) {
         if (this->tileset->RenderTile(rend, this->to_render[i].tile_type, this->to_render[i].dest_rect) != 0) {
             SDLErrorMsg("map.cpp error rendering chunk tile: ");

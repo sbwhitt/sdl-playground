@@ -132,7 +132,7 @@ int Game::Update(int dt) {
     this->HandleEvents();
     this->HandleKeys();
 
-    this->map.UpdateChunks(this->player.world_pos, this->cam);
+    this->map.UpdateChunks(this->player.world_pos);
     this->rock.Update(dt);
     this->player.Update(dt);
 

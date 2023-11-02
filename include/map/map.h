@@ -24,7 +24,7 @@ public:
     ~Map();
     int InitChunkMatrix(int row, int col);
     int LoadTileset(Renderer *rend, std::string path);
-    int UpdateChunks(Point player_pos, Camera cam);
+    int UpdateChunks(Point player_pos);
     int DrawChunks(Renderer *rend, Camera cam);
 };
 
