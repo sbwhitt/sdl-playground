@@ -36,23 +36,23 @@ int Game::Init() {
 int Game::Load() {
     this->map.LoadTileset(this->renderer, "res/tilesets/simple.json");
 
-    this->player.LoadTexture(this->renderer, Resource{"res/fish.bmp", 200, 100});
-    this->player.Place(Point{0, 0});
+    this->player->LoadTexture(this->renderer, Resource{"res/fish.bmp", 200, 100});
+    this->player->Place(Point{0, 0});
+    this->entities.push_back(this->player);
 
     auto follow1 = new Entity(ENT_FOLLOWER);
     follow1->LoadTexture(this->renderer, Resource{"res/blowfish.bmp", 164, 128});
     follow1->Place(Point{-500, 100});
+    this->entities.push_back(follow1);
 
     auto rock1 = new Entity(ENT_OBSTACLE);
     rock1->LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
     rock1->Place(Point{-150, -150});
+    this->entities.push_back(rock1);
 
     auto rock2 = new Entity(ENT_OBSTACLE);
     rock2->LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
     rock2->Place(Point{150, 150});
-
-    this->entities.push_back(follow1);
-    this->entities.push_back(rock1);
     this->entities.push_back(rock2);
 
     return 0;
@@ -108,13 +108,13 @@ int Game::HandleMouseDown(SDL_MouseButtonEvent button) {
 
 int Game::HandleKeys() {
     if (this->ctrl.CheckKey(SDLK_q)) {
-        this->player.Rotate(-5);
+        this->player->Rotate(-5);
     }
     if (this->ctrl.CheckKey(SDLK_e)) {
-        this->player.Rotate(5);
+        this->player->Rotate(5);
     }
     if (this->ctrl.CheckKey(SDLK_SPACE)) {
-        this->player.Push(1);
+        this->player->Push(1);
     }
 
     return 0;
@@ -145,20 +145,17 @@ int Game::Update(int dt) {
     this->HandleEvents();
     this->HandleKeys();
 
-    this->map.UpdateChunks(this->player.world_pos);
-
-    this->player.Update(dt);
-    HandleFriction(&this->player);
+    this->map.UpdateChunks(this->player->world_pos);
 
     for (auto e : this->entities) {
         switch (e->type) {
             case ENT_OBSTACLE: {
-                HandleCollision(&this->player, e);
+                HandleCollision(this->player, e);
                 break;
             }
             case ENT_FOLLOWER: {
-                e->Follow(this->player.world_pos);
-                HandleCollision(&this->player, e);
+                e->Follow(this->player->world_pos);
+                HandleCollision(this->player, e);
                 break;
             }
         }
@@ -166,7 +163,7 @@ int Game::Update(int dt) {
         e->Update(dt);
     }
 
-    this->cam.Follow(this->player.GetScreenPosition());
+    this->cam.Follow(this->player->GetScreenPosition());
 
     this->ticks = SDL_GetTicks();
 
@@ -181,7 +178,7 @@ int Game::Draw() {
     for (auto e : this->entities) {
         e->Draw(this->renderer, this->cam);
     }
-    this->player.Draw(this->renderer, this->cam);
+    this->player->Draw(this->renderer, this->cam);
 
     this->renderer->RenderPresent();
     return 0;
@@ -199,6 +196,7 @@ int Game::Cleanup() {
         e = NULL;
     }
     this->entities.clear();
+    this->player = NULL;
 
     SDL_Quit();
     return 0;

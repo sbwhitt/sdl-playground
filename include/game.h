@@ -22,7 +22,7 @@ private:
     Control ctrl;
     Camera cam;
     Map map;
-    Player player;
+    Player *player = new Player();
     std::vector<Entity*> entities;
 
     int Init();
