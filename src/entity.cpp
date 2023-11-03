@@ -114,12 +114,11 @@ int Entity::Update(int dt) {
 }
 
 int Entity::Draw(Renderer *rend, Camera cam) {
-    // get difference in player and cam world position
-    Point d = this->world_pos - cam.world_pos;
-    // place player on screen wrt cam center offset by d
-    this->PlaceOnScreen(d);
-
     if (cam.Contains(this->world_pos, this->tex->rect.w, this->tex->rect.h)) {
+        // get difference in player and cam world position
+        Point d = this->world_pos - cam.world_pos;
+        // place player on screen wrt cam center offset by d
+        this->PlaceOnScreen(d);
         this->tex->Render(rend);
     }
 
