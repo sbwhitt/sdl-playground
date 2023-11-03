@@ -10,6 +10,12 @@
 #include "utils/error.h"
 #include "utils/resource.h"
 
+Entity::Entity() {}
+
+Entity::Entity(EntityType type) {
+    this->type = type;
+}
+
 Entity::~Entity() {
     delete this->tex;
     this->tex = NULL;
@@ -22,12 +28,42 @@ int Entity::LoadTexture(Renderer *rend, Resource r) {
     return 0;
 }
 
+int Entity::AddVelocity(Vec2 v) {
+    if (abs(this->vel.x + v.x) < this->MAX_VELOCITY) this->vel.x += v.x;
+    if (abs(this->vel.y + v.y) < this->MAX_VELOCITY) this->vel.y += v.y;
+
+    return 0;
+}
+
+int Entity::AddVelocity(double x, double y) {
+    if (abs(this->vel.x + x) < this->MAX_VELOCITY) this->vel.x += x;
+    if (abs(this->vel.y + y) < this->MAX_VELOCITY) this->vel.y += y;
+
+    return 0;
+}
+
+int Entity::BuildHitbox(Point center, double angle) {
+    this->hitbox.Update(this->world_pos, this->tex->angle);
+
+    return 0;
+}
+
 // move by x, y; updates current hitbox position and angle
 int Entity::Move(int x, int y) {
     this->world_pos.x += x;
     this->world_pos.y += y;
 
-    this->hitbox.Update(this->world_pos, this->tex->angle);
+    this->BuildHitbox(this->world_pos, this->tex->angle);
+
+    return 0;
+}
+
+int Entity::Follow(Point pos) {
+    int dx = pos.x - this->tex->rect.w - this->world_pos.x;
+    int dy = pos.y - this->tex->rect.h - this->world_pos.y;
+    // this->Move(dx/4, dy/4);
+    if (abs(dx) > 100) this->AddVelocity((dx/abs(dx)) * 0.5, 0);
+    if (abs(dy) > 100) this->AddVelocity(0, (dy/abs(dy)) * 0.5);
 
     return 0;
 }
@@ -35,6 +71,8 @@ int Entity::Move(int x, int y) {
 int Entity::Place(Point p) {
     this->world_pos.x = p.x;
     this->world_pos.y = p.y;
+
+    this->BuildHitbox(this->world_pos, this->tex->angle);
 
     return 0;
 }
@@ -71,14 +109,6 @@ int Entity::Rotate(int d) {
 
 int Entity::Update(int dt) {
     this->Move((int)this->vel.x, (int)this->vel.y);
-
-    return 0;
-}
-
-int Entity::Follow(Point scr_pos) {
-    int dx = scr_pos.x - this->tex->rect.w - this->world_pos.x;
-    int dy = scr_pos.y - this->tex->rect.h - this->world_pos.y;
-    this->Move(dx/4, dy/4);
 
     return 0;
 }

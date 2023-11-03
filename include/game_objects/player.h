@@ -6,6 +6,9 @@
 class Player : public Entity {
 private:
 public:
+    EntityType type = ENT_PLAYER;
+
+    Player();
     int Push(double amnt);
 };
 

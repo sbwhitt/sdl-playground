@@ -37,10 +37,23 @@ int Game::Load() {
     this->map.LoadTileset(this->renderer, "res/tilesets/simple.json");
 
     this->player.LoadTexture(this->renderer, Resource{"res/fish.bmp", 200, 100});
-    this->player.PlaceOnScreen(this->cam.GetCenter());
+    this->player.Place(Point{0, 0});
 
-    this->rock.LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
-    this->rock.Place(Point{-150, -150});
+    auto follow1 = new Entity(ENT_FOLLOWER);
+    follow1->LoadTexture(this->renderer, Resource{"res/blowfish.bmp", 164, 128});
+    follow1->Place(Point{-500, 100});
+
+    auto rock1 = new Entity(ENT_OBSTACLE);
+    rock1->LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
+    rock1->Place(Point{-150, -150});
+
+    auto rock2 = new Entity(ENT_OBSTACLE);
+    rock2->LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
+    rock2->Place(Point{150, 150});
+
+    this->entities.push_back(follow1);
+    this->entities.push_back(rock1);
+    this->entities.push_back(rock2);
 
     return 0;
 }
@@ -133,11 +146,25 @@ int Game::Update(int dt) {
     this->HandleKeys();
 
     this->map.UpdateChunks(this->player.world_pos);
-    this->rock.Update(dt);
-    this->player.Update(dt);
 
+    this->player.Update(dt);
     HandleFriction(&this->player);
-    HandleCollision(&this->player, &this->rock);
+
+    for (auto e : this->entities) {
+        switch (e->type) {
+            case ENT_OBSTACLE: {
+                HandleCollision(&this->player, e);
+                break;
+            }
+            case ENT_FOLLOWER: {
+                e->Follow(this->player.world_pos);
+                HandleCollision(&this->player, e);
+                break;
+            }
+        }
+        HandleFriction(e);
+        e->Update(dt);
+    }
 
     this->cam.Follow(this->player.GetScreenPosition());
 
@@ -151,7 +178,9 @@ int Game::Draw() {
     this->renderer->Clear();
 
     this->map.DrawChunks(this->renderer, this->cam);
-    this->rock.Draw(this->renderer, this->cam);
+    for (auto e : this->entities) {
+        e->Draw(this->renderer, this->cam);
+    }
     this->player.Draw(this->renderer, this->cam);
 
     this->renderer->RenderPresent();
@@ -164,6 +193,12 @@ int Game::Cleanup() {
 
     delete this->renderer;
     this->renderer = NULL;
+
+    for (auto e : this->entities) {
+        delete e;
+        e = NULL;
+    }
+    this->entities.clear();
 
     SDL_Quit();
     return 0;

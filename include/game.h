@@ -23,7 +23,7 @@ private:
     Camera cam;
     Map map;
     Player player;
-    Entity rock;
+    std::vector<Entity*> entities;
 
     int Init();
     int Load();
