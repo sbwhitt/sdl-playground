@@ -49,15 +49,19 @@ int Separate(Entity *e1, Entity *e2) {
     else if (e1->hitbox.center.y <= e2->hitbox.center.y) {
         e1->Move(0, -2);
     }
-    e1->vel.x = e1->vel.x/2 * -1;
-    e1->vel.y = e1->vel.y/2 * -1;
     return 0;
 }
 
 // handling e1 colliding with e2
 int HandleCollision(Entity *e1, Entity *e2) {
-    if (HasCollision(e1->hitbox, e2->hitbox)) {
+    bool done = false;
+    while (HasCollision(e1->hitbox, e2->hitbox)) {
         Separate(e1, e2);
+        done = true;
+    }
+    if (done) {
+        e1->vel.x = e1->vel.x/2 * -1;
+        e1->vel.y = e1->vel.y/2 * -1;
     }
 
     return 0;

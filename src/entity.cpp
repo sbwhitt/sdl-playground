@@ -22,9 +22,12 @@ int Entity::LoadTexture(Renderer *rend, Resource r) {
     return 0;
 }
 
+// move by x, y; updates current hitbox position and angle
 int Entity::Move(int x, int y) {
     this->world_pos.x += x;
     this->world_pos.y += y;
+
+    this->hitbox.Update(this->world_pos, this->tex->angle);
 
     return 0;
 }
@@ -68,8 +71,6 @@ int Entity::Rotate(int d) {
 
 int Entity::Update(int dt) {
     this->Move((int)this->vel.x, (int)this->vel.y);
-
-    this->hitbox.Update(this->world_pos, this->tex->angle);
 
     return 0;
 }
