@@ -119,7 +119,7 @@ int Entity::Draw(Renderer *rend, Camera cam) {
     // place player on screen wrt cam center offset by d
     this->PlaceOnScreen(d);
 
-    if (cam.Contains(this->tex->rect)) {
+    if (cam.Contains(this->world_pos, this->tex->rect.w, this->tex->rect.h)) {
         this->tex->Render(rend);
     }
 

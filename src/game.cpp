@@ -163,7 +163,7 @@ int Game::Update(int dt) {
         e->Update(dt);
     }
 
-    this->cam.Follow(this->player->GetScreenPosition());
+    this->cam.Follow(this->player->world_pos);
 
     this->ticks = SDL_GetTicks();
 

@@ -177,10 +177,10 @@ int Map::DrawChunks(Renderer *rend, Camera cam) {
     // updating chunks screen pos and finding which to render
     for (int i = 0; i < this->chunk_matrix.rows; i++) {
         for (int j = 0; j < this->chunk_matrix.cols; j++) {
-            Point d = this->chunk_matrix[i][j].world_pos - cam.world_pos;
-            this->chunk_matrix[i][j].dest_rect.x = d.x;
-            this->chunk_matrix[i][j].dest_rect.y = d.y;
-            if (cam.Contains(this->chunk_matrix[i][j].dest_rect)) {
+            if (cam.Contains(this->chunk_matrix[i][j].world_pos, this->tileset->tile_width, this->tileset->tile_height)) {
+                Point d = this->chunk_matrix[i][j].world_pos - cam.world_pos;
+                this->chunk_matrix[i][j].dest_rect.x = d.x;
+                this->chunk_matrix[i][j].dest_rect.y = d.y;
                 this->to_render.push_back(this->chunk_matrix[i][j]);
             }
         }
