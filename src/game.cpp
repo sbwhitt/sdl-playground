@@ -45,6 +45,11 @@ int Game::Load() {
     follow1->Place(Point{-500, 100});
     this->entities.push_back(follow1);
 
+    auto follow2 = new Entity(ENT_FOLLOWER);
+    follow2->LoadTexture(this->renderer, Resource{"res/starfish.bmp", 128, 128});
+    follow2->Place(Point{-100, 500});
+    this->entities.push_back(follow2);
+
     auto rock1 = new Entity(ENT_OBSTACLE);
     rock1->LoadTexture(this->renderer, Resource{"res/rock.bmp", 150, 100});
     rock1->Place(Point{-150, -150});
@@ -149,16 +154,11 @@ int Game::Update(int dt) {
 
     for (auto e : this->entities) {
         switch (e->type) {
-            case ENT_OBSTACLE: {
-                HandleCollision(this->player, e);
-                break;
-            }
             case ENT_FOLLOWER: {
                 e->Follow(this->player->world_pos);
-                HandleCollision(this->player, e);
-                break;
             }
         }
+        HandleCollisions(e, this->entities);
         HandleFriction(e);
         e->Update(dt);
     }

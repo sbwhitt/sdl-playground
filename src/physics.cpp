@@ -67,6 +67,16 @@ int HandleCollision(Entity *e1, Entity *e2) {
     return 0;
 }
 
+int HandleCollisions(Entity *collider, std::vector<Entity*> entities) {
+    for (auto e : entities) {
+        if (collider != e && collider->type != ENT_OBSTACLE) {
+            HandleCollision(collider, e);
+        }
+    }
+
+    return 0;
+}
+
 int HandleFriction(Entity *e) {
     if (e->vel.x > 0) e->vel.x -= 0.2;
     else if (e->vel.x < 0) e->vel.x += 0.2;
