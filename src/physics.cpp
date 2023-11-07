@@ -38,16 +38,16 @@ std::vector<Point> GetCollisionPoints(Hitbox h1, Hitbox h2) {
 // moving e1 out of the bounds of e2
 int Separate(Entity *e1, Entity *e2) {
     if (e1->hitbox.center.x > e2->hitbox.center.x) {
-        e1->Move(2, 0);
+        e1->Move(1, 0);
     }
     else if (e1->hitbox.center.x <= e2->hitbox.center.x) {
-        e1->Move(-2, 0);
+        e1->Move(-1, 0);
     }
     if (e1->hitbox.center.y > e2->hitbox.center.y) {
-        e1->Move(0, 2);
+        e1->Move(0, 1);
     }
     else if (e1->hitbox.center.y <= e2->hitbox.center.y) {
-        e1->Move(0, -2);
+        e1->Move(0, -1);
     }
     return 0;
 }
@@ -60,8 +60,11 @@ int HandleCollision(Entity *e1, Entity *e2) {
         done = true;
     }
     if (done) {
-        e1->vel.x = e1->vel.x/2 * -1;
-        e1->vel.y = e1->vel.y/2 * -1;
+        Point d{e1->hitbox.center.x - e2->hitbox.center.x, e1->hitbox.center.y - e2->hitbox.center.y};
+        double mag = sqrt( (d.x*d.x) + (d.y*d.y) );
+        Vec2 norm{d.x / mag, d.y / mag};
+        e1->vel.x = e1->vel.x * norm.x;
+        e1->vel.y = e1->vel.y * norm.y;
     }
 
     return 0;
